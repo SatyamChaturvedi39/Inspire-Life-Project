@@ -11,6 +11,7 @@ dotenv.config(); // Load environment variables
 const app = express();
 
 connectDB(); // Connect to the database
+
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
