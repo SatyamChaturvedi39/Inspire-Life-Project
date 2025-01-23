@@ -1,14 +1,16 @@
 /* Navbar Styling */
 nav {
   background-color: transparent;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 10vh; /* Position right below the header */
   left: 0;
   right: 0;
+  backdrop-filter: blur(0.5px);
   z-index: 999; /* Slightly lower z-index than header */
   overflow-x: auto;
   white-space: nowrap;
+  margin-top: 1vh;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 nav ul {
@@ -31,7 +33,7 @@ nav ul li a {
   text-decoration: none;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 500;
-  color: #333;
+  color: #ffffff;
   padding: 15px 10px;
   transition: all 0.3s ease;
   display: inline-block;
@@ -54,13 +56,13 @@ nav ul li a::after {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: #007bff;
+  background-color: #7bade1;
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
 
 nav ul li a:hover {
-  color: #007bff;
+  color: #7bade1;
 }
 
 nav ul li a:hover::after {

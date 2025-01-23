@@ -1,0 +1,73 @@
+.hero-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
+  }
+  
+  .hero-image-container { 
+    width: 100vw;
+  }
+  
+  .hero-image {
+    width: 101%;
+    height: 70vw;
+    object-fit: cover;
+    border: none; 
+    padding: 0; 
+    margin-top: 20%;
+  }
+  
+  .question {
+    color: #20315A;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    text-align: left; 
+    margin-top: 1vh;
+  }
+
+  .button-container {
+    display: flex; /* Use flexbox for easier layout */
+    justify-content: center; /* Center the buttons horizontally */
+    align-items: center; /* Center the buttons vertically */
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+  }
+  
+  .hero-button {
+    background-color: #FA9D2C;
+    width: 44vw; 
+    height: 5vh;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px; 
+    margin: 0 10px; 
+    box-shadow: 3px 3px 6px grey;
+    font-size: 16px; 
+    font-weight: 400;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center; /* Center text within each button */
+  }
+
+  .hero-button:hover {
+    background-color: #f99111;
+    transform: translateY(-3px); /* Slightly lift the button on hover */
+    box-shadow: 5px 5px 6px grey; /* Increase shadow on hover */
+  }
+  
+  .hero-button:active {
+    background-color: #f99111;
+    transform: translateY(2px); /* Slightly press down the button on click */
+    box-shadow: 5px 5px 6px grey; /* Decrease shadow on click */
+  }
+
+  .know-more{
+    margin-top: 1vh;
+    color: #20315A;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    text-decoration: underline;
+    margin-bottom: 2vh;
+  }

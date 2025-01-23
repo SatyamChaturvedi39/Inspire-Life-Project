@@ -5,27 +5,42 @@ const NavBar = () => {
     <nav>
       <ul>
         <li>
-          <a href="/" className={window.location.pathname === "/" ? "active" : ""}>
+          <a
+            href="/"
+            className={window.location.pathname === "/" ? "active" : ""}
+          >
             Home
           </a>
         </li>
         <li>
-          <a href="/about" className={window.location.pathname === "/about" ? "active" : ""}>
+          <a
+            href="/about"
+            className={window.location.pathname === "/about" ? "active" : ""}
+          >
             About Us
           </a>
         </li>
         <li>
-          <a href="/policies" className={window.location.pathname === "/policies" ? "active" : ""}>
+          <a
+            href="/policies"
+            className={window.location.pathname === "/policies" ? "active" : ""}
+          >
             Policies
           </a>
         </li>
         <li>
-          <a href="/careers" className={window.location.pathname === "/careers" ? "active" : ""}>
+          <a
+            href="/careers"
+            className={window.location.pathname === "/careers" ? "active" : ""}
+          >
             Careers
           </a>
         </li>
         <li>
-          <a href="/contact" className={window.location.pathname === "/contact" ? "active" : ""}>
+          <a
+            href="/contact"
+            className={window.location.pathname === "/contact" ? "active" : ""}
+          >
             Contact
           </a>
         </li>
