@@ -1,45 +1,45 @@
 .header {
-    background-color: #0B152B; /* Dark blue background */
-    color: #fff; /* White text color */
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space between logo and text */
-    align-items: center; /* Vertically center content */
-    width: 100%; /* Make the header full width */
-    height: 10vh;
-    position: fixed; /* Fix the header to the top of the page */
-    top: 0; /* Position the header at the top */
-    left: 0; /* Position the header at the left */
-    right: 0; /* Position the header at the right */
-    z-index: 1; /* Ensure the header appears on top of other content */
-  }
-  
-  .logo-container {
-    display: flex;
-    align-items: center; 
-  }
-  
-  .logo {
-    max-width: 60px; /* Adjust as needed */
-    margin-left: 2vw; 
-  }
-  
-  .header-text {
-    text-align: right; 
-    margin-right: 2vw;
-  }
-  
-  .header-text h1 {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    margin-bottom: 0.3rem;
-    font-size: 1.1rem; 
-  }
-  
-  .header-text p {
-    font-size: 0.9rem;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: 200;
-    font-style: normal;
-    margin-top: 0;
-  }
+  background-color: #0B152B;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 10vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Increased z-index to ensure it's above other elements */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  max-width: 60px;
+  margin-left: 2vw;
+}
+
+.header-text {
+  text-align: right;
+  margin-right: 2vw;
+}
+
+.header-text h1 {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  margin-bottom: 0.3rem;
+  font-size: 1.1rem;
+}
+
+.header-text p {
+  font-size: 0.9rem;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  margin-top: 0;
+}
