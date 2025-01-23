@@ -1,10 +1,20 @@
-import "../styles.css";
+import "./Header.css";
+import logo from "../assets/logo.png"; // Replace with your actual logo path
 
 const Header = () => {
   return (
-    <header>
-      <h1>Inspire Life Insurance Solutions</h1>
-      <p>Jayanagar, Bengaluru</p>
+    <header className="header">
+      <div className="logo-container">
+        <img
+          src={logo}
+          alt="Inspire Life Insurance Solutions"
+          className="logo"
+        />
+      </div>
+      <div className="header-text">
+        <h1>Inspire Life Insurance Solutions</h1>
+        <p>Jayanagar, Bengaluru</p>
+      </div>
     </header>
   );
 };
