@@ -1,55 +1,100 @@
 .footer {
-    background-color: #0b1c2c; /* Dark background color */
-    color: rgb(253, 252, 252);
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    width:100%;
-    margin:0;
-    box-sizing: border-box;  
-    
-  }
+  background-color: #0b1c2c; /* Dark background color */
+  color: rgb(253, 252, 252);
+  padding: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  width:100%;
+  height: 120vh;
+  text-align: left;  
   
-  .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+}
+
+.footer-container {
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: flex-end;
+}
+
+.footer-header {
+  text-align: left;
+  margin-bottom: 2vh;
+  display: flex;
+  flex-direction: row;
   
-  .footer-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+}
+.footer-Company{
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.footer-logo {
+  max-width: 70px;
+  max-height: 70px; /* Adjust logo size */
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.footer-columns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.footer-column {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.footer-column h4 {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.footer-column ul {
+  list-style-type: none;
+  padding: 2px;
   
-  .footer-logo {
-    width: 50px; /* Adjust logo size */
-    margin-bottom: 10px;
-  }
-  
-  .footer-columns {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-  }
-  
-  .footer-column {
-    flex: 1;
-    margin: 0 10px;
-  }
-  
-  .footer-column h4 {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .footer-column ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .footer-column li {
-    margin: 5px 0;
-    font-size: 14px;
-  }
-  
+}
+
+.footer-column li {
+  margin: 5px 0;
+  font-size: 12px;
+  padding:1px;
+}
+
+.footer-CR {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+
+}
+
+.sitemap {
+  margin: 20px;
+}
+
+.sitemap h4 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.sitemap ul {
+  list-style: none; /* Remove bullets */
+  padding: 0;
+}
+
+.sitemap ul li {
+  margin-bottom: 10px;
+}
+
+.sitemap ul li a {
+  color: #fff; /* White text */
+  text-decoration: none; /* Remove underline */
+}
+
+.sitemap ul li a:hover {
+  text-decoration: underline; /* Add underline when hovering */
+}
