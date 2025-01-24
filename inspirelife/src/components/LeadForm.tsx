@@ -70,7 +70,7 @@ const LeadForm: React.FC = () => {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             className="lead-form__textarea"
-            placeholder="Enter your comment"
+            placeholder="Add a comment"
           />
         </div>
         <div className="lead-checkbox">

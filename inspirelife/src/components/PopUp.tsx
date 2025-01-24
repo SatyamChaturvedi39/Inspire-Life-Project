@@ -1,45 +1,61 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Popup.css";
 
 interface PopupProps {
   onClose: () => void;
   onSubmit: () => void;
+  selectedAction: "policies" | "careers" | null;
 }
 
-const Popup: React.FC<PopupProps> = ({ onClose, onSubmit }) => {
+const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
   const [termsAgreed, setTermsAgreed] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!name || !phoneNumber || !email || !termsAgreed) {
-      alert(
-        "Please fill in all required fields and agree to the Terms & Conditions."
-      );
+      alert("Please fill in all required fields and agree to the Terms & Conditions.");
       return;
     }
 
     console.log("Form submitted:", { name, phoneNumber, email, comment });
-    onSubmit(); // Call the onSubmit prop to handle navigation
+    onSubmit();
+    if (selectedAction) {
+      navigate(`/${selectedAction}`);
+    }
+  };
+
+  const handleSkip = () => {
+    onClose();
+    if (selectedAction) {
+      navigate(`/${selectedAction}`);
+    }
+  };
+
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value.replace(/\D/g, '').slice(0, 13);
+    setPhoneNumber(input);
   };
 
   return (
     <div className="popup-overlay">
       <div className="popup-container">
-        <div className="popup-close" onClick={onClose}>
-          ×
+        <div className="popup-header">
+          <h2 className="stayline">Stay Informed:</h2>
+          <div className="popup-close" onClick={onClose}>
+            ×
+          </div>
         </div>
         <form onSubmit={handleSubmit} className="lead-form">
-          <h2 className="stayline">Stay Informed:</h2>
           <div className="lead-form__field">
-            <label htmlFor="name"></label>
             <input
               type="text"
-              id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -48,40 +64,34 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit }) => {
             />
           </div>
           <div className="lead-form__field">
-            <label htmlFor="phoneNumber"></label>
             <input
               type="tel"
-              id="phoneNumber"
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={handlePhoneNumberChange}
               required
               className="lead-form__input"
               placeholder="Enter your phone number*"
+              pattern="\d{10,13}"
             />
           </div>
           <div className="lead-form__field">
-            <label htmlFor="email"></label>
             <input
               type="email"
-              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
               className="lead-form__input"
-              placeholder="Enter your email*"
+              placeholder="Enter your email"
             />
           </div>
           <div className="lead-form__field">
-            <label htmlFor="comment"></label>
             <textarea
-              id="comment"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               className="lead-form__textarea"
-              placeholder="Enter your comment"
+              placeholder="Add a comment"
             />
           </div>
-          <div>
+          <div className="lead-form__field--checkbox">
             <input
               type="checkbox"
               id="termsCheckbox"
@@ -94,9 +104,13 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit }) => {
             </label>
           </div>
           <div className="lead-button-div">
-            <button type="submit" className="lead-form__button">
+          <button type="submit" className="lead-form__button">
               SUBMIT
             </button>
+            <button type="button" className="lead-form__button" onClick={handleSkip}>
+              SKIP
+            </button>
+            
           </div>
         </form>
       </div>

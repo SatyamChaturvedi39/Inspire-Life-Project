@@ -21,10 +21,14 @@
     padding: 20px;
   }
   
+  .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1vh;
+  }
+  
   .popup-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     font-size: 24px;
     color: #20315A;
     cursor: pointer;
@@ -60,15 +64,24 @@
     outline: none;
   }
   
-  .stayline {
-    margin-bottom: 1vh;
-    color: #20315A;
-    text-align: center;
+  .lead-form__field--checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .lead-form__checkbox {
+    margin-right: 5px;
+  }
+  
+  .lead-button-div {
+    display: flex;
+    justify-content: space-between;
   }
   
   .lead-form__button {
     background-color: #FA9D2C;
-    width: 100%;
+    flex: 1;
     height: 5vh;
     color: white;
     border: none;
@@ -78,7 +91,11 @@
     font-size: 16px;
     font-weight: 400;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    margin-top: 2vh;
+    margin-right: 10px;
+  }
+  
+  .lead-form__button:last-child {
+    margin-right: 0;
   }
   
   .lead-form__button:hover {

@@ -9,6 +9,7 @@ import "./Hero.css";
 import CarouselScroll from "./CarouselScroll";
 import Popup from "./PopUp";
 import LeadForm from "./LeadForm";
+
 const Hero = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedAction, setSelectedAction] = useState<
@@ -22,9 +23,6 @@ const Hero = () => {
   };
 
   const handlePopupClose = () => {
-    if (selectedAction) {
-      navigate(`/${selectedAction}`);
-    }
     setIsPopupOpen(false);
     setSelectedAction(null);
   };
@@ -42,7 +40,7 @@ const Hero = () => {
       <img src={Image} alt="Hero Image" className="hero-image" />
       <h1 className="question">How can we help you?</h1>
       <div className="button-container">
-        <button
+        <button 
           className="hero-button"
           onClick={() => handleButtonClick("policies")}
         >
@@ -57,11 +55,16 @@ const Hero = () => {
       </div>
       <CarouselScroll />
       <h1 className="know-more">Know More</h1>
-      <LeadForm />
+      <LeadForm/>
 
       {isPopupOpen && (
-        <Popup onClose={handlePopupClose} onSubmit={handleFormSubmit} />
+        <Popup 
+          onClose={handlePopupClose}
+          onSubmit={handleFormSubmit}
+          selectedAction={selectedAction}
+        />
       )}
+
       <div className="services-section">
         <h2 className="services-title">Services We Provide</h2>
         <div className="services-logos">
