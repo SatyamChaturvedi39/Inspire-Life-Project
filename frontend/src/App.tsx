@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from "./components/Header";
 import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
-import Hero from "./components/Hero";
+import Home from "./pages/Home";
 
 // Page Imports
 import Policies from "./pages/Policies";
@@ -17,9 +17,9 @@ const App: React.FC = () => {
       
       <Navbar />
       <Routes>
-        <Route path="/" element={<Hero />} />
+        <Route path="/" element={<Home />} />
         <Route path="/policies" element={<Policies />} />
-        <Route path="*" element={<Hero />} /> {/* Redirects to Home for unknown routes */}
+        <Route path="*" element={<Home />} /> {/* Redirects to Home for unknown routes */}
       </Routes>
       <Footer />
     </Router>

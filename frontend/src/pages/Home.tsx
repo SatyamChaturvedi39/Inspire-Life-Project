@@ -5,10 +5,10 @@ import Image from "../assets/Image.png";
 import LicLogo from "../assets/liclogo.png";
 import StarLogo from "../assets/starlogo.png";
 import CareLogo from "../assets/carelogo.png";
-import "./Hero.css";
-import CarouselScroll from "./CarouselScroll";
-import Popup from "./PopUp";
-import LeadForm from "./LeadForm";
+import "./Home.css";
+import CarouselScroll from "../components/CarouselScroll";
+import Popup from "../components/PopUp";
+import LeadForm from "../components/LeadForm";
 
 const Hero = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
