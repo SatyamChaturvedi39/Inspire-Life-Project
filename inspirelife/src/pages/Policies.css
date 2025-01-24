@@ -29,7 +29,7 @@
 
 .search-wrapper {
   background-color: white;
-  width: 225px;
+  width: 250px;
   justify-content: center;
   border-radius: 25px;
   padding: 12px 16px;
@@ -68,9 +68,15 @@
 
 .policy-card {
   background-color: white;
-  border-radius: 5px;
+  border-radius: 15px;
   padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 8px rgba(23, 23, 53, 0.566);
+}
+
+.policy-card:hover{
+  background-color: #fbfbfb;
+  transform: translateY(-2px); /* Slightly lift the button on hover */
+  box-shadow: 2px 2px 8px rgba(41, 36, 70, 0.703);
 }
 
 .policy-name {

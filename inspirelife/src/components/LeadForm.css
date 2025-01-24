@@ -6,6 +6,7 @@
     width: 90vw;
     margin: 0 auto;
     border-radius: 10px;
+    background-color: #f1f0f0;
     box-shadow: 2px 2px 8px rgb(194, 193, 193);
   }
   
@@ -21,7 +22,7 @@
   
   .lead-form__field {
     margin-bottom: 15px;
-    border-radius: 10px;
+    border-radius: 15px;
     box-shadow: 2px 2px 8px rgb(194, 193, 193);
   }
   

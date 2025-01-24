@@ -44,7 +44,7 @@
     border-radius: 8px;
     padding: 5px 10px; 
     margin: 0 10px; 
-    box-shadow: 3px 3px 6px grey;
+    box-shadow: 2px 2px 8px rgb(172, 172, 172);
     font-size: 16px; 
     font-weight: 400;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -54,13 +54,13 @@
   .hero-button:hover {
     background-color: #f99111;
     transform: translateY(-3px); /* Slightly lift the button on hover */
-    box-shadow: 5px 5px 6px grey; /* Increase shadow on hover */
+    box-shadow: 2px 2px 8px rgb(194, 193, 193); /* Increase shadow on hover */
   }
   
   .hero-button:active {
     background-color: #f99111;
     transform: translateY(2px); /* Slightly press down the button on click */
-    box-shadow: 5px 5px 6px grey; /* Decrease shadow on click */
+    box-shadow: 2px 2px 8px rgb(194, 193, 193); /* Decrease shadow on click */
   }
 
   .know-more{
