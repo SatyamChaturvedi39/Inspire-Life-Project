@@ -1,7 +1,7 @@
 /* Navbar Styling */
 nav {
   background-color: transparent;
-  position: fixed;
+  position: absolute;
   top: 10vh; /* Position right below the header */
   left: 0;
   right: 0;

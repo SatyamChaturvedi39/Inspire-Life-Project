@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "../assets/Image.png";
@@ -11,7 +11,9 @@ import Popup from "./PopUp";
 import LeadForm from "./LeadForm";
 const Hero = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedAction, setSelectedAction] = useState<"policies" | "careers" | null>(null);
+  const [selectedAction, setSelectedAction] = useState<
+    "policies" | "careers" | null
+  >(null);
   const navigate = useNavigate();
 
   const handleButtonClick = (action: "policies" | "careers") => {
@@ -40,13 +42,13 @@ const Hero = () => {
       <img src={Image} alt="Hero Image" className="hero-image" />
       <h1 className="question">How can we help you?</h1>
       <div className="button-container">
-        <button 
-          className="hero-button" 
+        <button
+          className="hero-button"
           onClick={() => handleButtonClick("policies")}
         >
           Buy a Policy
         </button>
-        <button 
+        <button
           className="hero-button"
           onClick={() => handleButtonClick("careers")}
         >
@@ -55,13 +57,10 @@ const Hero = () => {
       </div>
       <CarouselScroll />
       <h1 className="know-more">Know More</h1>
-      <LeadForm/>
-      
+      <LeadForm />
+
       {isPopupOpen && (
-        <Popup 
-          onClose={handlePopupClose}
-          onSubmit={handleFormSubmit}
-        />
+        <Popup onClose={handlePopupClose} onSubmit={handleFormSubmit} />
       )}
       <div className="services-section">
         <h2 className="services-title">Services We Provide</h2>
