@@ -8,6 +8,7 @@
     border-radius: 10px;
     background-color: #f1f0f0;
     box-shadow: 2px 2px 8px rgb(194, 193, 193);
+    margin-bottom: 2vh;
   }
   
   .lead-form {
@@ -26,7 +27,6 @@
     box-shadow: 2px 2px 8px rgb(194, 193, 193);
   }
   
-  
   .lead-form__input,
   .lead-form__textarea {
     width: 100%;
@@ -34,14 +34,18 @@
     border: 1px solid #ccc;
     border-radius: 3px;
   }
-  
-  .lead-form__field--checkbox {
-    display: flex; /* Use flexbox for checkbox and label */
-    align-items: center; 
+
+  .lead-checkbox{
+    display: flex;
+    flex-direction: row;
   }
-  
-  .lead-form__checkbox {
-    margin-right: 5px; /* Add some space between checkbox and label */
+  .form-checkbox{
+    margin-right: 1.2vw;
+    width: 18px;
+    height: 18px;
+    border: rgb(11, 11, 59);
+    border-radius: 5px;
+    margin-top: 4px;
   }
 
   .stayline{
@@ -65,16 +69,16 @@
     padding: 5px 10px; 
     box-shadow: 3px 3px 6px rgb(189, 186, 186);
     font-size: 16px; 
-    font-weight: 400;
+    font-weight: 500;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-align: center; /* Center text within each button */
     margin-top: 2vh;
-    margin-left: 6vh;
+    margin-left: 2vw;
 }
 
 .lead-form__button:hover{
     background-color: #f99111;
-    transform: translateY(-3px); /* Slightly lift the button on hover */
+    transform: translateY(-1px); /* Slightly lift the button on hover */
     box-shadow: 5px 5px 6px rgb(189, 186, 186);
 }
 

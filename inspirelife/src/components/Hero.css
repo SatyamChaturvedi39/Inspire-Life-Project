@@ -71,3 +71,27 @@
     text-decoration: underline;
     margin-bottom: 2vh;
   }
+
+/*services section*/
+.services-section {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.services-title {
+  margin-bottom: 1rem;
+}
+
+.services-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.service-logo {
+  max-width: 100px;
+  height: auto;
+  object-fit: contain;
+}

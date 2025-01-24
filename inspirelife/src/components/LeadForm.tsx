@@ -73,15 +73,16 @@ const LeadForm: React.FC = () => {
             placeholder="Enter your comment"
           />
         </div>
-        <div>
+        <div className="lead-checkbox">
           <input
             type="checkbox"
             id="termsCheckbox"
+            className="form-checkbox"
             checked={termsAgreed}
             onChange={() => setTermsAgreed(!termsAgreed)}
             required
           />
-          <label htmlFor="termsCheckbox" className="lead-checkbox">
+          <label htmlFor="termsCheckbox" className="form-tnc">
             I agree to the <a href="#"> Terms & Conditions</a>.
           </label>
         </div>

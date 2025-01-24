@@ -13,9 +13,28 @@ const Hero = () => {
         <button className="hero-button">Buy a Policy</button>
         <button className="hero-button">Become an Agent</button>
       </div>
-      <CarouselScroll /> {/* Add the Carousel component */}
+      <CarouselScroll />
       <h1 className="know-more">Know More</h1>
       <LeadForm />
+
+      {/* New section for insurance services */}
+      <div className="services-section">
+        <h2 className="services-title">Services We Provide</h2>
+        <div className="services-logos">
+          {/* Placeholder for logo imports - you'll replace these with actual imported logos */}
+          <img src="/path/to/ic-logo.png" alt="LIC" className="service-logo" />
+          <img
+            src="/path/to/star-health-logo.png"
+            alt="Star Health"
+            className="service-logo"
+          />
+          <img
+            src="/path/to/other-insurance-logo.png"
+            alt="Other Insurance"
+            className="service-logo"
+          />
+        </div>
+      </div>
     </div>
   );
 };
