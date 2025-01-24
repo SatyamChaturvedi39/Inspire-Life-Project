@@ -1,5 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "../assets/Image.png";
+import LicLogo from "../assets/liclogo.png";
+import StarLogo from "../assets/starlogo.png";
+import CareLogo from "../assets/carelogo.png";
 import "./Hero.css";
 import CarouselScroll from "./CarouselScroll";
 import LeadForm from "./LeadForm";
@@ -16,23 +19,12 @@ const Hero = () => {
       <CarouselScroll />
       <h1 className="know-more">Know More</h1>
       <LeadForm />
-
-      {/* New section for insurance services */}
       <div className="services-section">
         <h2 className="services-title">Services We Provide</h2>
         <div className="services-logos">
-          {/* Placeholder for logo imports - you'll replace these with actual imported logos */}
-          <img src="/path/to/ic-logo.png" alt="LIC" className="service-logo" />
-          <img
-            src="/path/to/star-health-logo.png"
-            alt="Star Health"
-            className="service-logo"
-          />
-          <img
-            src="/path/to/other-insurance-logo.png"
-            alt="Other Insurance"
-            className="service-logo"
-          />
+          <img src={StarLogo} alt="Star Health" className="service-logo" />
+          <img src={LicLogo} alt="LIC" className="service-logo" />
+          <img src={CareLogo} alt="Care Health" className="service-logo" />
         </div>
       </div>
     </div>

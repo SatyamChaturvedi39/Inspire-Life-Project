@@ -73,14 +73,15 @@
   }
 
 /*services section*/
+
 .services-section {
   text-align: center;
-  margin-top: 2rem;
   padding: 1rem;
+  margin-top: 1vh;
 }
 
 .services-title {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .services-logos {
@@ -88,6 +89,7 @@
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  margin-bottom: 2vh;
 }
 
 .service-logo {
