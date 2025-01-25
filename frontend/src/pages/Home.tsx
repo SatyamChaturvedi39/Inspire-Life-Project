@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Image from "../assets/Image.png";
+import Image from "../assets/Image.jpg";
 import LicLogo from "../assets/liclogo.png";
 import StarLogo from "../assets/starlogo.png";
 import CareLogo from "../assets/carelogo.png";
@@ -36,18 +36,18 @@ const Hero = () => {
   };
 
   return (
-    <div className="hero-container">
-      <img src={Image} alt="Hero Image" className="hero-image" />
+    <div className="home-container">
+      <img src={Image} alt="home Image" className="home-image" />
       <h1 className="question">How can we help you?</h1>
       <div className="button-container">
-        <button 
-          className="hero-button"
+        <button
+          className="home-button"
           onClick={() => handleButtonClick("policies")}
         >
           Buy a Policy
         </button>
         <button
-          className="hero-button"
+          className="home-button"
           onClick={() => handleButtonClick("careers")}
         >
           Become an Agent
@@ -55,10 +55,10 @@ const Hero = () => {
       </div>
       <CarouselScroll />
       <h1 className="know-more">Know More</h1>
-      <LeadForm/>
+      <LeadForm />
 
       {isPopupOpen && (
-        <Popup 
+        <Popup
           onClose={handlePopupClose}
           onSubmit={handleFormSubmit}
           selectedAction={selectedAction}

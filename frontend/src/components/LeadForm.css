@@ -61,7 +61,7 @@
 
 .lead-form__button{ 
     background-color: #FA9D2C;
-    width: 44vw; 
+    width: 10vw !important; 
     height: 5vh;
     color: white;
     border: none;

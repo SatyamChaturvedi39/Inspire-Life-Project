@@ -1,4 +1,4 @@
-.hero-container {
+.home-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,13 +6,13 @@
     text-align: center; 
   }
   
-  .hero-image-container { 
+  .home-image-container { 
     width: 100vw;
   }
   
-  .hero-image {
+  .home-image {
     width: 101%;
-    height: 70vw;
+    height: 80vw;
     object-fit: cover;
     border: none; 
     padding: 0; 
@@ -35,7 +35,7 @@
     margin-bottom: 3vh;
   }
   
-  .hero-button {
+  .home-button {
     background-color: #FA9D2C;
     width: 44vw; 
     height: 5vh;
@@ -51,13 +51,13 @@
     text-align: center; /* Center text within each button */
   }
 
-  .hero-button:hover {
+  .home-button:hover {
     background-color: #f99111;
     transform: translateY(-3px); /* Slightly lift the button on hover */
     box-shadow: 2px 2px 8px rgb(194, 193, 193); /* Increase shadow on hover */
   }
   
-  .hero-button:active {
+  .home-button:active {
     background-color: #f99111;
     transform: translateY(2px); /* Slightly press down the button on click */
     box-shadow: 2px 2px 8px rgb(194, 193, 193); /* Decrease shadow on click */

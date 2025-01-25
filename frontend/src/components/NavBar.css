@@ -10,7 +10,8 @@ nav {
   overflow-x: auto;
   white-space: nowrap;
   margin-top: 1vh;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 nav ul {
@@ -19,6 +20,7 @@ nav ul {
   align-items: center;
   list-style-type: none;
   margin: 0;
+  text-shadow: 2px 2px 4px rgba(7, 12, 103, 0.5);
   padding: 0;
   max-width: 100%;
   margin: 0 auto;
