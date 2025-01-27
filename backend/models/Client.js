@@ -9,7 +9,7 @@ const clientSchema = new mongoose.Schema({
     DOB: { type: Date },
     Gender: { type: String },
     Price: { type: Number },
-},{
+  },{
     timestamps: true
 });
 
