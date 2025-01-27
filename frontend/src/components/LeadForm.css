@@ -1,0 +1,90 @@
+/* LeadForm.css */
+.lead-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    width: 90vw;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: #f1f0f0;
+    box-shadow: 2px 2px 8px rgb(194, 193, 193);
+    margin-bottom: 0.5vh;
+  }
+  
+  .lead-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px rgb(194, 193, 193);
+  }
+  
+  .lead-form__field {
+    margin-bottom: 15px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 8px rgb(194, 193, 193);
+  }
+  
+  .lead-form__input,
+  .lead-form__textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .lead-checkbox{
+    display: flex;
+    flex-direction: row;
+  }
+  .form-checkbox{
+    margin-right: 1.2vw;
+    width: 18px;
+    height: 18px;
+    border: rgb(11, 11, 59);
+    border-radius: 5px;
+    margin-top: 4px;
+  }
+
+  .stayline{
+    margin-right: 36vw;
+    margin-bottom: 1vh;
+    color: #20315A;
+  }
+
+  .lead-form__input:focus,
+.lead-form__textarea:focus {
+  outline: none; 
+}
+
+.lead-form__button{ 
+    background-color: #FA9D2C;
+    width: 10vw !important; 
+    height: 5vh;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px; 
+    box-shadow: 3px 3px 6px rgb(189, 186, 186);
+    font-size: 16px; 
+    font-weight: 500;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center; /* Center text within each button */
+    margin-top: 2vh;
+    margin-left: 2vw;
+}
+
+.lead-form__button:hover{
+    background-color: #f99111;
+    transform: translateY(-1px); /* Slightly lift the button on hover */
+    box-shadow: 5px 5px 6px rgb(189, 186, 186);
+}
+
+.lead-form__button:active{
+    background-color: #f99111;
+    transform: translateY(2px); /* Slightly press down the button on click */
+    box-shadow: 5px 5px 6px rgb(189, 186, 186); 
+}
+
