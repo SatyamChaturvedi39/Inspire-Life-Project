@@ -1,48 +1,52 @@
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 const NavBar = () => {
+  const location = useLocation();
+
   return (
     <nav>
       <ul>
-        <li>
-          <a
-            href="/"
-            className={window.location.pathname === "/" ? "active" : ""}
+        <li className="first-child">
+          <Link
+            to="/"
+            className={location.pathname === "/" ? "active" : ""}
           >
             Home
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="/about"
-            className={window.location.pathname === "/about" ? "active" : ""}
+          <Link
+            to="/about"
+            className={location.pathname === "/about" ? "active" : ""}
           >
             About Us
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="/policies"
-            className={window.location.pathname === "/policies" ? "active" : ""}
+          <Link
+            to="/policies"
+            className={location.pathname === "/policies" ? "active" : ""}
           >
             Policies
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="/careers"
-            className={window.location.pathname === "/careers" ? "active" : ""}
+          <Link
+            to="/careers"
+            className={location.pathname === "/careers" ? "active" : ""}
           >
             Careers
-          </a>
+          </Link>
         </li>
-        <li>
-          <a
-            href="/contact"
-            className={window.location.pathname === "/contact" ? "active" : ""}
+        <li className="last-child">
+          <Link
+            to="/contact"
+            className={location.pathname === "/contact" ? "active" : ""}
           >
             Contact
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

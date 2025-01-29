@@ -10,7 +10,7 @@ import CarouselScroll from "../components/CarouselScroll";
 import Popup from "../components/PopUp";
 import LeadForm from "../components/LeadForm";
 
-const Hero = () => {
+const Home = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedAction, setSelectedAction] = useState<
     "policies" | "careers" | null
@@ -64,7 +64,7 @@ const Hero = () => {
           selectedAction={selectedAction}
         />
       )}
-
+      
       <div className="services-section">
         <h2 className="services-title">Services We Provide</h2>
         <div className="services-logos">
@@ -77,4 +77,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Home;

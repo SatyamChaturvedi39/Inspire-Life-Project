@@ -1,12 +1,11 @@
-/* Navbar Styling */
 nav {
   background-color: transparent;
   position: absolute;
-  top: 10vh; /* Position right below the header */
+  top: 10vh;
   left: 0;
   right: 0;
   backdrop-filter: blur(0.5px);
-  z-index: 999; /* Slightly lower z-index than header */
+  z-index: 999;
   overflow-x: auto;
   white-space: nowrap;
   margin-top: 1vh;
@@ -28,23 +27,33 @@ nav ul {
 
 nav ul li {
   margin: 0 0px;
-  flex-shrink: 0; /* Prevent items from shrinking */
+  flex-shrink: 0;
+}
+
+nav ul li:first-child a {
+  border-radius: 0 0 20px 0;
+}
+
+nav ul li:last-child a {
+  border-radius: 0 0 0 20px;
 }
 
 nav ul li a {
   text-decoration: none;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: inherit;
   font-weight: 500;
-  color: #ffffff;
-  padding: 15px 10px;
-  transition: all 0.3s ease;
+  color: #fff;
+  padding: 15px 20px;
+  transition: 0.3s;
   display: inline-block;
   position: relative;
+  border-radius: 0 0 20px 20px;
 }
 
 nav ul li a.active {
   background-color: #0B152B;
   color: #fff;
+  border-radius: 0 0 20px 20px;
 }
 
 nav ul li a:not(.active) {
@@ -58,9 +67,8 @@ nav ul li a::after {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: #7bade1;
   transform: scaleX(0);
-  transition: transform 0.3s ease;
+  transition: 0.3s;
 }
 
 nav ul li a:hover {
@@ -68,38 +76,46 @@ nav ul li a:hover {
 }
 
 nav ul li a:hover::after {
-  transform: scaleX(1);
+  transform: scaleX(0.5);
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   nav {
-    top: 10vh; /* Ensure navbar stays below header in mobile view */
-    overflow-x: auto; /* Enable horizontal scrolling on small screens */
+    top: 10vh;
+    overflow-x: auto;
     background-color: transparent;
   }
 
   nav ul {
-    justify-content: flex-start; /* Align items to the left */
-    padding: 0 0px; /* Add some horizontal padding */
+    justify-content: flex-start;
+    padding: 0 0px;
   }
 
   nav ul li {
-    margin: 0 0px; /* Adjust spacing for mobile */
+    margin: 0 0px;
+  }
+
+  nav ul li:first-child a {
+    border-radius: 0 0 15px 0;
+  }
+
+  nav ul li:last-child a {
+    border-radius: 0 0 0 15px;
   }
 
   nav ul li a {
-    padding: 10px;
+    padding: 10px 15px;
     font-size: 0.9rem;
+    border-radius: 0 0 15px 15px;
   }
 
   nav ul li a.active {
     background-color: #0B152B;
     color: #fff;
+    border-radius: 0 0 15px 15px;
   }
 }
 
-/* Add top margin to body to prevent content from being hidden behind fixed header and navbar */
 body {
   margin-top: calc(10vh + 50px);
 }

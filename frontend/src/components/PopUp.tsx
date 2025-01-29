@@ -104,13 +104,12 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
             </label>
           </div>
           <div className="lead-button-div">
-          <button type="submit" className="lead-form__button">
+            <button type="submit" className="lead-form__button">
               SUBMIT
             </button>
             <button type="button" className="lead-form__button" onClick={handleSkip}>
               SKIP
             </button>
-            
           </div>
         </form>
       </div>
