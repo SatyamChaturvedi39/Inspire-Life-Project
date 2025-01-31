@@ -7,28 +7,51 @@ const LeadForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
   const [termsAgreed, setTermsAgreed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Basic validation (you can add more robust checks)
-    if (!name || !phoneNumber || !email || !termsAgreed) {
-      alert(
-        "Please fill in all required fields and agree to the Terms & Conditions."
-      );
-      return;
-    }
+    const formData = { name, phoneNumber, email, comment };
 
-    // Submit the form data (replace with your actual submission logic)
-    console.log("Form submitted:", { name, phoneNumber, email, comment });
+    try {
+      setLoading(true);
+      const response = await fetch("http://localhost:5001/api/clients", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      setLoading(false);
+
+      if (response.ok) {
+        setMessage("Form submitted successfully!");
+        setName("");
+        setPhoneNumber("");
+        setEmail("");
+        setComment("");
+        setTermsAgreed(false);
+      } else {
+        setMessage(result.message || "Error submitting form.");
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("Submission error:", error);
+      setMessage("Something went wrong. Please try again.");
+    }
   };
 
   return (
     <div className="lead-form-container">
       <form onSubmit={handleSubmit} className="lead-form">
         <h2 className="stayline">Stay Informed:</h2>
+        {message && <p className="form-message">{message}</p>}
         <div className="lead-form__field">
-          <label htmlFor="name"></label>
+        <label htmlFor="name"></label>
           <input
             type="text"
             id="name"
@@ -60,7 +83,7 @@ const LeadForm: React.FC = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             className="lead-form__input"
-            placeholder="Enter your email*"
+            placeholder="Enter your email"
           />
         </div>
         <div className="lead-form__field">
@@ -87,8 +110,8 @@ const LeadForm: React.FC = () => {
           </label>
         </div>
         <div className="lead-button-div">
-          <button type="submit" className="lead-form__button">
-            SUBMIT
+          <button type="submit" className="lead-form__button" disabled={loading}>
+            {loading ? "Submitting..." : "SUBMIT"}
           </button>
         </div>
       </form>
