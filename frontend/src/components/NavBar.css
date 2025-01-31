@@ -139,28 +139,6 @@ nav ul li a:hover::after {
   }
 }
 
-/* Desktop Styles */
-@media screen and (min-width: 1024px) {
-  nav {
-    top: 10vh; /* Ensure navbar stays below header in desktop view */
-    background-color: transparent;
-  }
-
-  nav ul {
-    justify-content: center; /* Center align items on desktop */
-    padding: 0 5%; /* Add some horizontal padding */
-  }
-
-  nav ul li {
-    margin: 0 30px; /* Increase spacing for desktop */
-  }
-
-  nav ul li a {
-    padding: 15px 10px;
-    font-size: 1.1rem;
-  }
-}
-
-body {
+  body {
   margin-top: calc(10vh + 50px);
 }
