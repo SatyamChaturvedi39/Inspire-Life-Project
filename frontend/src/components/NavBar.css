@@ -26,7 +26,7 @@ nav ul {
 }
 
 nav ul li {
-  margin: 0 0px;
+  margin: 0 20px;
   flex-shrink: 0;
 }
 
@@ -67,12 +67,13 @@ nav ul li a::after {
   height: 2px;
   bottom: 0;
   left: 0;
+  background-color: #071645;
   transform: scaleX(0);
   transition: 0.3s;
 }
 
 nav ul li a:hover {
-  color: #7bade1;
+  color: #071645;
 }
 
 nav ul li a:hover::after {
@@ -87,12 +88,12 @@ nav ul li a:hover::after {
   }
 
   nav ul {
-    justify-content: flex-start;
-    padding: 0 0px;
+    justify-content: flex-start; /* Align items to the left */
+    padding: 0 10px; /* Add some horizontal padding */
   }
 
   nav ul li {
-    margin: 0 0px;
+    margin: 0 10px;
   }
 
   nav ul li:first-child a {
@@ -113,6 +114,50 @@ nav ul li a:hover::after {
     background-color: #0B152B;
     color: #fff;
     border-radius: 0 0 15px 15px;
+  }
+}
+
+/* Desktop Styles */
+@media screen and (min-width: 1024px) {
+  nav {
+    top: 10vh; /* Ensure navbar stays below header in desktop view */
+    background-color: transparent;
+  }
+
+  nav ul {
+    justify-content: center; /* Center align items on desktop */
+    padding: 0 5%; /* Add some horizontal padding */
+  }
+
+  nav ul li {
+    margin: 0 30px; /* Increase spacing for desktop */
+  }
+
+  nav ul li a {
+    padding: 15px 10px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktop Styles */
+@media screen and (min-width: 1024px) {
+  nav {
+    top: 10vh; /* Ensure navbar stays below header in desktop view */
+    background-color: transparent;
+  }
+
+  nav ul {
+    justify-content: center; /* Center align items on desktop */
+    padding: 0 5%; /* Add some horizontal padding */
+  }
+
+  nav ul li {
+    margin: 0 30px; /* Increase spacing for desktop */
+  }
+
+  nav ul li a {
+    padding: 15px 10px;
+    font-size: 1.1rem;
   }
 }
 
