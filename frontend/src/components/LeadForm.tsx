@@ -45,6 +45,11 @@ const LeadForm: React.FC = () => {
     }
   };
 
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value.replace(/\D/g, '').slice(0, 13);
+    setPhoneNumber(input);
+  };
+
   return (
     <div className="lead-form-container">
       <form onSubmit={handleSubmit} className="lead-form">
@@ -68,10 +73,11 @@ const LeadForm: React.FC = () => {
             type="tel"
             id="phoneNumber"
             value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            onChange={handlePhoneNumberChange}
             required
             className="lead-form__input"
             placeholder="Enter your phone number*"
+            pattern="\d{10,13}"
           />
         </div>
         <div className="lead-form__field">
