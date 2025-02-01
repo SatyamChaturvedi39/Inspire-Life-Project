@@ -53,7 +53,7 @@ nav ul li a {
 nav ul li a.active {
   background-color: #0B152B;
   color: #fff;
-  border-radius: 0 0 20px 20px;
+  border-radius: 10px 10px 10px 10px;
 }
 
 nav ul li a:not(.active) {

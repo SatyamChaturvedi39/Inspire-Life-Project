@@ -51,7 +51,7 @@ const LeadForm: React.FC = () => {
         <h2 className="stayline">Stay Informed:</h2>
         {message && <p className="form-message">{message}</p>}
         <div className="lead-form__field">
-        <label htmlFor="name"></label>
+          <label htmlFor="name"></label>
           <input
             type="text"
             id="name"
@@ -110,7 +110,11 @@ const LeadForm: React.FC = () => {
           </label>
         </div>
         <div className="lead-button-div">
-          <button type="submit" className="lead-form__button" disabled={loading}>
+          <button
+            type="submit"
+            className="lead-form__button"
+            disabled={loading}
+          >
             {loading ? "Submitting..." : "SUBMIT"}
           </button>
         </div>

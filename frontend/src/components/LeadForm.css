@@ -88,3 +88,45 @@
     box-shadow: 5px 5px 6px rgb(189, 186, 186); 
 }
 
+/* Desktop Styles (Media Query) */
+@media (min-width: 768px) { /* Adjust breakpoint as needed */
+    .lead-form-container {
+        width: 80vw; /* Adjust width as needed */
+        margin: 20px auto;  /* Center the container */
+        align-items: center; /* Center content horizontally */
+    }
+
+    .lead-form {
+        padding: 30px; /* Increase padding */
+    }
+
+    .lead-form__field {
+        margin-bottom: 20px; /* Increase spacing */
+    }
+
+    .lead-form__input,
+    .lead-form__textarea {
+        padding: 12px; /* Adjust padding */
+        font-size: 16px; /* Example: Set a font size */
+    }
+
+    .lead-checkbox {
+        margin-bottom: 20px;
+    }
+
+    .stayline {
+        margin-right: auto; /* Push the label to the left */
+        margin-bottom: 10px;
+    }
+
+    .lead-form__button {
+        width: 200px !important; /* Set a fixed width */
+        height: 50px; /* Set a fixed height */
+        font-size: 18px;
+        margin: 20px auto 0; /* Center the button */
+        display: block; /* Ensure it's a block element to center properly */
+        margin-left: auto;
+    }
+}
+
+
