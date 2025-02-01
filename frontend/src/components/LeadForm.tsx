@@ -81,7 +81,6 @@ const LeadForm: React.FC = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
             className="lead-form__input"
             placeholder="Enter your email"
           />
