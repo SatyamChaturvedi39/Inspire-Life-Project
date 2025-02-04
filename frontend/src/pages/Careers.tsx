@@ -13,17 +13,18 @@ const Careers = () => {
         />
       </div>
       <section className="careers-content">
-        <h2>Why Join Us?</h2>
-
-        {/* Book a Slot Button as an Image */}
-        <button className="book-slot" onClick={() => alert("Booking Slot...")}>
-          <img src={bookslot} alt="Book a Slot" className="book-slot-image" />
-        </button>
+        <div className="careers-header">
+          <h2>Why Join Us?</h2>
+          <button
+            className="book-slot"
+            onClick={() => alert("Booking Slot...")}
+          >
+            <img src={bookslot} alt="Book a Slot" className="book-slot-image" />
+          </button>
+        </div>
 
         <div className="benefits-card">
-          <p>
-            🚀 <strong>Career Growth & Development</strong>
-          </p>
+          <p>🚀Career Growth & Development</p>
           <p>💡 Make a Real Impact</p>
           <p>💰 Competitive Pay & Benefits</p>
           <p>🌍 Inclusive & Supportive Culture</p>
