@@ -9,6 +9,8 @@ const LeadForm: React.FC = () => {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageColor, setMessageColor] = useState<string>(""); // Stores "green" or "red"
+
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,6 +32,7 @@ const LeadForm: React.FC = () => {
 
       if (response.ok) {
         setMessage("Form submitted successfully!");
+        setMessageColor("green");
         setName("");
         setPhoneNumber("");
         setEmail("");
@@ -37,19 +40,26 @@ const LeadForm: React.FC = () => {
         setTermsAgreed(false);
       } else {
         setMessage(result.message || "Error submitting form.");
+        setMessageColor("red");
       }
     } catch (error) {
       setLoading(false);
       console.error("Submission error:", error);
       setMessage("Something went wrong. Please try again.");
+      setMessageColor("red")
     }
+  };
+
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value.replace(/\D/g, '').slice(0, 13);
+    setPhoneNumber(input);
   };
 
   return (
     <div className="lead-form-container">
       <form onSubmit={handleSubmit} className="lead-form">
         <h2 className="stayline">Stay Informed:</h2>
-        {message && <p className="form-message">{message}</p>}
+        {message && <p className="form-message" style={{ color: messageColor, fontWeight: "bold" }}>{message}</p>}
         <div className="lead-form__field">
           <label htmlFor="name"></label>
           <input
@@ -68,10 +78,11 @@ const LeadForm: React.FC = () => {
             type="tel"
             id="phoneNumber"
             value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            onChange={handlePhoneNumberChange}
             required
             className="lead-form__input"
             placeholder="Enter your phone number*"
+            pattern="\d{10,13}"
           />
         </div>
         <div className="lead-form__field">

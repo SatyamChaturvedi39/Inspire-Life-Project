@@ -16,6 +16,9 @@ export const createClient = async (req, res) => {
     if (!data.name || !data.phoneNumber) {
         return res.status(400).json({ success: false, message: "Name and Phone Number are required." });
     }
+    if (!/^\d{10}$|^\d{13}$/.test(data.phoneNumber)) {
+        return res.status(400).json({ success: false, message: "Phone number must be exactly 10 or 13 digits." });
+    }
 
     try {
         const newClient = new Client(data);
