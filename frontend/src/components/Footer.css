@@ -4,8 +4,9 @@
   padding: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   width:100%;
-  height: 82vh;
-  text-align: left;  
+  height: 90vh;
+  text-align: left;
+    
   
 }
 
@@ -23,10 +24,11 @@
   margin-bottom: 2vh;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   
 }
 .footer-Company{
-  display: flex;
+  display: flex;  
   flex-direction: column;
   text-align: right;
 }
@@ -41,7 +43,7 @@
 .footer-columns {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
 }
 
@@ -61,6 +63,11 @@
   
 }
 
+.LogoCompany{
+  display: flex;
+
+}
+
 .footer-column li {
   margin: 5px 0;
   font-size: 12px;
@@ -71,17 +78,22 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
 
-
 }
+
+.Site-map{
+  content-visibility: hidden;
+}
+
+
 
 
 
 @media all and (min-width:1024px){
 
   .footer-Company{  
-    text-align: right;
-    margin-top: 0%;
-    padding-left: 70%;
+    text-align:left;
+    margin-top: 3%;
+    padding-left: 3%;    
     display: flex;
     flex-direction:column ;
   }
@@ -96,6 +108,7 @@
     margin-bottom: 2vh;
     display: flex;
     flex-direction:row;
+    
   }
 
   .footer-columns {
@@ -103,34 +116,51 @@
     flex-direction: row;
     justify-content: space-around;
     width: 50%;
-    align-items: center;
+    align-items: space-evenly;
     padding-left: 1%;
   }
   .footer-column {
-    flex: 1;
-    margin: 0 10px;
+    flex:1;
+    margin-top: 0px 0px;
   }
   
   .footer-column h4 {
-    font-size: 15px;
-    margin-bottom: 10px;
-    padding-top: 20px;
+    font-size: 18px;
+    margin-top: 0%;
+    
+    
   }
   
   .footer-column ul {
     list-style-type: none;
-    padding: 1px;
+    padding: 2px;
     
   }
   
   .footer-column li {
     margin: 5px 0;
-    font-size: 14px;
+    font-size: 16px;
     padding:1px;
   }
 
+   .Site-map{
+    content-visibility: visible;
+       }     
+  
 
+  .Site-map2{
+    content-visibility: hidden;
+  }
 
+  .footer-CR {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+      
+  }
 
+   .Line1{
+    margin-top: 13%;
+  }
+   
 
 }
