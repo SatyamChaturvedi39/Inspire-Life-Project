@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 
 const agentSchema = new mongoose.Schema({
-    AdminID: { type: Number, required: true, unique: true },
-    Name: { type: String, required: true },
-    Email: { type: String, required: true, unique: true },
-    PasswordHash: { type: String, required: true },
-    Policies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Policy" }],
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    passwordHash: { type: String, required: true },
+    policies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Policy" }],
  },{
     timestamps: true
 });

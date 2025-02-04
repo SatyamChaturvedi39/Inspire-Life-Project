@@ -4,10 +4,12 @@
   padding: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   width:100%;
-  height: 82vh;
-  text-align: left;  
+  height: 90vh;
+  text-align: left;
+    
   
 }
+
 
 .footer-container {
   max-width: 100vw;
@@ -22,10 +24,11 @@
   margin-bottom: 2vh;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   
 }
 .footer-Company{
-  display: flex;
+  display: flex;  
   flex-direction: column;
   text-align: right;
 }
@@ -40,7 +43,7 @@
 .footer-columns {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
 }
 
@@ -60,6 +63,11 @@
   
 }
 
+.LogoCompany{
+  display: flex;
+
+}
+
 .footer-column li {
   margin: 5px 0;
   font-size: 12px;
@@ -72,29 +80,87 @@
 
 }
 
-.sitemap {
-  margin: 20px;
+.Site-map{
+  content-visibility: hidden;
 }
 
-.sitemap h4 {
-  font-size: 18px;
-  font-weight: bold;
-}
 
-.sitemap ul {
-  list-style: none; /* Remove bullets */
-  padding: 0;
-}
 
-.sitemap ul li {
-  margin-bottom: 10px;
-}
 
-.sitemap ul li a {
-  color: #fff; /* White text */
-  text-decoration: none; /* Remove underline */
-}
 
-.sitemap ul li a:hover {
-  text-decoration: underline; /* Add underline when hovering */
+@media all and (min-width:1024px){
+
+  .footer-Company{  
+    text-align:left;
+    margin-top: 3%;
+    padding-left: 3%;    
+    display: flex;
+    flex-direction:column ;
+  }
+
+  .footer-logo{
+    max-width: 100px;
+    max-height: 100px;
+  }
+
+  .footer-header{
+    text-align: right;
+    margin-bottom: 2vh;
+    display: flex;
+    flex-direction:row;
+    
+  }
+
+  .footer-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 50%;
+    align-items: space-evenly;
+    padding-left: 1%;
+  }
+  .footer-column {
+    flex:1;
+    margin-top: 0px 0px;
+  }
+  
+  .footer-column h4 {
+    font-size: 18px;
+    margin-top: 0%;
+    
+    
+  }
+  
+  .footer-column ul {
+    list-style-type: none;
+    padding: 2px;
+    
+  }
+  
+  .footer-column li {
+    margin: 5px 0;
+    font-size: 16px;
+    padding:1px;
+  }
+
+   .Site-map{
+    content-visibility: visible;
+       }     
+  
+
+  .Site-map2{
+    content-visibility: hidden;
+  }
+
+  .footer-CR {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+      
+  }
+
+   .Line1{
+    margin-top: 13%;
+  }
+   
+
 }

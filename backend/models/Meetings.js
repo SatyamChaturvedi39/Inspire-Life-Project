@@ -1,14 +1,13 @@
 import mongoose from "mongoose";
 
 const meetingSchema = new mongoose.Schema({
-    MeetingID: { type: Number, required: true, unique: true },
-    ClientID: { type: mongoose.Schema.Types.ObjectId, ref: "Client", required: true },
-    ClientDetails: { type: Object, required: true },
-    Date: { type: Date, required: true },
-    Time: { type: String, required: true },
-    Status: { type: String, enum: ["Scheduled", "Completed", "Cancelled"], default: "None" },
-    AdminID: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
-    AgentID: { type: mongoose.Schema.Types.ObjectId, ref: "Agent" },
+    clientId: { type: mongoose.Schema.Types.ObjectId, ref: "Client", required: true },
+    clientDetails: { type: Object, required: true },
+    date: { type: Date, required: true },
+    time: { type: String, required: true },
+    status: { type: String, enum: ["Scheduled", "Completed", "Cancelled"], default: "None" },
+    adminId: { type: mongoose.Schema.Types.ObjectId, ref: "Admin", default: null },
+    agentId: { type: mongoose.Schema.Types.ObjectId, ref: "Agent", default: null },
   },{
     timestamps: true
 });

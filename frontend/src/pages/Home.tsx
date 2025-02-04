@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "../assets/Image.jpg";
@@ -15,7 +15,19 @@ const Home = () => {
   const [selectedAction, setSelectedAction] = useState<
     "policies" | "careers" | null
   >(null);
+  const [isDesktop, setIsDesktop] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleButtonClick = (action: "policies" | "careers") => {
     setSelectedAction(action);
@@ -37,25 +49,42 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <img src={Image} alt="home Image" className="home-image" />
-      <h1 className="question">How can we help you?</h1>
-      <div className="button-container">
-        <button
-          className="home-button"
-          onClick={() => handleButtonClick("policies")}
-        >
-          Buy a Policy
-        </button>
-        <button
-          className="home-button"
-          onClick={() => handleButtonClick("careers")}
-        >
-          Become an Agent
-        </button>
+      <div className="home-image-container">
+        <img src={Image} alt="home Image" className="home-image" />
+        {!isDesktop && <h1 className="question">How can we help you?</h1>}
+
+        <div className="main-content-container">
+          {isDesktop && <h1 className="question">How can we help you?</h1>}
+          <div className="button-container">
+            <button
+              className="home-button"
+              onClick={() => handleButtonClick("policies")}
+            >
+              Buy a Policy
+            </button>
+            <button
+              className="home-button"
+              onClick={() => handleButtonClick("careers")}
+            >
+              Become an Agent
+            </button>
+          </div>
+        </div>
       </div>
-      <CarouselScroll />
-      <h1 className="know-more">Know More</h1>
-      <LeadForm />
+
+      {isDesktop ? (
+        <>
+          <LeadForm />
+          <h1 className="know-more">Know More</h1>
+          <CarouselScroll />
+        </>
+      ) : (
+        <>
+          <CarouselScroll />
+          <h1 className="know-more">Know More</h1>
+          <LeadForm />
+        </>
+      )}
 
       {isPopupOpen && (
         <Popup
@@ -64,7 +93,7 @@ const Home = () => {
           selectedAction={selectedAction}
         />
       )}
-      
+
       <div className="services-section">
         <h2 className="services-title">Services We Provide</h2>
         <div className="services-logos">

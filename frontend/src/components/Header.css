@@ -10,7 +10,8 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* Increased z-index to ensure it's above other elements */
+  z-index: 1000;
+  padding: 0 2%;
 }
 
 .logo-container {
@@ -19,27 +20,45 @@
 }
 
 .logo {
-  max-width: 60px;
-  margin-left: 2vw;
+  max-width: 75px;
 }
 
 .header-text {
   text-align: right;
-  margin-right: 2vw;
 }
 
 .header-text h1 {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 500;
   font-style: normal;
-  margin-bottom: 0.3rem;
-  font-size: 1.1rem;
+  margin-bottom: 0;
+  font-size: 1.2rem;
 }
 
 .header-text p {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 200;
   font-style: normal;
-  margin-top: 0;
+  margin-top: 0.2rem;
+}
+
+/* Media Queries for Large Desktops */
+@media screen and (min-width: 1440px) {
+  .header {
+    height: 13vh;
+    padding: 1%;
+  }
+
+  .logo {
+    max-width: 75px;
+  }
+
+  .header-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-text p {
+    font-size: 1.1rem;
+  }
 }

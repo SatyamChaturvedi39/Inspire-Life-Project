@@ -14,20 +14,41 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
   const [termsAgreed, setTermsAgreed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!name || !phoneNumber || !email || !termsAgreed) {
-      alert("Please fill in all required fields and agree to the Terms & Conditions.");
-      return;
-    }
+    const formData = { name, phoneNumber, email, comment };
 
-    console.log("Form submitted:", { name, phoneNumber, email, comment });
-    onSubmit();
-    if (selectedAction) {
-      navigate(`/${selectedAction}`);
+    try {
+      setLoading(true);
+
+      const response = await fetch("http://localhost:5001/api/clients", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      setLoading(false);
+
+      if (response.ok) {
+        onSubmit();
+        if (selectedAction) {
+          navigate(`/${selectedAction}`);
+        }
+      } else {
+        setErrorMessage(result.message || "Error submitting form.");
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("Submission error:", error);
+      setErrorMessage("Something went wrong. Please try again.");
     }
   };
 
@@ -53,6 +74,7 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
           </div>
         </div>
         <form onSubmit={handleSubmit} className="lead-form">
+          {errorMessage && <p className="form-error">{errorMessage}</p>}
           <div className="lead-form__field">
             <input
               type="text"
@@ -88,7 +110,7 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               className="lead-form__textarea"
-              placeholder="Add a comment"
+              placeholder="Ask a query"
             />
           </div>
           <div className="lead-form__field--checkbox">
@@ -104,8 +126,8 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
             </label>
           </div>
           <div className="lead-button-div">
-            <button type="submit" className="lead-form__button">
-              SUBMIT
+            <button type="submit" className="lead-form__button" disabled={loading}>
+              {loading ? "Submitting..." : "SUBMIT"}
             </button>
             <button type="button" className="lead-form__button" onClick={handleSkip}>
               SKIP
