@@ -1,0 +1,98 @@
+/* General Styles */
+.careers-container {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+/* Hero Image Section */
+.careers-hero-image-container {
+    width: 101%;
+    overflow: hidden;
+    margin-top: 5%;
+}
+
+.careers-hero-image {
+    width: 101%;
+    height: 33vh; /* Optimized for mobile */
+    object-fit: cover;
+}
+
+/* Content Section */
+.careers-content {
+    margin-top: 15px;
+    padding: 15px;
+}
+
+.careers-content h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Book a Slot Button */
+.book-slot {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: fit-content;
+}
+
+.book-slot img {
+    width: 120px; /* Adjust size as needed */
+    height: auto;
+}
+
+
+/* Benefits Card */
+.benefits-card {
+    background-color: #1e293b;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 15px auto;
+    max-width: 90%;
+    text-align: left;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.benefits-card p {
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Join Us Section */
+.join-us {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.join-us h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003366;
+}
+
+.join-us p {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Links */
+.join-us a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.join-us a:hover {
+    text-decoration: underline;
+}

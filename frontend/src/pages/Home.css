@@ -10,6 +10,7 @@
 .home-image-container { 
   width: 100vw;
   position: relative;
+  height: 250px;
 }
 
 .home-image {
