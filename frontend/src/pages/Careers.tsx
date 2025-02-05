@@ -24,7 +24,7 @@ const Careers = () => {
         </div>
 
         <div className="benefits-card">
-          <p>🚀Career Growth & Development</p>
+          <p>🚀 Career Growth & Development</p>
           <p>💡 Make a Real Impact</p>
           <p>💰 Competitive Pay & Benefits</p>
           <p>🌍 Inclusive & Supportive Culture</p>
