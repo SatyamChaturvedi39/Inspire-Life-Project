@@ -1,0 +1,134 @@
+/* Mobile-first styles (base styles) */
+.Contact-Division {
+  width: 100%;
+  min-height: 80vh;
+  background-color: #ffffff;
+  margin-top: 20vh;
+  padding: 1rem;
+} 
+
+.Contact-Main {
+  width: 100%;
+  padding: 1rem;
+}
+
+.Contact-text {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #1A2E5C;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.Contact-Container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.5rem;
+}
+
+.Contact-Container > div {
+  background-color: #f8f8f8;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.Address,
+.Contact-No,
+.Map {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #444444;
+  margin-bottom: 0.75rem;
+}
+
+.Add-Info,
+.Contact-Info {
+  font-size: 1rem;
+  color: #666666;
+  line-height: 1.4;
+}
+
+/* Map placeholder styles */
+.bg-gray-200 {
+  background-color: #e5e7eb;
+  border-radius: 6px;
+}
+
+/* Desktop styles (1024px and above) */
+@media screen and (min-width: 1024px) {
+  .Contact-Division {
+    padding: 2rem;
+    
+  }
+
+  .Contact-Main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    margin-bottom: 5%;
+    margin-top: 5%;
+  }
+
+  .Contact-text {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .Contact-Container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 1rem;
+    display:flex;
+    flex-direction: column;
+  }
+
+  .Contact-Container > div {
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .Contact-Container > div:hover {
+    transform: translateY(-5px);
+  }
+
+  .Address,
+  .Contact-No {
+    font-style: bold;
+    font-size: 1.5rem;
+  }
+
+  .Map {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    
+        
+  }
+
+  .Add-Info,
+  .Contact-Info {
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  /* Ensure flex-grow works properly on desktop */
+  .flex-grow {
+    flex:1;
+    
+    
+  }
+
+  .gmap_iframe3{
+    height:250px;
+    width:500px;
+  }
+  
+  .Map3{
+    font-size: 25px;
+    margin-left: 2.5%;
+  }
+
+}

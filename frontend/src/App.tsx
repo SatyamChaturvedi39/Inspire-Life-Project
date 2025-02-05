@@ -10,6 +10,7 @@ import Careers from "./pages/Careers";
 
 // Page Imports
 import Policies from "./pages/Policies";
+import Contact from "./pages/Contact"
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
         <Route path="*" element={<Home />} />{" "}
         <Route path="/Careers" element={<Careers />} />
         {/* Redirects to Home for unknown routes */}
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
     </Router>
