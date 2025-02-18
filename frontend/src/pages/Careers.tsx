@@ -1,28 +1,39 @@
 import "./Careers.css";
 import careersImage from "../assets/careersImage.jpg";
 import bookslot from "../assets/bookslot.png";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Careers = () => {
+  const navigate = useNavigate(); // Initialize navigation function
+
   return (
     <div className="careers-container">
+      {/* Clickable Hero Image for Navigation */}
       <div className="careers-hero-image-container">
-        <img
-          src={careersImage}
-          alt="Join Our Team"
-          className="careers-hero-image"
-        />
+        <Link to="/slotform">
+          <img
+            src={careersImage}
+            alt="Join Our Team"
+            className="careers-hero-image"
+            style={{ cursor: "pointer" }}
+          />
+        </Link>
       </div>
+
       <section className="careers-content">
         <div className="careers-header">
           <h2>Why Join Us?</h2>
+
+          {/* Button Redirects to SlotForm Page */}
           <button
             className="book-slot"
-            onClick={() => alert("Booking Slot...")}
+            onClick={() => navigate("/slotform")} // Ensure navigation works
           >
             <img src={bookslot} alt="Book a Slot" className="book-slot-image" />
           </button>
         </div>
 
+        {/* Benefits Section */}
         <div className="benefits-card">
           <p>🚀 Career Growth & Development</p>
           <p>💡 Make a Real Impact</p>
@@ -32,6 +43,7 @@ const Careers = () => {
           <p>🏆 Employee Recognition & Rewards</p>
         </div>
 
+        {/* Join Us Section */}
         <div className="join-us">
           <h3>Become Part of Our Growing Team and Maximize Your Earnings!</h3>
           <p>

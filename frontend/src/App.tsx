@@ -5,13 +5,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Careers from "./pages/Careers";
 
 // Page Imports
+import Home from "./pages/Home";
+import Careers from "./pages/Careers";
 import Policies from "./pages/Policies";
 import PolicyDetails from "./pages/PolicyDetails";
-import Contact from "./pages/Contact"
+import Contact from "./pages/Contact";
+import SlotForm from "./pages/SlotForm";
 
 const App: React.FC = () => {
   return (
@@ -19,13 +20,20 @@ const App: React.FC = () => {
       <Header /> {/* Optional: Consider adding if you had it in your imports */}
       <Navbar />
       <Routes>
+        {/* Correct Routes */}
         <Route path="/" element={<Home />} />
+        <Route path="/careers" element={<Careers />} />{" "}
+        {/* Fixed '/Careers' to '/careers' */}
         <Route path="/policies" element={<Policies />} />
         <Route path="/policy/:slug" element={<PolicyDetails />} />
         <Route path="*" element={<Home />} />{" "}
         <Route path="/Careers" element={<Careers />} />
         {/* Redirects to Home for unknown routes */}
         <Route path="/contact" element={<Contact />} />
+        {/* SlotForm route (Make sure it's '/slotform' as per your link) */}
+        <Route path="/slotform" element={<SlotForm />} /> {/* Corrected path */}
+        {/* Wildcard Route: Redirect to Home for unknown routes */}
+        <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
     </Router>
