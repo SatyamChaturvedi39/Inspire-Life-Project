@@ -3,9 +3,22 @@
   width: 100%;
   min-height: 80vh;
   background-color: #ffffff;
-  margin-top: 20vh;
-  padding: 1rem;
-} 
+  margin-top: 0; /* Remove margin-top to start from navbar */
+}
+
+.contact-image-container {
+  width: 100%;
+  height: 40vh; /* Adjust height as needed */
+  overflow: hidden;
+  position: relative;
+}
+
+.contact-hero-image {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height of the container */
+  object-fit: cover;
+  object-position: top; /* Ensures the top of the image is always visible */
+}
 
 .Contact-Main {
   width: 100%;
@@ -22,7 +35,7 @@
 
 .Contact-Container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Always stack items vertically */
   gap: 1.5rem;
   padding: 0.5rem;
 }
@@ -58,9 +71,8 @@
 
 /* Desktop styles (1024px and above) */
 @media screen and (min-width: 1024px) {
-  .Contact-Division {
-    padding: 2rem;
-    
+  .contact-image-container {
+    height: 50vh; /* Adjust height for desktop */
   }
 
   .Contact-Main {
@@ -77,12 +89,10 @@
   }
 
   .Contact-Container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column; /* Stack items vertically even on desktop */
     gap: 2rem;
     padding: 1rem;
-    display:flex;
-    flex-direction: column;
   }
 
   .Contact-Container > div {
@@ -104,8 +114,6 @@
   .Map {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    
-        
   }
 
   .Add-Info,
@@ -116,19 +124,16 @@
 
   /* Ensure flex-grow works properly on desktop */
   .flex-grow {
-    flex:1;
-    
-    
+    flex: 1;
   }
 
-  .gmap_iframe3{
-    height:250px;
-    width:500px;
+  .gmap_iframe3 {
+    height: 250px;
+    width: 100%; /* Make map responsive */
   }
-  
-  .Map3{
+
+  .Map3 {
     font-size: 25px;
     margin-left: 2.5%;
   }
-
 }

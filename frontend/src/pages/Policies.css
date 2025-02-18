@@ -58,35 +58,72 @@
 }
 
 .policy-cards-container {
-  margin-top: 5px;
+  margin-top: 16px;
+  margin-bottom: 16px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-gap: 16px;
   padding: 0 16px;
 }
 
 .policy-card {
   background-color: white;
-  border-radius: 15px;
-  padding: 16px;
-  box-shadow: 0px 1px 4px rgba(44, 71, 126, 0.566);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative; /* Added for button positioning */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Added to align content properly */
 }
 
 .policy-card:hover {
-  background-color: #fbfbfb;
-  transform: translateY(-2px);
-  box-shadow: 2px 2px 8px rgba(41, 36, 70, 0.703);
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .policy-name {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.policy-company {
+  font-size: 16px;
+  color: #555;
   margin-bottom: 8px;
+}
+
+.policy-age {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 12px;
 }
 
 .policy-details {
   font-size: 14px;
   color: #666;
+  margin-bottom: 16px;
+  flex-grow: 1; /* Added to allow text to take up remaining space */
+}
+
+.policy-button {
+  background-color: #162c5a; /* Updated button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-end; /* Align button to the right */
+  margin-left: auto; /* Push button to the right */
+}
+
+.policy-button:hover {
+  background-color: #2759a9; /* Darker shade for hover */
 }
 
 /* Desktop styles (new) */
@@ -123,12 +160,11 @@
 
   .policy-card {
     padding: 24px;
-    transition: all 0.3s ease;
   }
 
   .policy-name {
-    font-size: 20px;
-    margin-bottom: 12px;
+    font-size: 22px;
+    margin-bottom: 16px;
   }
 
   .policy-details {
@@ -136,4 +172,3 @@
     line-height: 1.5;
   }
 }
-

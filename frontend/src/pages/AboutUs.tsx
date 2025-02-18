@@ -1,10 +1,13 @@
-
 import React from 'react';
 import './AboutUs.css';
+import AboutUsImage from "../assets/AboutUsImage.png";
 
 const AboutUs: React.FC = () => {
   return (
-      <div>  
+    <div className="about-container">  
+      <div className="about-image-container">
+        <img src={AboutUsImage} alt="Insurance Services" className="about-hero-image" />
+      </div>
       <section className="about-section">
         <div className="about-content">
           <h2><b><center>About Us</center></b></h2>
@@ -34,8 +37,7 @@ const AboutUs: React.FC = () => {
           </p>
         </div>
       </section>
-
-      </div>
+    </div>
   );
 };
 

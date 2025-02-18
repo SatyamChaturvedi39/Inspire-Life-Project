@@ -1,63 +1,85 @@
 /* AboutUs.css */
-.insurance-container {
-    max-width: 100%;
-    font-family: Arial, sans-serif;
-  }
-  
-  
-  
-  .about-section {
-    background: white;
-    padding: 2rem;
-    margin-top: 30%;
-    padding-top: 18%;
-    padding-bottom: 15%;    
-    min-height: 60vh;
-  }
-  
-  .about-content {
-    max-width: 800px;
-    margin: 0 auto;
-    
-    
-  }
-  
-  .about-content h2 {
-    color: #0b1c2c;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    
-  }
-  
-  .about-content p {
-    color: #000000;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    
-  }
-  
-    
-  /* Responsive Design */
-  @media screen and (min-width: 1024px) {
-      
-    .about-section {
-      padding: 2rem;
-      margin-top: 12%;
-      padding-top: 10%;
-      margin-bottom: 3%;
-      padding-bottom: 5%;
-    }
+.about-container {
+  position: relative;
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
 
-    .about-content p {
-        color: #000000;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-        font-size: 20px;
-        
-      }
-      
+.about-image-container {
+  width: 100%;
+  height: auto; /* Height is flexible */
+  overflow: hidden;
+  position: relative;
+}
+
+.about-hero-image {
+  width: 100%; /* Full width */
+  height: auto; /* Height adjusts to maintain aspect ratio */
+  object-fit: cover;
+  object-position: top; /* Ensures the top of the image is always visible */
+}
+
+.about-section {
+  background: white;
+  padding: 2rem;
+  margin-top: 0; /* Remove margin-top to eliminate white space */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  min-height: 60vh;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-content h2 {
+  color: #0b1c2c;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.about-content p {
+  color: #000000;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .about-image-container {
+    height: auto; /* Height is flexible on mobile */
   }
-  
-  
-  
-  
+
+  .about-hero-image {
+    width: 100%; /* Full width on mobile */
+    height: auto; /* Height adjusts to maintain aspect ratio */
+  }
+
+  .about-section {
+    padding: 1rem; /* Reduce padding for smaller screens */
+  }
+
+  .about-content h2 {
+    font-size: 1.5rem; /* Smaller heading for mobile */
+  }
+
+  .about-content p {
+    font-size: 14px; /* Smaller text for mobile */
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .about-section {
+    padding: 2rem;
+    margin-top: 0;
+    padding-top: 2rem;
+    margin-bottom: 3%;
+    padding-bottom: 5%;
+  }
+
+  .about-content p {
+    font-size: 20px;
+  }
+}
