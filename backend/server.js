@@ -4,6 +4,7 @@ import { connectDB } from "./config/db.js";
 import cors from "cors";
 
 import clientRoutes from './routes/clientRoutes.js';
+import policyRoutes from './routes/policyRoutes.js';
 
 dotenv.config(); // Load environment variables
 
@@ -17,6 +18,7 @@ app.use(express.json()); //allows us to accept JSON data in the req.body
 
 // Routes
 app.use("/api/clients", clientRoutes);
+app.use("/api/policies", policyRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5001;
