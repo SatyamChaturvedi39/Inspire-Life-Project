@@ -1,0 +1,63 @@
+/* AboutUs.css */
+.insurance-container {
+    max-width: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  
+  
+  .about-section {
+    background: white;
+    padding: 2rem;
+    margin-top: 30%;
+    padding-top: 18%;
+    padding-bottom: 15%;    
+    min-height: 60vh;
+  }
+  
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    
+    
+  }
+  
+  .about-content h2 {
+    color: #0b1c2c;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    
+  }
+  
+  .about-content p {
+    color: #000000;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    
+  }
+  
+    
+  /* Responsive Design */
+  @media screen and (min-width: 1024px) {
+      
+    .about-section {
+      padding: 2rem;
+      margin-top: 12%;
+      padding-top: 10%;
+      margin-bottom: 3%;
+      padding-bottom: 5%;
+    }
+
+    .about-content p {
+        color: #000000;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        font-size: 20px;
+        
+      }
+      
+  }
+  
+  
+  
+  

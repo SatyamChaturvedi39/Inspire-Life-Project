@@ -13,6 +13,7 @@ import Policies from "./pages/Policies";
 import PolicyDetails from "./pages/PolicyDetails";
 import Contact from "./pages/Contact";
 import SlotForm from "./pages/SlotForm";
+import AboutUs from "./pages/AboutUs";
 
 const App: React.FC = () => {
   return (
@@ -34,6 +35,7 @@ const App: React.FC = () => {
         <Route path="/slotform" element={<SlotForm />} /> {/* Corrected path */}
         {/* Wildcard Route: Redirect to Home for unknown routes */}
         <Route path="*" element={<Home />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
       </Routes>
       <Footer />
     </Router>
