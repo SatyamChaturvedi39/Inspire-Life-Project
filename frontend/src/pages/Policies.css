@@ -126,6 +126,23 @@
   background-color: #2759a9; /* Darker shade for hover */
 }
 
+.suggestions-container {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  z-index: 1000;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background: #f0f0f0;
+}
+
 /* Desktop styles (new) */
 @media (min-width: 1024px) {
 

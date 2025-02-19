@@ -44,21 +44,18 @@ export const getPolicyBySlug = async (req, res) => {
     try {
       const slug = req.params.slug.toLowerCase().trim(); //Ensure lowercase & trimmed
 
-    console.log("Slug received in backend:", slug); //Debugging step
+      const policy = await Policy.findOne({ slug }).populate("agentId", "name contact");
 
-    const policy = await Policy.findOne({ slug }).populate("agentId", "name contact");
+      if (!policy) {
+        return res.status(404).json({ success: false, message: "Policy not found" });
+      }
 
-    if (!policy) {
-      console.error("Policy Not Found for Slug:", slug); //Debugging log
-      return res.status(404).json({ success: false, message: "Policy not found" });
-    }
+      const policyWithAgent = {
+        ...policy.toObject(),
+        agentId: policy.agentId || {}, //Avoids `undefined`
+      };
 
-    const policyWithAgent = {
-      ...policy.toObject(),
-      agentId: policy.agentId || {}, //Avoids `undefined`
-    };
-
-    res.json({ success: true, data: policyWithAgent });
+      res.json({ success: true, data: policyWithAgent });
 
     } catch (error) {
       console.error("Error fetching policy:", error);

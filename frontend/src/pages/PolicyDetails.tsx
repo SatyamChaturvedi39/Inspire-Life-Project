@@ -37,7 +37,6 @@ const PolicyDetails: React.FC = () => {
       setLoading(false);
       return;
     }
-    console.log("Slug in frontend:", slug);
 
     const fetchPolicyDetails = async () => {
       try {
