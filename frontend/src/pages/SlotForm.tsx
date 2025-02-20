@@ -32,15 +32,23 @@ const SlotForm: React.FC = () => {
     }
 
     const formData = {
-      date: selectedDate.toISOString().split("T")[0],
-      timeSlot: selectedTime,
+      name: "", // Provide user input here
+      phoneNumber: "", // Provide user input here
+      email: "", // Provide user input here
+      comment: "", // Provide user input here
+      date: selectedDate ? selectedDate.toISOString().split("T")[0] : "", // Ensures selectedDate is valid
+      time: selectedTime, // Renamed to "time" to match your schema
     };
 
     try {
       setLoading(true);
+<<<<<<< Updated upstream
       console.log("formdata", formData);
       console.log("json hmhmhmmm ", JSON.stringify(formData));
       const response = await fetch("http://localhost:5001/api/slots", {
+=======
+      const response = await fetch("http://localhost:5001/api/meetings", {
+>>>>>>> Stashed changes
         method: "POST",
         headers: {
           "Content-Type": "application/json",
