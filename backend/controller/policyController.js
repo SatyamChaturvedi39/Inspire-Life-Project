@@ -32,7 +32,10 @@ export const createPolicy = async (req, res) => {
   
 export const getPolicies = async (req, res) => {
     try {
-      const policies = await Policy.find().populate("agentId", "name contact");
+      const limit = parseInt(req.query.limit) || 15; // Default to 15 policies
+      const offset = parseInt(req.query.offset) || 0; // Default to start from the beginning
+
+      const policies = await Policy.find().skip(offset).limit(limit);
       res.json({ success: true, data: policies });
     } catch (error) {
       console.error("Error fetching policies:", error);
@@ -61,4 +64,26 @@ export const getPolicyBySlug = async (req, res) => {
       console.error("Error fetching policy:", error);
       res.status(500).json({ success: false, message: "Internal Server Error" });
     }
+};
+
+export const putPolicyBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const updateData = req.body;
+
+    const updatedPolicy = await Policy.findOneAndUpdate(
+      { slug: slug },  // Find policy by slug
+      { $set: updateData }, // Update with new data
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedPolicy) {
+      return res.status(404).json({ message: "Policy not found" });
+    }
+
+    res.status(200).json({ message: "Policy updated successfully", data: updatedPolicy });
+  } catch (error) {
+    console.error("Error updating policy:", error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
