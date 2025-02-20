@@ -9,6 +9,10 @@ import slotImage from "../assets/slotimage.jpg";
 const SlotForm: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState("");
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState<string>("");
@@ -25,38 +29,28 @@ const SlotForm: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!selectedDate || !selectedTime) {
-      setMessage("Please select a date and time slot.");
+    if (!selectedDate || !selectedTime || !name || !phoneNumber) {
+      setMessage("Please fill in all required fields.");
       setMessageColor("red");
       return;
     }
 
     const formData = {
-      name: "", // Provide user input here
-      phoneNumber: "", // Provide user input here
-      email: "", // Provide user input here
-      comment: "", // Provide user input here
-      date: selectedDate ? selectedDate.toISOString().split("T")[0] : "", // Ensures selectedDate is valid
-      time: selectedTime, // Renamed to "time" to match your schema
+      name,
+      phoneNumber,
+      email,
+      comment,
+      date: selectedDate.toISOString().split("T")[0],
+      time: selectedTime,
     };
 
     try {
       setLoading(true);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      console.log("formdata", formData);
-      console.log("json hmhmhmmm ", JSON.stringify(formData));
-      const response = await fetch("http://localhost:5001/api/slots", {
-=======
+      console.log("formdata", formData),
+        console.log("hmhm", JSON.stringify(formData));
       const response = await fetch("http://localhost:5001/api/meetings", {
->>>>>>> Stashed changes
-=======
-      const response = await fetch("http://localhost:5001/api/meetings", {
->>>>>>> Stashed changes
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -66,6 +60,10 @@ const SlotForm: React.FC = () => {
       if (response.ok) {
         setMessage("Slot booked successfully!");
         setMessageColor("green");
+        setName("");
+        setPhoneNumber("");
+        setEmail("");
+        setComment("");
         setSelectedDate(null);
         setSelectedTime("");
       } else {
@@ -113,6 +111,8 @@ const SlotForm: React.FC = () => {
               type="text"
               className="slot-form__input"
               placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
@@ -122,6 +122,8 @@ const SlotForm: React.FC = () => {
               type="text"
               className="slot-form__input"
               placeholder="Enter your phone number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
 
@@ -131,6 +133,8 @@ const SlotForm: React.FC = () => {
               type="email"
               className="slot-form__input"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -139,6 +143,8 @@ const SlotForm: React.FC = () => {
             <textarea
               className="slot-form__textarea"
               placeholder="Any additional comments?"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
             ></textarea>
           </div>
         </div>
