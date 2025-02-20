@@ -38,6 +38,8 @@ const SlotForm: React.FC = () => {
 
     try {
       setLoading(true);
+      console.log("formdata", formData);
+      console.log("json hmhmhmmm ", JSON.stringify(formData));
       const response = await fetch("http://localhost:5001/api/slots", {
         method: "POST",
         headers: {
