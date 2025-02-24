@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 
 const meetingSchema = new mongoose.Schema({
-    clientId: { type: mongoose.Schema.Types.ObjectId, ref: "Client", required: true },
-    clientDetails: { type: Object, required: true },
+    name: { type: String, required: true },
+    phoneNumber: { type: String, required: true, unique:true },
+    email: { type: String },
+    comment: { type: String},
     date: { type: Date, required: true },
     time: { type: String, required: true },
     status: { type: String, enum: ["Scheduled", "Completed", "Cancelled"], default: "None" },
