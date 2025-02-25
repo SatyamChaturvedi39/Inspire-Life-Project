@@ -44,6 +44,7 @@ const NavBar = () => {
             Contact
           </Link>
         </li>
+<<<<<<< Updated upstream
         {/* Login Page Link */}
         <li className="login-link">
           <Link
@@ -51,6 +52,15 @@ const NavBar = () => {
             className={location.pathname.startsWith("/login") ? "active" : ""}
           >
             Login
+=======
+        {/* Admin Dashboard Link */}
+        <li className="admin-link">
+          <Link
+            to="/admin"
+            className={location.pathname.startsWith("/admin") ? "active" : ""}
+          >
+            Admin
+>>>>>>> Stashed changes
           </Link>
         </li>
       </ul>
