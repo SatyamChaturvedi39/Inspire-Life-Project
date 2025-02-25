@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./slotform.css";
+import "./SlotForm.css";
 
 // Importing the header image
 import slotImage from "../assets/slotimage.jpg";
@@ -46,8 +46,6 @@ const SlotForm: React.FC = () => {
 
     try {
       setLoading(true);
-      console.log("formdata", formData),
-        console.log("hmhm", JSON.stringify(formData));
       const response = await fetch("http://localhost:5001/api/meetings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

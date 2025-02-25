@@ -14,6 +14,7 @@ import PolicyDetails from "./pages/PolicyDetails";
 import Contact from "./pages/Contact";
 import SlotForm from "./pages/SlotForm";
 import AboutUs from "./pages/AboutUs";
+import Login from "./pages/Login";
 
 const App: React.FC = () => {
   return (
@@ -36,6 +37,7 @@ const App: React.FC = () => {
         {/* Wildcard Route: Redirect to Home for unknown routes */}
         <Route path="*" element={<Home />} />
         <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/Login" element={<Login />} />
       </Routes>
       <Footer />
     </Router>

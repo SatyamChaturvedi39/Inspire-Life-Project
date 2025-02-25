@@ -14,7 +14,13 @@ const policySchema = new mongoose.Schema({
       sumAssuredRange: { type: String },
       taxBenefit: { type: String }
     },
-    agentId: {type: mongoose.Schema.Types.ObjectId, ref: "Agent"}
+    agentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Agent", // This tells Mongoose that `agentId` references the `Agent` collection
+      required: false, // Optional: If policies can exist without an agent
+    },
+    createdBy: {type: mongoose.Schema.Types.ObjectId, ref: "Agent"},
+    createdBy: {type: mongoose.Schema.Types.ObjectId, ref: "Admin"}
   },{
     timestamps: true
 });
