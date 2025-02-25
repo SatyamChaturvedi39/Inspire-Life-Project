@@ -15,29 +15,28 @@ import Contact from "./pages/Contact";
 import SlotForm from "./pages/SlotForm";
 import AboutUs from "./pages/AboutUs";
 import Login from "./pages/Login";
+import AdminDashboard from "./pages/AgentDashboard";
+import ManageSlots from "./pages/ManageSlots";
 
 const App: React.FC = () => {
   return (
     <Router>
-      <Header /> {/* Optional: Consider adding if you had it in your imports */}
+      <Header />
       <Navbar />
       <Routes>
-        {/* Correct Routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/careers" element={<Careers />} />{" "}
-        {/* Fixed '/Careers' to '/careers' */}
+        <Route path="/careers" element={<Careers />} />
         <Route path="/policies" element={<Policies />} />
         <Route path="/policy/:slug" element={<PolicyDetails />} />
-        <Route path="*" element={<Home />} />{" "}
-        <Route path="/Careers" element={<Careers />} />
-        {/* Redirects to Home for unknown routes */}
         <Route path="/contact" element={<Contact />} />
-        {/* SlotForm route (Make sure it's '/slotform' as per your link) */}
-        <Route path="/slotform" element={<SlotForm />} /> {/* Corrected path */}
-        {/* Wildcard Route: Redirect to Home for unknown routes */}
+        <Route path="/slotform" element={<SlotForm />} />
+        <Route path="/about-us" element={<AboutUs />} />{" "}
+        {/* Unified to lowercase */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard/admin" element={<AdminDashboard />} />
+        <Route path="/manage-slots" element={<ManageSlots />} />
+        {/* (Redirects unknown routes to Home) */}
         <Route path="*" element={<Home />} />
-        <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="/Login" element={<Login />} />
       </Routes>
       <Footer />
     </Router>

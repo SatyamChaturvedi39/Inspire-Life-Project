@@ -1,0 +1,82 @@
+.agent-dashboard {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+  }
+
+  .agent-image{
+    width: 101%;
+    height: 80vw;
+    object-fit: cover;
+    border: none; 
+    padding: 0; 
+    margin-top: 20%;
+  }
+  
+  .agent-content {
+    margin-top: -20px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .agent-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .agent-btn {
+    background-color: #f89c1c;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .agent-btn:hover {
+    background-color: #e88b0c;
+  }
+  
+  .appointment-container {
+    background: #dfe5eb;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+  
+  .appointment-date {
+    background: #193c63;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+  }
+  
+  .appointment-tag {
+    background: white;
+    color: #193c63;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-left: 10px;
+  }
+  
+  .appointment-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+  }
+  
+  .appointment-slot {
+    font-size: 16px;
+    color: #333;
+    padding: 5px 0;
+  }
+  

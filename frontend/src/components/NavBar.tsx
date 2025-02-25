@@ -8,17 +8,14 @@ const NavBar = () => {
     <nav>
       <ul>
         <li className="first-child">
-          <Link
-            to="/"
-            className={location.pathname === "/" ? "active" : ""}
-          >
+          <Link to="/" className={location.pathname === "/" ? "active" : ""}>
             Home
           </Link>
         </li>
         <li>
           <Link
-            to="/aboutus"
-            className={location.pathname === "/aboutus" ? "active" : ""}
+            to="/about-us"
+            className={location.pathname === "/about-us" ? "active" : ""}
           >
             About Us
           </Link>
@@ -39,12 +36,21 @@ const NavBar = () => {
             Careers
           </Link>
         </li>
-        <li className="last-child">
+        <li>
           <Link
             to="/contact"
             className={location.pathname === "/contact" ? "active" : ""}
           >
             Contact
+          </Link>
+        </li>
+        {/* Login Page Link */}
+        <li className="login-link">
+          <Link
+            to="/login"
+            className={location.pathname.startsWith("/login") ? "active" : ""}
+          >
+            Login
           </Link>
         </li>
       </ul>
