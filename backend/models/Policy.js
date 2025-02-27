@@ -19,6 +19,11 @@ const policySchema = new mongoose.Schema({
       ref: "Agent", // This tells Mongoose that `agentId` references the `Agent` collection
       required: false, // Optional: If policies can exist without an agent
     },
+    adminId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admin",
+      required: false,
+    },
     createdBy: {type: mongoose.Schema.Types.ObjectId, ref: "Agent"},
     createdBy: {type: mongoose.Schema.Types.ObjectId, ref: "Admin"}
   },{

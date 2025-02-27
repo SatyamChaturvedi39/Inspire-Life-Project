@@ -1,0 +1,167 @@
+.manage-policies-container {
+    padding: 10px;
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
+  }
+  
+  .manage-policies-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /*back button left-aligned */
+    margin-bottom: 20px;
+  }
+  
+  .manage-policies-back-button {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .manage-policies-header-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Title on left, buttons on right */
+    align-items: center;
+  }
+  
+  .manage-policies-header-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .manage-policies-header-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .manage-policies-add-button {
+    background-color: #28a745; /* Green for ADD button */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .manage-policies-add-button:hover {
+    background-color: #218838;
+  }
+  
+  .manage-policies-delete-button {
+    background-color: #dc3545; /* Red for DELETE button */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .manage-policies-delete-button:hover {
+    background-color: #c82333;
+  }
+  
+  /* Policies List */
+  .manage-policies-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Policy Card - MOBILE FIRST: column layout, text left, update button right-aligned via self-end */
+  .manage-policies-policy-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Mobile: stack content vertically */
+    align-items: flex-start;
+  }
+  
+  .manage-policies-delete-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #dc3545;
+  }
+  
+  .manage-policies-policy-info {
+    width: 100%;
+    text-align: left; /* Left-align text on mobile */
+    margin-bottom: 10px;
+  }
+  
+  .manage-policies-policy-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .manage-policies-policy-company,
+  .manage-policies-policy-age,
+  .manage-policies-policy-short-description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 3px;
+  }
+  
+  /* Update button on mobile: place it at the end of the card */
+  .manage-policies-update-button {
+    align-self: flex-end; /* Right-align the button in column layout */
+    background-color: rgba(14, 56, 105, 1); /* Blue for UPDATE */
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .manage-policies-update-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .manage-policies-no-policies {
+    text-align: center;
+    color: #888;
+    font-size: 16px;
+  }
+  
+  /* ========== DESKTOP STYLES (min-width: 481px) ========== */
+  @media (min-width: 1024px) {
+    .manage-policies-header-title {
+      font-size: 24px;
+    }
+  
+    .manage-policies-add-button,
+    .manage-policies-delete-button,
+    .manage-policies-update-button {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  
+    /* On desktop, policy card is row-based, text on left, update button on the right */
+    .manage-policies-policy-card {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .manage-policies-policy-info {
+      margin-bottom: 0;
+    }
+  
+    .manage-policies-update-button {
+      align-self: auto; /* revert to normal flow in row layout */
+      margin-left: 15px; /* small gap from text area */
+    }
+  }
+  

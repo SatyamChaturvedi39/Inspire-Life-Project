@@ -1,0 +1,66 @@
+/* PolicyFormPopup.css */
+.policy-form-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .policy-form-popup {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  
+  .policy-form-popup h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .policy-form-popup form input,
+  .policy-form-popup form textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .policy-form-popup form textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .policy-form-popup-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .policy-form-submit-button {
+    background-color: #28a745; /* Green for Create/Update button */ 
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .policy-form-cancel-button {
+    background-color: #dc3545; /* Red for cancel button */ 
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }  
