@@ -8,22 +8,10 @@ interface SlotItemProps {
 }
 
 const SlotItem: React.FC<SlotItemProps> = ({ time, status, onClick }) => {
-  // Function to generate class based on status
-  const getStatusClass = (status: string) => {
-    switch (status) {
-      case "Booked":
-        return "slot-booked";
-      case "Available":
-        return "slot-available";
-      case "Unavailable":
-        return "slot-unavailable";
-      default:
-        return "";
-    }
-  };
+  const statusClass = status.toLowerCase(); // Convert to lowercase for CSS
 
   return (
-    <div className={`slot-item ${getStatusClass(status)}`} onClick={onClick}>
+    <div className={`slot-item ${statusClass}`} onClick={onClick}>
       <span>{time}</span>
       <p>{status}</p>
     </div>
