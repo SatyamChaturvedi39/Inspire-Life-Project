@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./AdminDashboard.css"; // Import CSS for styling
-
 import adminImage from "../assets/adminimage.jpg"; // Import admin image
 
 const AdminDashboard: React.FC = () => {
@@ -32,7 +31,13 @@ const AdminDashboard: React.FC = () => {
             Manage Policies
           </Link>
           <Link to="/manage-slots" className="admin-btn">
-            Manage Policies
+            Manage Policies Appointments
+          </Link>
+          <Link to="/" className="admin-btn">
+            Manage Applicant
+          </Link>
+          <Link to="/" className="admin-btn">
+            Manage Agents
           </Link>
         </div>
 

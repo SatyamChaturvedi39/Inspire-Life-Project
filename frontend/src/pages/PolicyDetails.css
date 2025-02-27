@@ -1,66 +1,187 @@
+/* PolicyDetails.css - Updated with limited image height and smaller cards */
+
 .policy-details-container {
-    max-width: 800px; /* Ensure content does not stretch too wide */
-    margin: 80px auto; /* Creates space between navbar and footer */
-    padding: 20px; /* Adds inner spacing */
-    background: white; /* Ensures visibility */
-    border-radius: 8px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  width: 100%;
+  position: relative;
+  background: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Hero Image styling with limited height */
+.policy-hero-image-container {
+  width: 100%;
+  height: 250px; /* Limited height for mobile */
+  overflow: hidden;
+  margin-top: 50px; /* Space for navbar */
+}
+
+.policy-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Loading and error states */
+.loading-container {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+/* Content container */
+.policy-content {
+  padding: 30px 5%;
+  width: 100%;
+}
+
+/* Title styling */
+.policy-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #0b1c2c;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Info section styling */
+.policy-info {
+  margin-bottom: 30px;
+}
+
+.policy-info p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+/* Features section */
+.features-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #0b1c2c;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); /* Reduced from 240px to 170px (about 30% smaller) */
+  gap: 20px;
+  margin-bottom: 30px;
+  max-width: 840px; /* Reduced from potential 1200px to make overall grid smaller */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature-card {
+  background: #fff;
+  padding: 15px; /* Reduced from 20px */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  aspect-ratio: 1 / 1; /* Keep cards square */
+}
+
+.feature-title {
+  font-weight: bold;
+  font-size: 16px; /* Reduced from 18px */
+  color: #0b1c2c;
+  margin-bottom: 8px; /* Reduced from 10px */
+  text-align: center;
+}
+
+.feature-value {
+  font-size: 14px; /* Reduced from 16px */
+  color: #555;
+  text-align: center;
+}
+
+/* Contact button styling */
+.contact-button {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 30px;
+  background-color: #162c5a; /* Dark blue color matching navbar active */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.contact-button:hover {
+  background-color: #2759a9;
+}
+
+/* Responsive styles */
+@media (min-width: 1024px) {
+  .policy-hero-image-container {
+    height: 40vh; /* Taller on desktop */
   }
-  
-  .policy-details-container h1 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .policy-details-container p {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.5;
-    margin-bottom: 10px;
-  }
-  
-  .error {
-    color: red;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .policy-details-container {
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
-  }
-  
+
   .features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); /* Reduced from 250px */
+    gap: 20px;
+  }
+
+  .feature-card {
+    padding: 18px; /* Reduced from 24px */
   }
   
-  .feature-box {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    font-size: 14px;
+  .policy-title {
+    font-size: 30px; /* Slightly reduced */
   }
   
-  .contact-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: blue;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  .features-title {
+    font-size: 24px; /* Reduced from 28px */
   }
   
-  .contact-button:hover {
-    background-color: darkblue;
-  }  
+  .policy-content {
+    max-width: 1000px; /* Reduced from 1200px */
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Reduced from 150px */
+    gap: 12px; /* Reduced from 15px */
+  }
+
+  .feature-card {
+    padding: 12px; /* Reduced from 15px */
+  }
+
+  .feature-title {
+    font-size: 14px; /* Reduced from 16px */
+  }
+
+  .feature-value {
+    font-size: 12px; /* Reduced from 14px */
+  }
+  
+  .policy-title {
+    font-size: 22px; /* Reduced from 24px */
+  }
+  
+  .features-title {
+    font-size: 18px; /* Reduced from 20px */
+  }
+}

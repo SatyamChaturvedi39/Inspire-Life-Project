@@ -32,8 +32,8 @@ const App: React.FC = () => {
         <Route path="/slotform" element={<SlotForm />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard/agent" element={<AgentDashboard />} />
         <Route path="/dashboard/admin" element={<AgentDashboard />} />
-
         {/* 404 - Not Found Page */}
         <Route path="*" element={<Home />} />
       </Routes>

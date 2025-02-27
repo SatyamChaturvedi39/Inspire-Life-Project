@@ -3,7 +3,10 @@ import "./Navbar.css";
 
 const NavBar = () => {
   const location = useLocation();
-
+  
+  // Check if the current path starts with /policy/ to highlight Policies link
+  const isPolicyPage = location.pathname.startsWith('/policy/');
+  
   return (
     <nav>
       <ul>
@@ -23,7 +26,7 @@ const NavBar = () => {
         <li>
           <Link
             to="/policies"
-            className={location.pathname === "/policies" ? "active" : ""}
+            className={location.pathname === "/policies" || isPolicyPage ? "active" : ""}
           >
             Policies
           </Link>

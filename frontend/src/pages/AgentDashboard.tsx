@@ -21,13 +21,11 @@ const AgentDashboard: React.FC = () => {
           {/* Manage Buttons */}
           <div className="agent-buttons">
             <button className="agent-btn">Manage Policies</button>
-            <button
-              className="agent-btn"
-              onClick={() => setActiveComponent("manageSlots")}
-            >
-              Manage Appointments
+            <button className="agent-btn" onClick={() => setActiveComponent("manageSlots")}>
+              Manage Policies Appointments
             </button>
           </div>
+          
         </div>
       ) : (
         <ManageSlots onBack={() => setActiveComponent("default")} />
