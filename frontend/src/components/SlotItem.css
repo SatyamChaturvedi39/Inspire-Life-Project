@@ -1,0 +1,32 @@
+.slot-item {
+    width: 120px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    transition: 0.2s ease-in-out;
+  }
+  
+  /* Different slot colors based on status */
+  .slot-available {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .slot-booked {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+  .slot-unavailable {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  /* Hover effect */
+  .slot-item:hover {
+    opacity: 0.8;
+  }
+  

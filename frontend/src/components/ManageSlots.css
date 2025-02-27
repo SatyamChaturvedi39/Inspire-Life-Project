@@ -1,0 +1,99 @@
+.manage-slots {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .back-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .back-btn:hover {
+    background: #0056b3;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .slots-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  .slot-item {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .slot-item.booked {
+    background: #d9534f;
+    color: white;
+  }
+  
+  .slot-item.available {
+    background: #5cb85c;
+    color: white;
+  }
+  
+  .slot-item.unavailable {
+    background: #f0ad4e;
+    color: white;
+  }
+  
+  .slot-item:hover {
+    opacity: 0.8;
+  }
+  
+  .scheduled-appointments {
+    margin-top: 30px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 6px;
+  }
+  
+  .scheduled-appointments h3 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .appointment-date {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  .appointment-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .appointment-slot {
+    background: #007bff;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    margin: 5px 0;
+    text-align: center;
+  }
+  

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import SlotItem from "../components/SlotItem";
-import SlotPopup from "../components/SlotPopup";
+import "./ManageSlots.css"; // Custom CSS file
+import SlotItem from "./SlotItem";
+import SlotPopup from "./SlotPopup";
+import AppointmentSlot from "./AppointmentSlot"; // Component to display appointments
 
 interface Slot {
   id: string;
@@ -9,12 +11,16 @@ interface Slot {
   status: "Available" | "Booked" | "Unavailable";
 }
 
-const ManageSlots: React.FC = () => {
+interface ManageSlotsProps {
+  onBack: () => void;
+}
+
+const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
   const [slots, setSlots] = useState<Slot[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/slots") // Fetch slots from backend
+    fetch("http://localhost:5001/api/meetings") // Fetch slots from backend
       .then((res) => res.json())
       .then((data) => setSlots(data));
   }, []);
@@ -27,7 +33,7 @@ const ManageSlots: React.FC = () => {
   const handleUpdateStatus = (newStatus: "Available" | "Unavailable") => {
     if (!selectedSlot) return;
 
-    fetch(`http://localhost:5001/api/slots/${selectedSlot.id}`, {
+    fetch(`http://localhost:5001/api/meetings/${selectedSlot.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus }),
@@ -42,10 +48,15 @@ const ManageSlots: React.FC = () => {
   };
 
   return (
-    <div className="p-5">
-      <h2 className="text-xl font-bold mb-4">Manage Slots</h2>
+    <div className="manage-slots">
+      {/* Back button to return to Agent Dashboard */}
+      <button className="back-btn" onClick={onBack}>
+        &larr; Back
+      </button>
 
-      <div className="grid grid-cols-3 gap-4">
+      <h2>Manage Slots</h2>
+
+      <div className="slots-container">
         {slots.map((slot) => (
           <SlotItem
             key={slot.id}
@@ -64,6 +75,9 @@ const ManageSlots: React.FC = () => {
           onUpdateStatus={handleUpdateStatus}
         />
       )}
+
+      {/* Displaying Scheduled Appointments below slots */}
+      <AppointmentSlot />
     </div>
   );
 };

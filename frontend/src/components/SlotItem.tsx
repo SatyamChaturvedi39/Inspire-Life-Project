@@ -1,31 +1,31 @@
 import React from "react";
+import "./SlotItem.css";
 
 interface SlotItemProps {
   time: string;
-  status: "Available" | "Booked" | "Unavailable";
+  status: "Booked" | "Available" | "Unavailable";
   onClick: () => void;
 }
 
 const SlotItem: React.FC<SlotItemProps> = ({ time, status, onClick }) => {
-  const getStatusColor = () => {
+  // Function to generate class based on status
+  const getStatusClass = (status: string) => {
     switch (status) {
-      case "Available":
-        return "bg-green-200 text-green-800";
       case "Booked":
-        return "bg-blue-200 text-blue-800";
+        return "slot-booked";
+      case "Available":
+        return "slot-available";
       case "Unavailable":
-        return "bg-red-200 text-red-800";
+        return "slot-unavailable";
       default:
-        return "bg-gray-200";
+        return "";
     }
   };
 
   return (
-    <div
-      className={`p-2 rounded-lg text-center font-semibold cursor-pointer ${getStatusColor()}`}
-      onClick={onClick}
-    >
-      {time}
+    <div className={`slot-item ${getStatusClass(status)}`} onClick={onClick}>
+      <span>{time}</span>
+      <p>{status}</p>
     </div>
   );
 };

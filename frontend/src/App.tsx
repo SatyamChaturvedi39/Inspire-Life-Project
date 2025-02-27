@@ -15,8 +15,8 @@ import Contact from "./pages/Contact";
 import SlotForm from "./pages/SlotForm";
 import AboutUs from "./pages/AboutUs";
 import Login from "./pages/Login";
-import AdminDashboard from "./pages/AgentDashboard";
-import ManageSlots from "./pages/ManageSlots";
+import AgentDashboard from "./pages/AgentDashboard";
+//import NotFound from "./pages/NotFound"; // Create a 404 Page
 
 const App: React.FC = () => {
   return (
@@ -30,14 +30,12 @@ const App: React.FC = () => {
         <Route path="/policy/:slug" element={<PolicyDetails />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/slotform" element={<SlotForm />} />
-        <Route path="/about-us" element={<AboutUs />} />{" "}
-        {/* Unified to lowercase */}
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/admin" element={<AdminDashboard />} />
-        <Route path="/manage-slots" element={<ManageSlots />} />
-         {/* Redirect unknown routes to Home */}
-        <Route path="*" element={<Home />} />{" "}
-       
+        <Route path="/dashboard/admin" element={<AgentDashboard />} />
+
+        {/* 404 - Not Found Page */}
+        <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
     </Router>

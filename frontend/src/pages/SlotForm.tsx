@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./SlotForm.css";
-
-// Importing the header image
 import slotImage from "../assets/slotimage.jpg";
 
 const SlotForm: React.FC = () => {
@@ -16,6 +14,7 @@ const SlotForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState<string>("");
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]); // ✅ Track booked slots
 
   const timeSlots = [
     "09:00 AM - 10:00 AM",
@@ -27,6 +26,34 @@ const SlotForm: React.FC = () => {
     "04:00 PM - 05:00 PM",
   ];
 
+  // ✅ Fetch booked slots when date is selected
+  useEffect(() => {
+    if (!selectedDate) return;
+
+    const fetchBookedSlots = async () => {
+      try {
+        const formattedDate = selectedDate.toISOString().split("T")[0];
+        const response = await fetch(
+          `http://localhost:5001/api/meetings?date=${formattedDate}`
+        );
+        const data = await response.json();
+
+        if (response.ok) {
+          const takenTimes = data.map((slot: { time: string }) => slot.time);
+          setBookedSlots(takenTimes);
+        } else {
+          setMessage("Failed to fetch booked slots.");
+          setMessageColor("red");
+        }
+      } catch (error) {
+        console.error("Error fetching booked slots:", error);
+      }
+    };
+
+    fetchBookedSlots();
+  }, [selectedDate]);
+
+  // ✅ Handle Form Submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedDate || !selectedTime || !name || !phoneNumber) {
@@ -64,6 +91,7 @@ const SlotForm: React.FC = () => {
         setComment("");
         setSelectedDate(null);
         setSelectedTime("");
+        setBookedSlots([...bookedSlots, selectedTime]); // ✅ Add new booking to state
       } else {
         setMessage(result.message || "Error booking slot.");
         setMessageColor("red");
@@ -78,7 +106,7 @@ const SlotForm: React.FC = () => {
 
   return (
     <div className="slot-form-container">
-      {/* Header image with full width */}
+      {/* Header Image */}
       <div
         className="slot-header-image"
         style={{
@@ -101,7 +129,7 @@ const SlotForm: React.FC = () => {
           </p>
         )}
 
-        {/* Form Fields Container */}
+        {/* Form Fields */}
         <div className="slot-form-fields-container">
           <div className="slot-form__field">
             <label>Name:</label>
@@ -170,8 +198,12 @@ const SlotForm: React.FC = () => {
           >
             <option value="">Select a time slot</option>
             {timeSlots.map((slot, index) => (
-              <option key={index} value={slot}>
-                {slot}
+              <option
+                key={index}
+                value={slot}
+                disabled={bookedSlots.includes(slot)}
+              >
+                {slot} {bookedSlots.includes(slot) ? "(Booked)" : ""}
               </option>
             ))}
           </select>
@@ -182,7 +214,7 @@ const SlotForm: React.FC = () => {
           <button
             type="submit"
             className="slot-form__button"
-            disabled={loading}
+            disabled={loading || bookedSlots.includes(selectedTime)}
           >
             {loading ? "Booking..." : "BOOK SLOT"}
           </button>

@@ -1,82 +1,104 @@
 .agent-dashboard {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    text-align: center;
-    background-color: #f8f9fa;
-  }
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  text-align: center;
+  background-color: #f8f9fa;
+}
 
-  .agent-image{
-    width: 101%;
-    height: 80vw;
-    object-fit: cover;
-    border: none; 
-    padding: 0; 
-    margin-top: 20%;
-  }
-  
-  .agent-content {
-    margin-top: -20px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .agent-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .agent-btn {
-    background-color: #f89c1c;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .agent-btn:hover {
-    background-color: #e88b0c;
-  }
-  
-  .appointment-container {
-    background: #dfe5eb;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0;
-  }
-  
-  .appointment-date {
-    background: #193c63;
-    color: white;
-    font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: inline-block;
-  }
-  
-  .appointment-tag {
-    background: white;
-    color: #193c63;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 2px 5px;
-    border-radius: 3px;
-    margin-left: 10px;
-  }
-  
-  .appointment-list {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 0;
-  }
-  
-  .appointment-slot {
-    font-size: 16px;
-    color: #333;
-    padding: 5px 0;
-  }
-  
+.agent-image {
+  width: 101%;
+  height: 80vw;
+  object-fit: cover;
+  border: none; 
+  padding: 0; 
+  margin-top: 20%;
+}
+
+.agent-content {
+  margin-top: -20px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.agent-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.agent-btn {
+  background-color: #f89c1c;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.agent-btn:hover {
+  background-color: #e88b0c;
+}
+
+/* Styling for scheduled appointments */
+.appointment-container {
+  background: #dfe5eb;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  border-left: 4px solid #193c63;
+}
+
+.appointment-date {
+  background: #193c63;
+  color: white;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.appointment-tag {
+  background: white;
+  color: #193c63;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-left: 10px;
+}
+
+.appointment-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+.appointment-slot {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 6px;
+  margin-top: 5px;
+  border-radius: 4px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Colors based on status */
+.appointment-slot.booked {
+  background: #ff4d4d;
+  color: white;
+}
+
+.appointment-slot.available {
+  background: #4caf50;
+  color: white;
+}
+
+.appointment-slot.unavailable {
+  background: #b0bec5;
+  color: black;
+}
