@@ -32,11 +32,19 @@ export const bookSlot = async (req, res) => {
   //get all slots
   export const getAllSlots = async (req, res) => {
     try {
-      const meetings = await Meeting.find();
+      const { date } = req.query; // Get the date from query params
+      let query = {};
+
+      if (date) {
+        query.date = date; // Only fetch meetings for the selected date
+      }
+
+      const meetings = await Meeting.find(query);
       res.status(200).json(meetings);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Internal Server Error" });
     }
-  };
+};
+
   

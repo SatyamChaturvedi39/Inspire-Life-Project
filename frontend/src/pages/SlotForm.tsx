@@ -20,37 +20,45 @@ const SlotForm: React.FC = () => {
     "09:00 AM - 10:00 AM",
     "10:00 AM - 11:00 AM",
     "11:00 AM - 12:00 PM",
+    "12:00 PM - 01:00 PM",
     "01:00 PM - 02:00 PM",
     "02:00 PM - 03:00 PM",
     "03:00 PM - 04:00 PM",
     "04:00 PM - 05:00 PM",
   ];
 
+  // ✅ Convert date to IST format (YYYY-MM-DD)
+  const convertToIST = (date: Date) => {
+    const istOffset = 5.5 * 60 * 60 * 1000; // IST is GMT+5:30
+    const istDate = new Date(date.getTime() + istOffset);
+    return istDate.toISOString().split("T")[0]; // Format YYYY-MM-DD
+  };
+
+  // ✅ Fetch booked slots from the backend
+  const fetchBookedSlots = async (date: Date) => {
+    try {
+      const formattedDate = convertToIST(date);
+      const response = await fetch(
+        `http://localhost:5001/api/meetings?date=${formattedDate}`
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        const takenTimes = data.map((slot: { time: string }) => slot.time);
+        setBookedSlots(takenTimes); // ✅ Update state with booked slots
+      } else {
+        setMessage("Failed to fetch booked slots.");
+        setMessageColor("red");
+      }
+    } catch (error) {
+      console.error("Error fetching booked slots:", error);
+    }
+  };
+
   // ✅ Fetch booked slots when date is selected
   useEffect(() => {
     if (!selectedDate) return;
-
-    const fetchBookedSlots = async () => {
-      try {
-        const formattedDate = selectedDate.toISOString().split("T")[0];
-        const response = await fetch(
-          `http://localhost:5001/api/meetings?date=${formattedDate}`
-        );
-        const data = await response.json();
-
-        if (response.ok) {
-          const takenTimes = data.map((slot: { time: string }) => slot.time);
-          setBookedSlots(takenTimes);
-        } else {
-          setMessage("Failed to fetch booked slots.");
-          setMessageColor("red");
-        }
-      } catch (error) {
-        console.error("Error fetching booked slots:", error);
-      }
-    };
-
-    fetchBookedSlots();
+    fetchBookedSlots(selectedDate);
   }, [selectedDate]);
 
   // ✅ Handle Form Submission
@@ -67,7 +75,7 @@ const SlotForm: React.FC = () => {
       phoneNumber,
       email,
       comment,
-      date: selectedDate.toISOString().split("T")[0],
+      date: convertToIST(selectedDate),
       time: selectedTime,
     };
 
@@ -89,9 +97,12 @@ const SlotForm: React.FC = () => {
         setPhoneNumber("");
         setEmail("");
         setComment("");
-        setSelectedDate(null);
         setSelectedTime("");
-        setBookedSlots([...bookedSlots, selectedTime]); // ✅ Add new booking to state
+
+        // ✅ Re-fetch booked slots immediately
+        setTimeout(() => {
+          if (selectedDate) fetchBookedSlots(selectedDate);
+        }, 500);
       } else {
         setMessage(result.message || "Error booking slot.");
         setMessageColor("red");
