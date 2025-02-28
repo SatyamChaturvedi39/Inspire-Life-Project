@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+//Context Imports
+import { AuthProvider } from "./context/AuthContext";
+
 // Component Imports
 import Header from "./components/Header";
 import Navbar from "./components/NavBar";
@@ -16,9 +19,11 @@ import SlotForm from "./pages/SlotForm";
 import AboutUs from "./pages/AboutUs";
 import Login from "./pages/Login";
 import AgentDashboard from "./pages/AgentDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App: React.FC = () => {
   return (
+    <AuthProvider>
     <Router>
       <Header />
       <Navbar />
@@ -26,17 +31,22 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/policies" element={<Policies />} />
-        <Route path="/policy/:slug" element={<PolicyDetails />} />
+        <Route path="/policies/:slug" element={<PolicyDetails />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/slotform" element={<SlotForm />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/admin" element={<AgentDashboard />} />
+        <Route path="/dashboard/admin" element={
+          <ProtectedRoute requiredRole="admin">
+            <AgentDashboard />
+          </ProtectedRoute>}/>
+
         {/* 404 - Not Found Page */}
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
     </Router>
+    </AuthProvider>
   );
 };
 

@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import meetingRoutes from "./routes/meetingRoutes.js";
 import clientRoutes from "./routes/clientRoutes.js";
 import policyRoutes from "./routes/policyRoutes.js";
@@ -16,8 +17,12 @@ const app = express();
 connectDB(); // Connect to the database
 
 // Middleware
-app.use(cors());
-app.use(express.json()); // Allows us to accept JSON data in the req.body
+app.use(cors({
+    origin: "http://localhost:5173", // Frontend origin
+    credentials: true,
+  }));
+app.use(express.json()); //allows us to accept JSON data in the req.body
+app.use(cookieParser());
 
 // Routes
 app.use("/api/clients", clientRoutes);

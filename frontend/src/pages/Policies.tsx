@@ -69,7 +69,7 @@ const PolicyPage: React.FC = () => {
       .replace(/\s+/g, "-")
       .replace(/[^a-z0-9-]/g, ""); // Ensures consistent slug format
 
-    navigate(`/policy/${slug}`);
+    navigate(`/policies/${slug}`);
   };
 
   return (

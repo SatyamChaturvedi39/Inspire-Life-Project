@@ -1,48 +1,80 @@
 // controllers/authController.js
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import Admin from '../models/Admin.js';
-import Agent from '../models/Agent.js';
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import Admin from "../models/Admin.js";
+import Agent from "../models/Agent.js";
+
+// Generate an access token that expires in 15 minutes
+const generateAccessToken = (payload) => {
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
+};
+
+// Generate a refresh token that expires in 7 days
+const generateRefreshToken = (payload) => {
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
+};
 
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     let user;
     let role;
-
-    // First, check the Admin collection
+    
+    // Check admin first, then agent
     user = await Admin.findOne({ email });
     if (user) {
       role = "admin";
     } else {
-      // Check the Agent collection
       user = await Agent.findOne({ email });
-      if (user) {
-        role = "agent";
-      }
+      role = "agent";
     }
-
+    
     if (!user) {
-      console.error("User not found!");
       return res.status(401).json({ message: "User does not exist" });
     }
-
-    // Compare provided password with stored hash
+    
     const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) {
-      console.error(` Invalid password for email: ${email}`);
       return res.status(401).json({ message: "Invalid password" });
     }
-
-    // Create the token payload
-    const tokenPayload = { id: user._id, role };
-    // Sign the JWT token (expires in 1 day)
-    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: "1d" });
-    console.log(` Login successful for email: ${email}. Token generated.`);
-
-    return res.json({ token, role });
+    
+    const payload = { id: user._id, role };
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
+    const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
+    
+    // Set refresh token as httpOnly cookie (for development, secure: false)
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production" ? true : false,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+    
+    res.json({ accessToken, role });
   } catch (error) {
-    console.error(` Error during login: ${error.message}`);
-    return res.status(500).json({ message: "Internal Server Error" });
+    console.error("[Login] Error:", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+// controllers/authController.js (refreshToken function)
+export const refreshToken = async (req, res) => {
+  try {
+    const { refreshToken } = req.cookies;
+    console.log("[RefreshToken] Refresh token from cookie:", refreshToken);
+    if (!refreshToken) {
+      return res.status(401).json({ message: "No refresh token provided" });
+    }
+    jwt.verify(refreshToken, process.env.JWT_SECRET, (err, payload) => {
+      if (err) {
+        console.error("[RefreshToken] Invalid refresh token:", err.message);
+        return res.status(403).json({ message: "Invalid refresh token" });
+      }
+      const newAccessToken = jwt.sign({ id: payload.id, role: payload.role }, process.env.JWT_SECRET, { expiresIn: "15m" });
+      res.json({ accessToken: newAccessToken });
+    });
+  } catch (error) {
+    console.error("[RefreshToken] Error:", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

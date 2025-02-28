@@ -12,9 +12,13 @@
   }
   
   .manage-policies-back-button {
-    cursor: pointer;
-    color: #007bff;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
     font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
     margin-bottom: 10px;
   }
   
@@ -88,7 +92,7 @@
     top: 5px;
     right: 5px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     color: #dc3545;
   }
   
@@ -164,4 +168,50 @@
       margin-left: 15px; /* small gap from text area */
     }
   }
+
+  .delete-confirm-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .delete-confirm-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .delete-confirm-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .delete-confirm-yes,
+  .delete-confirm-no {
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .delete-confirm-yes {
+    background: red;
+    margin-left: 25%;
+    color: white;
+  }
+  
+  .delete-confirm-no {
+    background: gray;
+    color: white;
+    margin-right: 30%;
+  }  
   

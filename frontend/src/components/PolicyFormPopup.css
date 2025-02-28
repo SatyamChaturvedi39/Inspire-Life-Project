@@ -1,66 +1,108 @@
 /* PolicyFormPopup.css */
+
 .policy-form-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.policy-form-popup {
+  background: #fff;
+  padding: 20px; /* Keep padding for mobile */
+  border-radius: 8px; /* Keep border radius for mobile */
+  width: 90%;
+  max-width: 500px; /* Keep max-width for mobile */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.policy-form-popup h2 {
+  margin-top: 0;
+  margin-bottom: 20px; /* Keep margin for mobile */
+  text-align: center;
+  font-size: 1.5rem; /* Keep font size for mobile */
+}
+
+.policy-form-popup form input,
+.policy-form-popup form textarea {
+  width: 100%;
+  margin-bottom: 10px; /* Keep margin for mobile */
+  padding: 10px; /* Keep padding for mobile */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem; /* Keep font size for mobile */
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word; /* Break long words */
+}
+
+.policy-form-popup form textarea {
+  resize: vertical;
+  min-height: 100px; /* Keep height for mobile */
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word; /* Break long words */
+}
+
+.policy-form-popup-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Keep margin for mobile */
+}
+
+.policy-form-submit-button,
+.policy-form-cancel-button {
+  color: #fff;
+  border: none;
+  padding: 10px 20px; /* Keep padding for mobile */
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem; /* Keep font size for mobile */
+}
+
+.policy-form-submit-button {
+  background-color: #28a745; /* Green for Create/Update button */
+}
+
+.policy-form-cancel-button {
+  background-color: #dc3545; /* Red for cancel button */
+}
+
+/* Desktop Media Query */
+@media (min-width: 1024px) {
   .policy-form-popup {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    max-width: 400px; /* Smaller max-width for desktop */
+    padding: 15px; /* Smaller padding for desktop */
   }
-  
+
   .policy-form-popup h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
+    font-size: 1.3rem; /* Smaller font size for desktop */
+    margin-bottom: 15px; /* Smaller margin for desktop */
   }
-  
+
   .policy-form-popup form input,
   .policy-form-popup form textarea {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 8px; /* Smaller padding for desktop */
+    font-size: 0.9rem; /* Smaller font size for desktop */
+    margin-bottom: 8px; /* Smaller margin for desktop */
   }
-  
+
   .policy-form-popup form textarea {
-    resize: vertical;
-    min-height: 80px;
+    min-height: 80px; /* Smaller height for desktop */
   }
-  
+
   .policy-form-popup-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
+    margin-top: 15px; /* Smaller margin for desktop */
   }
-  
-  .policy-form-submit-button {
-    background-color: #28a745; /* Green for Create/Update button */ 
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
+
+  .policy-form-submit-button,
   .policy-form-cancel-button {
-    background-color: #dc3545; /* Red for cancel button */ 
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-  }  
+    padding: 8px 16px; /* Smaller padding for desktop */
+    font-size: 0.9rem; /* Smaller font size for desktop */
+  }
+}
