@@ -118,7 +118,7 @@ const PolicyDetails: React.FC = () => {
           </div>
           
           <div className="appointment-section">
-            <h3>Schedule an appointment with our agent for more details:</h3>
+            <h3>Consult our agent for more details:</h3>
             <img 
               src={bookSlotImage} 
               alt="Book appointment" 
