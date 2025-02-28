@@ -34,29 +34,48 @@ const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
   const [slots, setSlots] = useState<Slot[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
   const [currentDate, setCurrentDate] = useState(dayjs().format("YYYY-MM-DD"));
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSlots = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const response = await fetch(
           `http://localhost:5001/api/meetings?date=${currentDate}`
         );
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch slots: ${response.status} ${response.statusText}`
+          );
+        }
+
         const bookedMeetings = await response.json();
 
         const allSlots = TIME_SLOTS.map((timeString) => {
-          const isBooked = bookedMeetings.some(
-            (meeting: { time: string }) => meeting.time === timeString
+          const meeting = bookedMeetings.find(
+            (meeting: { time: string; status: string }) =>
+              meeting.time === timeString
           );
+
+          // If a meeting exists, use its status, otherwise mark as "Available"
           return {
             time: timeString,
             date: currentDate,
-            status: isBooked ? ("Booked" as const) : ("Available" as const),
+            status: meeting
+              ? (meeting.status as "Available" | "Booked" | "Unavailable")
+              : "Available",
           };
         });
 
         setSlots(allSlots);
       } catch (error) {
         console.error("Error fetching slots:", error);
+        setError(String(error));
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -64,7 +83,11 @@ const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
   }, [currentDate]);
 
   const handleSlotClick = (slot: Slot) => {
-    if (slot.status === "Booked") return;
+    console.log("Slot clicked in ManageSlots:", slot); // Debug logging
+    if (slot.status === "Booked") {
+      console.log("Cannot edit booked slot");
+      return;
+    }
     setSelectedSlot(slot);
   };
 
@@ -72,6 +95,17 @@ const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
     setCurrentDate((prevDate) =>
       dayjs(prevDate).add(days, "day").format("YYYY-MM-DD")
     );
+  };
+
+  const handleStatusChange = (newStatus: "Available" | "Unavailable") => {
+    if (!selectedSlot) return;
+
+    setSlots((prevSlots) =>
+      prevSlots.map((s) =>
+        s.time === selectedSlot.time ? { ...s, status: newStatus } : s
+      )
+    );
+    setSelectedSlot(null);
   };
 
   return (
@@ -83,36 +117,36 @@ const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
       <h2>Manage Slots</h2>
 
       <div className="date-selector">
-        <button onClick={() => handleDateChange(-1)}>{"<<"}</button>
+        <button onClick={() => handleDateChange(-1)}>Previous Day</button>
         <h3>{dayjs(currentDate).format("DD MMMM, YYYY")}</h3>
-        <button onClick={() => handleDateChange(1)}>{">>"}</button>
+        <button onClick={() => handleDateChange(1)}>Next Day</button>
       </div>
 
-      <div className="slots-container">
-        {slots.map((slot) => (
-          <SlotItem
-            key={slot.time}
-            time={slot.time}
-            status={slot.status}
-            onClick={() => handleSlotClick(slot)}
-          />
-        ))}
-      </div>
+      {error && <div className="error-message">{error}</div>}
+
+      {loading ? (
+        <div className="loading">Loading slots...</div>
+      ) : (
+        <div className="slots-container">
+          {slots.map((slot) => (
+            <SlotItem
+              key={slot.time}
+              time={slot.time}
+              status={slot.status}
+              onClick={() => handleSlotClick(slot)}
+            />
+          ))}
+        </div>
+      )}
 
       {selectedSlot && (
-        <SlotPopup
-          time={selectedSlot.time}
-          date={selectedSlot.date}
-          onClose={() => setSelectedSlot(null)}
-          onUpdateStatus={(newStatus) => {
-            setSlots((prevSlots) =>
-              prevSlots.map((s) =>
-                s.time === selectedSlot.time ? { ...s, status: newStatus } : s
-              )
-            );
-            setSelectedSlot(null);
-          }}
-        />
+        <div className="popup-overlay">
+          <SlotPopup
+            slot={selectedSlot}
+            onClose={() => setSelectedSlot(null)}
+            onStatusChange={handleStatusChange}
+          />
+        </div>
       )}
 
       <AppointmentSlot />

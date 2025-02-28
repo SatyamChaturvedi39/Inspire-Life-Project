@@ -1,0 +1,58 @@
+.appointment-slots {
+    margin: 30px 0;
+    padding: 0 15px;
+    max-width: 700px;
+  }
+  
+  .appointment-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .appointment-date-group {
+    margin-bottom: 20px;
+  }
+  
+  .appointment-date {
+    background-color: #1a365d;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .appointment-time {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .appointment-client {
+    font-weight: normal;
+    color: #4a5568;
+  }
+  
+  .no-appointments {
+    text-align: center;
+    color: #718096;
+    font-style: italic;
+    padding: 20px;
+  }
+  
+  .appointment-loading {
+    text-align: center;
+    color: #718096;
+    padding: 20px;
+  }
+  
+  .appointment-error {
+    text-align: center;
+    color: #e53e3e;
+    padding: 20px;
+    background-color: #fed7d7;
+    border-radius: 5px;
+  }
