@@ -5,7 +5,7 @@ const NavBar = () => {
   const location = useLocation();
   
   // Check if the current path starts with /policy/ to highlight Policies link
-  const isPolicyPage = location.pathname.startsWith('/policy/');
+  const isPolicyPage = location.pathname.startsWith('/policies/');
   
   return (
     <nav>

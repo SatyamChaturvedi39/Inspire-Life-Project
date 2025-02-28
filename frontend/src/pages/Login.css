@@ -1,68 +1,96 @@
+/* Login.css - Mobile First Approach */
 .login-container {
+  width: 90%;
+  margin: 150px auto;
+  margin-top: 60%;
+  padding: 25px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  position: relative;
+  z-index: 1; /* Ensure it stays above header */
+}
+
+.login-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.login-container .error {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-container form input {
+  width: 100%;
+  padding: 0.875rem;
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.login-container form input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+.login-container form button {
+  width: 100%;
+  padding: 0.875rem;
+  background-color: #3498db;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Laptop/Desktop Styles */
+@media (min-width: 1024px) {
+  .login-container {
     max-width: 400px;
     margin: 100px auto;
+    margin-top: 20%;
     padding: 40px 30px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-family: "Helvetica Neue", Arial, sans-serif;
   }
-  
+
   .login-container h2 {
-    margin-bottom: 20px;
-    font-size: 28px;
-    color: #333333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
   }
-  
-  .login-container .error {
-    color: #d9534f; /* Bootstrap danger color */
-    margin-bottom: 15px;
-    font-size: 14px;
-  }
-  
+
   .login-container form {
-    display: flex;
-    flex-direction: column;
+    gap: 1.5rem;
   }
-  
+
   .login-container form input {
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s ease;
+    padding: 1rem;
   }
-  
-  .login-container form input:focus {
-    border-color: #007bff;
-  }
-  
+
   .login-container form button {
-    padding: 12px;
-    background-color: #007bff;
-    color: #ffffff;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 1rem;
   }
-  
-  .login-container form button:hover {
-    background-color: #0056b3;
+}
+
+/* Adjustments for header */
+@media (max-height: 700px) {
+  .login-container {
+    margin-top: 15vh;
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 480px) {
-    .login-container {
-      margin: 50px 20px;
-      padding: 30px 20px;
-    }
-  
-    .login-container h2 {
-      font-size: 24px;
-    }
-  }  
+}
