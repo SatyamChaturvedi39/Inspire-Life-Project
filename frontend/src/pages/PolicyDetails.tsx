@@ -66,11 +66,6 @@ const PolicyDetails: React.FC = () => {
     setShowPopup(false);
   };
 
-  const handleSubmitAppointment = () => {
-    setShowPopup(false);
-    // Additional logic after successful submission can be added here
-  };
-
   return (
     <div className="policy-details-container">
       {/* Full-width hero image */}
@@ -118,12 +113,12 @@ const PolicyDetails: React.FC = () => {
           </div>
           <div className="dummy-text">
               <h3>Why Choose This Policy?</h3>
-              <p>Get the best insurance services with this policy. This policy offers a wide range of benefits that help protect you and your family from unexpected events. With competitive premiums and comprehensive coverage, we ensure you receive maximum value for your investment. Our dedicated team of experts is always ready to assist you with claims and inquiries, providing timely and efficient service when you need it most.
+              <p>Get the best insurance services with this policy. Our policy offers a wide range of benefits that help protect you and your family from unexpected events. With competitive premiums and comprehensive coverage, we ensure you receive maximum value for your investment. Our dedicated team of experts is always ready to assist you with claims and inquiries, providing timely and efficient service when you need it most.
               </p>
           </div>
           
           <div className="appointment-section">
-            <h3>Consult our agent for more details:</h3>
+            <h3>Schedule an appointment with our agent for more details:</h3>
             <img 
               src={bookSlotImage} 
               alt="Book appointment" 
@@ -136,8 +131,7 @@ const PolicyDetails: React.FC = () => {
 
       {showPopup && (
         <PolicyPopup 
-          onClose={handleClosePopup} 
-          onSubmit={handleSubmitAppointment}
+          onClose={handleClosePopup}
           policyName={policy?.policyName || ""}
         />
       )}
