@@ -15,7 +15,7 @@ const AgentDashboard: React.FC = () => {
       <div className="agent-dashboard-details">
       {activeComponent === "default" ? (
         <div className="agent-content">
-          <h2>Welcome, Satyam!</h2>
+          <h2>Welcome, Agent!</h2>
           <div className="agent-buttons">
             <button 
               className="agent-btn" 

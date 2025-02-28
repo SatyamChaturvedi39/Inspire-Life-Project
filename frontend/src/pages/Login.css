@@ -51,7 +51,7 @@
 .login-container form button {
   width: 100%;
   padding: 0.875rem;
-  background-color: #3498db;
+  background-color: rgba(14, 56, 105, 1);
   color: #ffffff;
   font-size: 1rem;
   font-weight: 500;
