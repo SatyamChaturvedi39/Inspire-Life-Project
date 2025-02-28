@@ -126,7 +126,7 @@ const PolicyPopup: React.FC<PolicyPopupProps> = ({ onClose, policyName }) => {
                   onChange={handlePhoneNumberChange}
                   required
                   className="form-input"
-                  placeholder="Enter your phone number"
+                  placeholder="Enter your phone number (WhatsApp)"
                   pattern="\d{10,13}"
                 />
               </div>
@@ -140,7 +140,7 @@ const PolicyPopup: React.FC<PolicyPopupProps> = ({ onClose, policyName }) => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="form-input"
-                  placeholder="email_name@example.com"
+                  placeholder="Enter your email"
                   pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                   title="Please enter a valid email address (example: name@example.com)"
                 />
@@ -184,7 +184,7 @@ const PolicyPopup: React.FC<PolicyPopupProps> = ({ onClose, policyName }) => {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   className="form-textarea"
-                  placeholder="Ask your questions or specify any details"
+                  placeholder="Ask a question or any specific detail about the policy"
                   rows={4}
                 />
               </div>
