@@ -12,7 +12,7 @@ const AgentDashboard: React.FC = () => {
   return (
     <div className="agent-dashboard">
       <img src={agentImage} alt="Agent" className="agent-image" />
-
+      <div className="agent-dashboard-details">
       {activeComponent === "default" ? (
         <div className="agent-content">
           <h2>Welcome, Satyam!</h2>
@@ -42,6 +42,7 @@ const AgentDashboard: React.FC = () => {
           onDelete={() => { console.log("Delete policy"); }} 
         />
       )}
+      </div>
     </div>
   );
 };

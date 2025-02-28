@@ -1,22 +1,23 @@
+/* Mobile First */
 .agent-dashboard {
   font-family: Arial, sans-serif;
-  padding: 20px;
   text-align: center;
   background-color: #f8f9fa;
 }
 
+.agent-dashboard-details {
+  padding: 15px;
+}
+
 .agent-image {
-  width: 101%;
+  width: 100%;
   height: 80vw;
   object-fit: cover;
-  border: none; 
-  padding: 0; 
   margin-top: 20%;
 }
 
 .agent-content {
-  margin-top: -20px;
-  padding: 20px;
+  margin-top: -15px;
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -24,9 +25,10 @@
 
 .agent-buttons {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  flex-direction: row;
+  gap: 8px;
+  margin: 15px auto;
+  margin-left: 1%;
 }
 
 .agent-btn {
@@ -42,7 +44,6 @@
   background-color: #e88b0c;
 }
 
-/* Styling for scheduled appointments */
 .appointment-container {
   background: #dfe5eb;
   padding: 10px;
@@ -87,7 +88,6 @@
   text-align: center;
 }
 
-/* Colors based on status */
 .appointment-slot.booked {
   background: #ff4d4d;
   color: white;
@@ -101,4 +101,26 @@
 .appointment-slot.unavailable {
   background: #b0bec5;
   color: black;
+}
+/* Desktop 1024px+ */
+@media (min-width: 1024px) {
+  .agent-dashboard-details {
+    padding: 20px;
+  }
+
+  .agent-image {
+    height: 30vh;
+    margin-top: 5%;
+  }
+
+  .agent-content {
+    margin-top: -20px;
+  }
+
+  .agent-buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
 }
