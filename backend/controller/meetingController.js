@@ -28,6 +28,29 @@ export const bookSlot = async (req, res) => {
       res.status(500).json({ message: "Internal Server Error" });
     }
   };
+
+  export const updateSlotStatus = async (req, res) => {
+    try {
+        const { date, time, status } = req.body;
+
+        // Find the slot in the database
+        let meeting = await Meeting.findOne({ date, time });
+
+        if (!meeting) {
+            return res.status(404).json({ message: "Slot not found!" });
+        }
+
+        // Update the status of the slot
+        meeting.status = status;
+        await meeting.save();
+
+        res.status(200).json({ message: "Slot status updated successfully!", meeting });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
   
   //get all slots
   export const getAllSlots = async (req, res) => {

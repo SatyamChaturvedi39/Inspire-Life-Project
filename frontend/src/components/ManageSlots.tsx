@@ -3,7 +3,7 @@ import "./ManageSlots.css";
 import SlotItem from "./SlotItem";
 import SlotPopup from "./SlotPopup";
 import AppointmentSlot from "./AppointmentSlot";
-import dayjs from "dayjs"; // Ensure you install this using: npm install dayjs
+import dayjs from "dayjs";
 
 interface Slot {
   time: string;
@@ -15,16 +15,20 @@ interface ManageSlotsProps {
   onBack: () => void;
 }
 
-const generateTimeSlots = () => {
-  const slots = [];
-  for (let hour = 9; hour <= 17; hour++) {
-    const time = `${hour % 12 || 12}:00 ${hour >= 12 ? "PM" : "AM"} - ${
-      (hour + 1) % 12 || 12
-    }:00 ${hour + 1 >= 12 ? "PM" : "AM"}`;
-    slots.push(time);
-  }
-  return slots;
-};
+/**
+ * IMPORTANT: Use the same time slots
+ * that SlotForm.tsx uses.
+ */
+const TIME_SLOTS = [
+  "09:00 AM - 10:00 AM",
+  "10:00 AM - 11:00 AM",
+  "11:00 AM - 12:00 PM",
+  "12:00 PM - 01:00 PM",
+  "01:00 PM - 02:00 PM",
+  "02:00 PM - 03:00 PM",
+  "03:00 PM - 04:00 PM",
+  "04:00 PM - 05:00 PM",
+];
 
 const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
   const [slots, setSlots] = useState<Slot[]>([]);
@@ -37,14 +41,16 @@ const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
         const response = await fetch(
           `http://localhost:5001/api/meetings?date=${currentDate}`
         );
-        const bookedSlots = await response.json();
+        const bookedMeetings = await response.json();
 
-        const allSlots = generateTimeSlots().map((time) => {
-          const isBooked = bookedSlots.some((slot: Slot) => slot.time === time);
+        const allSlots = TIME_SLOTS.map((timeString) => {
+          const isBooked = bookedMeetings.some(
+            (meeting: { time: string }) => meeting.time === timeString
+          );
           return {
-            time,
+            time: timeString,
             date: currentDate,
-            status: isBooked ? "Booked" : "Available",
+            status: isBooked ? ("Booked" as const) : ("Available" as const),
           };
         });
 
@@ -62,7 +68,7 @@ const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
     setSelectedSlot(slot);
   };
 
-  const changeDate = (days: number) => {
+  const handleDateChange = (days: number) => {
     setCurrentDate((prevDate) =>
       dayjs(prevDate).add(days, "day").format("YYYY-MM-DD")
     );
@@ -73,12 +79,15 @@ const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
       <button className="back-btn" onClick={onBack}>
         &larr; Back
       </button>
+
       <h2>Manage Slots</h2>
+
       <div className="date-selector">
-        <button onClick={() => changeDate(-1)}>{"<<"}</button>
+        <button onClick={() => handleDateChange(-1)}>{"<<"}</button>
         <h3>{dayjs(currentDate).format("DD MMMM, YYYY")}</h3>
-        <button onClick={() => changeDate(1)}>{">>"}</button>
+        <button onClick={() => handleDateChange(1)}>{">>"}</button>
       </div>
+
       <div className="slots-container">
         {slots.map((slot) => (
           <SlotItem
@@ -89,6 +98,7 @@ const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
           />
         ))}
       </div>
+
       {selectedSlot && (
         <SlotPopup
           time={selectedSlot.time}
@@ -96,16 +106,15 @@ const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
           onClose={() => setSelectedSlot(null)}
           onUpdateStatus={(newStatus) => {
             setSlots((prevSlots) =>
-              prevSlots.map((slot) =>
-                slot.time === selectedSlot.time
-                  ? { ...slot, status: newStatus }
-                  : slot
+              prevSlots.map((s) =>
+                s.time === selectedSlot.time ? { ...s, status: newStatus } : s
               )
             );
             setSelectedSlot(null);
           }}
         />
       )}
+
       <AppointmentSlot />
     </div>
   );
