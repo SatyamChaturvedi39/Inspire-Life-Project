@@ -1,5 +1,4 @@
-/* PolicyDetails.css - Updated with limited image height and smaller cards */
-
+/* PolicyDetails.css - Updated with limited image height, smaller cards, and consistent book slot image size */
 .policy-details-container {
   width: 100%;
   position: relative;
@@ -111,23 +110,25 @@
   text-align: center;
 }
 
-/* Contact button styling */
-.contact-button {
-  display: block;
-  margin: 20px auto;
-  padding: 12px 30px;
-  background-color: #162c5a; /* Dark blue color matching navbar active */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background-color 0.3s;
+/* Appointment section styling */
+.appointment-section {
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+  gap: 15px;
 }
 
-.contact-button:hover {
-  background-color: #2759a9;
+
+/* Updated book-slot-image to match Careers page sizes */
+.book-slot-image {
+  cursor: pointer;
+  transition: transform 0.3s;
+  width: 28vw; /* Match the mobile size from careers.css */
+  height: auto;
+}
+
+.book-slot-image:hover {
+  transform: scale(1.1);
 }
 
 /* Responsive styles */
@@ -144,18 +145,23 @@
   .feature-card {
     padding: 18px; /* Reduced from 24px */
   }
-  
+    
   .policy-title {
     font-size: 30px; /* Slightly reduced */
   }
-  
+    
   .features-title {
     font-size: 24px; /* Reduced from 28px */
   }
-  
+    
   .policy-content {
     max-width: 1000px; /* Reduced from 1200px */
     margin: 0 auto;
+  }
+
+  /* Updated book-slot-image for desktop to match Careers page */
+  .book-slot-image {
+    width: 10vw; /* Match the desktop size from careers.css */
   }
 }
 
@@ -176,12 +182,17 @@
   .feature-value {
     font-size: 12px; /* Reduced from 14px */
   }
-  
+    
   .policy-title {
     font-size: 22px; /* Reduced from 24px */
   }
-  
+    
   .features-title {
     font-size: 18px; /* Reduced from 20px */
+  }
+    
+  .appointment-section {
+    flex-direction: column;
+    gap: 10px;
   }
 }

@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./PolicyDetails.css";
 import policyImage from "../assets/policy.jpg";
+import bookSlotImage from "../assets/bookslot.png";
+import PolicyPopup from "../components/PolicyPopup";
 
 interface KeyFeatures {
   policyTerm?: string;
@@ -13,7 +15,7 @@ interface KeyFeatures {
 }
 
 interface Policy {
-  _id: string;
+  id: string;
   policyName: string;
   policyDescription: string;
   companyName: string;
@@ -30,7 +32,8 @@ const PolicyDetails: React.FC = () => {
   const [policy, setPolicy] = useState<Policy | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-      
+  const [showPopup, setShowPopup] = useState(false);
+  
   useEffect(() => {
     if (!slug) {
       setError("Invalid policy request.");
@@ -43,7 +46,7 @@ const PolicyDetails: React.FC = () => {
         const url = `http://localhost:5001/api/policies/${slug}`;
         const response = await axios.get(url);
         setPolicy(response.data.data);
-              
+        
       } catch (error) {
         console.error("Error fetching policy details:", error);
         setError("Failed to load policy details. Please try again.");
@@ -54,7 +57,20 @@ const PolicyDetails: React.FC = () => {
     
     fetchPolicyDetails();
   }, [slug]);
-  
+
+  const handleShowPopup = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
+  const handleSubmitAppointment = () => {
+    setShowPopup(false);
+    // Additional logic after successful submission can be added here
+  };
+
   return (
     <div className="policy-details-container">
       {/* Full-width hero image */}
@@ -97,14 +113,33 @@ const PolicyDetails: React.FC = () => {
             <div className="feature-card">
               <p className="feature-title">Tax Benefit</p>
               <p className="feature-value">{policy.keyFeatures?.taxBenefit}</p>
-            </div>           
+            </div>
+            
           </div>
           <div className="dummy-text">
               <h3>Why Choose This Policy?</h3>
-              <p>Get the best insurance services with our policy. Our policy offers a wide range of</p>
-          </div>       
-          <button className="contact-button">Contact for More Details</button>
+              <p>Get the best insurance services with this policy. This policy offers a wide range of benefits that help protect you and your family from unexpected events. With competitive premiums and comprehensive coverage, we ensure you receive maximum value for your investment. Our dedicated team of experts is always ready to assist you with claims and inquiries, providing timely and efficient service when you need it most.
+              </p>
+          </div>
+          
+          <div className="appointment-section">
+            <h3>Consult our agent for more details:</h3>
+            <img 
+              src={bookSlotImage} 
+              alt="Book appointment" 
+              className="book-slot-image" 
+              onClick={handleShowPopup}
+            />
+          </div>
         </div>
+      )}
+
+      {showPopup && (
+        <PolicyPopup 
+          onClose={handleClosePopup} 
+          onSubmit={handleSubmitAppointment}
+          policyName={policy?.policyName || ""}
+        />
       )}
     </div>
   );

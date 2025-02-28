@@ -9,8 +9,8 @@ router.get("/", getPolicies); // Fetch all policies
 router.get("/:slug", getPolicyBySlug); // Fetch policy by slug
 
 //Agents & Admin only
-router.post("/", authorizeMultipleRoles(["agent", "admin"]), createPolicy);// Agents and Admins can create policies
-router.put("/:slug", authorizeMultipleRoles(["agent", "admin"]), putPolicyBySlug);// Agents and Admins can update policies
-router.delete("/:slug", authorizeMultipleRoles(["agent", "admin"]), deletePolicyBySlug);// Agents and Admins can delete policies
+router.post("/", createPolicy);// Agents and Admins can create policies
+router.put("/:slug", putPolicyBySlug);// Agents and Admins can update policies
+router.delete("/:slug", deletePolicyBySlug);// Agents and Admins can delete policies
 
 export default router;
