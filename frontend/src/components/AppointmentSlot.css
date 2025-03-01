@@ -1,58 +1,52 @@
-.appointment-slots {
-    margin: 30px 0;
-    padding: 0 15px;
-    max-width: 700px;
+/* Container */
+.appointment-slot-container {
+    width: 95vw; /* Adjust for mobile */
+    margin: 0 auto;
+    padding: 10px;
+    font-family: Arial, sans-serif;
   }
   
-  .appointment-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
+  /* Title */
+  .appointment-slot-container h2 {
+    margin-top: 2%;
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 4%;
+    margin-left: -5%;
   }
   
-  .appointment-date-group {
-    margin-bottom: 20px;
-  }
-  
-  .appointment-date {
-    background-color: #1a365d;
+  /* Date Group */
+  .date-group {
+    background-color: #15314b; /* Dark navy blue */
     color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-bottom: 5px;
+    padding: 4px;
+    border-radius: 8px;
+    margin-bottom: 10px;
   }
   
-  .appointment-time {
-    padding: 10px 15px;
-    border-bottom: 1px solid #e2e8f0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  /* Date Heading with Arrow */
+  .date-group h3 {
+    font-size: 10px;
+    font-weight: 600;
+    margin: 0;
+    padding: 5px 0;
   }
   
-  .appointment-client {
-    font-weight: normal;
-    color: #4a5568;
+  /* Slot List */
+  .slot-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
   }
   
-  .no-appointments {
-    text-align: center;
-    color: #718096;
-    font-style: italic;
-    padding: 20px;
+  /* Individual Slot Item */
+  .slot-item-appointment {
+    background-color: white;
+    color: black;
+    margin: 5px 0;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 2%;
   }
   
-  .appointment-loading {
-    text-align: center;
-    color: #718096;
-    padding: 20px;
-  }
-  
-  .appointment-error {
-    text-align: center;
-    color: #e53e3e;
-    padding: 20px;
-    background-color: #fed7d7;
-    border-radius: 5px;
-  }

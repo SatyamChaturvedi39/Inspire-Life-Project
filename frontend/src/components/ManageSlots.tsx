@@ -109,48 +109,48 @@ const ManageSlots: React.FC<ManageSlotsProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="manage-slots">
+    <>
       <button className="back-btn" onClick={onBack}>
-        &larr; Back
+        &#x21E6; Back
       </button>
 
       <h2>Manage Slots</h2>
+      <div className="manage-slots">
+        <div className="date-selector">
+          <button onClick={() => handleDateChange(-1)}>&lArr;</button>
+          <h3>{dayjs(currentDate).format("DD MMMM, YYYY")}</h3>
+          <button onClick={() => handleDateChange(1)}>&rArr;</button>
+        </div>
 
-      <div className="date-selector">
-        <button onClick={() => handleDateChange(-1)}>Previous Day</button>
-        <h3>{dayjs(currentDate).format("DD MMMM, YYYY")}</h3>
-        <button onClick={() => handleDateChange(1)}>Next Day</button>
-      </div>
+        {error && <div className="error-message">{error}</div>}
 
-      {error && <div className="error-message">{error}</div>}
+        {loading ? (
+          <div className="loading">Loading slots...</div>
+        ) : (
+          <div className="slots-container">
+            {slots.map((slot) => (
+              <SlotItem
+                key={slot.time}
+                time={slot.time}
+                status={slot.status}
+                onClick={() => handleSlotClick(slot)}
+              />
+            ))}
+          </div>
+        )}
 
-      {loading ? (
-        <div className="loading">Loading slots...</div>
-      ) : (
-        <div className="slots-container">
-          {slots.map((slot) => (
-            <SlotItem
-              key={slot.time}
-              time={slot.time}
-              status={slot.status}
-              onClick={() => handleSlotClick(slot)}
+        {selectedSlot && (
+          <div className="popup-overlay">
+            <SlotPopup
+              slot={selectedSlot}
+              onClose={() => setSelectedSlot(null)}
+              onStatusChange={handleStatusChange}
             />
-          ))}
-        </div>
-      )}
-
-      {selectedSlot && (
-        <div className="popup-overlay">
-          <SlotPopup
-            slot={selectedSlot}
-            onClose={() => setSelectedSlot(null)}
-            onStatusChange={handleStatusChange}
-          />
-        </div>
-      )}
-
+          </div>
+        )}
+      </div>
       <AppointmentSlot />
-    </div>
+    </>
   );
 };
 

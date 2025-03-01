@@ -1,15 +1,83 @@
-/* Add this to your existing SlotPopup.css file */
-.error-message {
-    color: #e53e3e;
-    background-color: #fed7d7;
-    border: 1px solid #fc8181;
-    border-radius: 4px;
-    padding: 8px 12px;
-    margin-bottom: 16px;
+/* Popup Container */
+.slot-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    width: 70vw;
+    text-align: center;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
   }
   
-  .slot-popup button:disabled {
-    background-color: #e2e8f0;
-    color: #718096;
-    cursor: not-allowed;
+  /* Popup Heading */
+  .slot-popup h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
   }
+  
+  /* Slot Details */
+  .slot-popup p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  /* Error Message */
+  .error-message {
+    color: red;
+    font-size: 12px;
+    background: #ffe6e6;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: left;
+  }
+  
+  /* Buttons Container */
+  .slot-popup button {
+    width: 100px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: 0.2s ease-in-out;
+  }
+  
+  /* Available Button */
+  .available {
+    background: #4caf50;
+    color: white;
+  }
+  
+  .available:hover {
+    background: #45a049;
+  }
+  
+  /* Unavailable Button */
+  .unavailable {
+    background: #e74c3c;
+    color: white;
+  }
+  
+  .unavailable:hover {
+    background: #c0392b;
+  }
+  
+  /* Close Button */
+  .close {
+    background: #3f6591;
+    color: rgb(255, 255, 255);
+  }
+  
+  .close:hover {
+    background: #263e5a;
+  }
+  

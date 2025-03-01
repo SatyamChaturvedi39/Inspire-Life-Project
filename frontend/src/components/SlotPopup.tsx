@@ -84,7 +84,7 @@ const SlotPopup: React.FC<SlotPopupProps> = ({
 
   return (
     <div className="slot-popup">
-      <h3>Manage Slot</h3>
+      <h3>MANAGE SLOT</h3>
       <p>Time: {slot.time}</p>
       <p>Status: {slot.status}</p>
 
@@ -108,18 +108,22 @@ const SlotPopup: React.FC<SlotPopupProps> = ({
       )}
 
       <button
+        className="available"
         onClick={() => handleStatusChange("Available")}
         disabled={isLoading}
       >
-        {isLoading ? "Processing..." : "Mark Available"}
+        {isLoading ? "Processing..." : "Available"}
       </button>
       <button
+        className="unavailable"
         onClick={() => handleStatusChange("Unavailable")}
         disabled={isLoading}
       >
-        {isLoading ? "Processing..." : "Mark Unavailable"}
+        {isLoading ? "Processing..." : "Unavailable"}
       </button>
-      <button onClick={onClose}>Close</button>
+      <button className="close" onClick={onClose}>
+        Close
+      </button>
     </div>
   );
 };

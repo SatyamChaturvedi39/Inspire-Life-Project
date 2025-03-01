@@ -1,32 +1,49 @@
 .slot-item {
-    width: 120px;
-    padding: 10px;
-    text-align: center;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    border: 1px solid #ddd;
-    transition: 0.2s ease-in-out;
-  }
-  
-  /* Different slot colors based on status */
-  .slot-available {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .slot-booked {
-    background-color: #2196f3;
-    color: white;
-  }
-  
-  .slot-unavailable {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  /* Hover effect */
-  .slot-item:hover {
-    opacity: 0.8;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  font-size: 10px;
+  text-align: center;
+  width: 27vw;
+  height: 6vh;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.slot-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Slot Status Colors */
+.scheduled {
+  background-color: #4291d5; /* Light Blue */
+  color: white;
+  cursor: not-allowed;
+}
+
+.slot-item.available {
+  background-color: #4caf50; /* Better Green */
+  color: white;
+}
+
+.slot-item.unavailable {
+  background-color: #f44336; /* Stronger Red */
+  color: white;
+}
+
+/* Time Styling */
+.slot-item span {
+  font-size: 11px;
+  margin-bottom: 2px;
+}
+
+/* Status Text */
+.slot-item p {
+  font-size: 13px;
+  margin: 0;
+}

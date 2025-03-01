@@ -91,13 +91,13 @@ const AppointmentSlot: React.FC = () => {
         <p>No slots booked yet.</p>
       ) : (
         Object.entries(groupedSlots).map(([date, slots]) => (
-          <div key={date} className="date-group">
-            <h3>{date}</h3>
+          <div key={date}>
+            <h3 className="date-group">{date}</h3>
             <ul className="slot-list">
               {slots.map((slot) => (
-                <li key={slot._id} className="slot-item">
+                <li key={slot._id} className="slot-item-appointment">
                   <p>
-                    <strong>{slot.time}</strong> - Booked by: {slot.name}
+                    <strong> &rArr; {slot.time}</strong> - {slot.name}
                   </p>
                 </li>
               ))}
