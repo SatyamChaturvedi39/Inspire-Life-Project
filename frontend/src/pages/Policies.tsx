@@ -18,17 +18,16 @@ const PolicyPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [filteredPolicies, setFilteredPolicies] = useState<Policy[]>([]);
-  const [suggestions, setSuggestions] = useState<Policy[]>([]); // For search suggestions
   const navigate = useNavigate();
 
-  // Fetch only 15 policies from the backend
+  // Fetch only 16 policies from the backend on mount
   useEffect(() => {
     const fetchPolicies = async () => {
       try {
         const response = await axios.get("http://localhost:5001/api/policies", {
           params: {
-            limit: 15, // Fetch only 15 policies
-            offset: 0, // Start from the first policy (you can change this to paginate)
+            limit: 16,
+            offset: 0,
           },
         });
         setPolicies(response.data.data);
@@ -41,25 +40,20 @@ const PolicyPage: React.FC = () => {
     fetchPolicies();
   }, []);
 
-  // Handle search input changes
+  // Automatically filter policies based on searchQuery
   useEffect(() => {
-    if (searchQuery) {
-      // Filter policies for suggestions based on the search query
-      const suggestedPolicies = policies.filter((policy) =>
-        policy.policyName.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setSuggestions(suggestedPolicies);
+    if (searchQuery === "") {
+      setFilteredPolicies(policies);
     } else {
-      setSuggestions([]); // Clear suggestions if the search query is empty
+      const lowerSearch = searchQuery.toLowerCase();
+      const filtered = policies.filter((policy) =>
+        policy.policyName.toLowerCase().includes(lowerSearch) ||
+        policy.companyName.toLowerCase().includes(lowerSearch) ||
+        policy.ageRange.toLowerCase().includes(lowerSearch)
+      );
+      setFilteredPolicies(filtered);
     }
   }, [searchQuery, policies]);
-
-  // Handle clicking a suggestion
-  const handleSuggestionClick = (policy: Policy) => {
-    setFilteredPolicies([policy]); // Show only the selected policy
-    setSearchQuery(""); // Clear the search query
-    setSuggestions([]); // Clear suggestions
-  };
 
   // Handle viewing policy details
   const handleViewDetails = (policy: Policy) => {
@@ -67,8 +61,7 @@ const PolicyPage: React.FC = () => {
       .trim()
       .toLowerCase()
       .replace(/\s+/g, "-")
-      .replace(/[^a-z0-9-]/g, ""); // Ensures consistent slug format
-
+      .replace(/[^a-z0-9-]/g, "");
     navigate(`/policies/${slug}`);
   };
 
@@ -89,21 +82,6 @@ const PolicyPage: React.FC = () => {
             className="search-input"
           />
         </div>
-
-        {/* Display search suggestions */}
-        {suggestions.length > 0 && (
-          <div className="suggestions-container">
-            {suggestions.map((policy) => (
-              <div
-                key={policy._id}
-                className="suggestion-item"
-                onClick={() => handleSuggestionClick(policy)}
-              >
-                {policy.policyName}
-              </div>
-            ))}
-          </div>
-        )}
       </div>
 
       <div className="policy-cards-container">

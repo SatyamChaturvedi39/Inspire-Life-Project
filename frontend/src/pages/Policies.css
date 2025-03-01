@@ -147,7 +147,8 @@
 @media (min-width: 1024px) {
 
   .policies-hero-image-container {
-    height: 40vh;
+    margin-top: -2vh;
+    height: 54vh;
   }
 
   .search-container {

@@ -103,7 +103,7 @@ const PolicyFormPopup: React.FC<PolicyFormPopupProps> = ({ mode, initialData, on
           />
           <textarea
             name="shortDescription"
-            placeholder="Short Description"
+            placeholder="Short Description (10-15 words)"
             value={formData.shortDescription}
             onChange={handleChange}
             required
