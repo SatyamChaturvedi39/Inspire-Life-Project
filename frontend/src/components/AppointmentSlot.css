@@ -45,8 +45,10 @@
   /* Desktop Styles */
 @media (min-width: 1024px) {
   .appointment-slot-container {
-    width: 60vw;
-    padding: 30px;
+    width: 70vw;
+    margin-left: 1%;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .appointment-slot-container h2 {
@@ -54,13 +56,13 @@
     font-size: 35px;
     font-weight: 700;
     margin-bottom: 4%;
-    margin-left: -5%;
+    margin-left: 1%;
   }
 
   .appointment-slot {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     gap: 20px;
   }
 
@@ -73,11 +75,12 @@
   .date-group {
     background-color: #15314b; /* Dark navy blue */
     color: white;
-    padding: 4px;
+    padding: 8px;
     border-radius: 8px;
     margin-bottom: 10px;
     font-size: 20px;
   }
+
   .slot-list p{
     margin-top: -2%;
     margin-bottom: -1%;
