@@ -55,29 +55,69 @@
   .available {
     background: #4caf50;
     color: white;
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.3);
   }
   
   .available:hover {
     background: #45a049;
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.3);
   }
   
   /* Unavailable Button */
   .unavailable {
     background: #e74c3c;
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.3);
     color: white;
   }
   
   .unavailable:hover {
     background: #c0392b;
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.3);
   }
   
   /* Close Button */
   .close {
     background: #3f6591;
     color: rgb(255, 255, 255);
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.3);
   }
   
   .close:hover {
     background: #263e5a;
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.3)
   }
   
+
+  /* Desktop Styles */
+@media (min-width: 1024px) {
+  .slot-popup {
+    width: 40vw;
+  }
+
+  .slot-popup button {
+    width: 15vw;
+    height: 6vh;
+    padding: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: 0.2s ease-in-out;
+  }
+
+  .slot-popup h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Slot Details */
+  .slot-popup p {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  
+  
+}
