@@ -72,8 +72,18 @@
 /* Desktop styles (1024px and above) */
 @media screen and (min-width: 1024px) {
   .contact-image-container {
-    height: 50vh; /* Adjust height for desktop */
+    height: 60vh;
+    width:100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: 2%; /* Adjust height for desktop */
   }
+
+  .contact-hero-image {
+    width: 100%; 
+    height: 60vh; 
+    object-fit: cover;
+  }  
 
   .Contact-Main {
     max-width: 1200px;

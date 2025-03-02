@@ -4,7 +4,8 @@
   margin: 150px auto;
   margin-top: 60%;
   padding: 25px 20px;
-  background-color: #ffffff;
+  background-color: #f1f0f0;
+  
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -16,7 +17,7 @@
 .login-container h2 {
   margin-bottom: 1.5rem;
   font-size: 1.75rem;
-  color: #2c3e50;
+  color: #032b50;
   font-weight: 600;
 }
 
@@ -51,7 +52,7 @@
 .login-container form button {
   width: 100%;
   padding: 0.875rem;
-  background-color: rgba(14, 56, 105, 1);
+  background-color: #f99111;
   color: #ffffff;
   font-size: 1rem;
   font-weight: 500;
