@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from  "react-router-dom";
 import "./Footer.css"; // Add styles here
 import logo from "../assets/logo.png";
 
@@ -8,10 +9,12 @@ const Footer: React.FC = () => {
       <div className="footer-container">
         <div className="footer-header">
           <div className="LogoCompany">
-          <img src={logo} alt="Inspire Life Logo" className="footer-logo" />
-          <div className="footer-Company">
-            <h5>Inspire Life Insurance Solutions</h5>
-            <p>Jayanagar, Bengaluru</p>            
+          <Link to="/">
+              <img src={logo} alt="Inspire Life Logo" className="footer-logo" />
+            </Link>
+            <div className="footer-Company">
+              <h5><Link to="/" className="footer-link">Inspire Life Insurance Solutions</Link></h5>
+              <p>Jayanagar, Bengaluru</p>           
           </div>
           </div>
           <div className="Site-map">
@@ -34,13 +37,14 @@ const Footer: React.FC = () => {
         <div className="footer-columns">
           <div className="footer-column">
             <h4>
-              <b>Company</b>
+              <b>Website</b>
             </h4>
             <ul>
-              <li>About us</li>
-              <li>Policies</li>
-              <li>Careers</li>
-              <li>Contact</li>
+            <li><Link to="/" className="footer-link">Home</Link></li>
+              <li><Link to="/about" className="footer-link">About Us</Link></li>
+              <li><Link to="/policies" className="footer-link">Policies</Link></li>
+              <li><Link to="/careers" className="footer-link">Careers</Link></li>
+              <li><Link to="/contact" className="footer-link">Contact</Link></li>
             </ul>
           </div>
           <div className="footer-column">
@@ -48,8 +52,13 @@ const Footer: React.FC = () => {
               <b>Services</b>
             </h4>
             <ul>
-              <li>Renewals</li>
-              <li>Self Service</li>
+            <li>
+                <a href="#" onClick={() => openPopup("Become an Agent")} className="footer-link">Become an Agent</a>
+              </li>
+              <li>
+                <a href="#" onClick={() => openPopup("Buy Policies")} className="footer-link">Buy Policies</a>
+              </li>
+              <li>Renew policies</li>
             </ul>
           </div>
           <div className="footer-column">

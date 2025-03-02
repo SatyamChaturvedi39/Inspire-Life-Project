@@ -82,8 +82,10 @@
   content-visibility: hidden;
 }
 
-
-
+.footer-link {
+  text-decoration: none;
+  color: inherit;
+}
 
 
 @media all and (min-width:1024px){
@@ -158,6 +160,11 @@
 
    .Line1{
     margin-top: 13%;
+  }
+
+  .footer-link {
+    text-decoration: none;
+    color: inherit;
   }
    
 
