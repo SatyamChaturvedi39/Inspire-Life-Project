@@ -47,3 +47,30 @@
   font-size: 13px;
   margin: 0;
 }
+ 
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .slot-item {
+    text-align: center;
+    width: 20vw;
+    height: 10vh;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid transparent;
+  }
+  
+  /* Time Styling */
+.slot-item span {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+/* Status Text */
+.slot-item p {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+}

@@ -81,3 +81,50 @@
   margin-left: -4%;
 }
 
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .agent-dashboard {
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 40px;
+  }
+
+  /* Agent Profile Image */
+  .agent-image {
+    max-width: 98.5vw;
+    height: 50vh;
+    margin-top: 0;
+  }
+
+  /* Content Container */
+  .agent-content {
+    width: 50vw;
+    text-align: left;
+    margin-top: 0;
+    padding: 0;
+    width: 30vw;
+  }
+
+  .agent-content h2 {
+    font-size: 32px;
+  }
+
+  /* Buttons */
+  .agent-buttons {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .agent-btn {
+    max-width: 20vw;
+    max-height: unset;
+    padding: 14px 20px;
+    font-size: 18px;
+  }
+
+  /* Appointment Slot Section */
+  .appointment-slot-section {
+    width: 60vw;
+    margin-left: -67%;
+  }
+}

@@ -45,7 +45,7 @@ export const createPolicy = async (req, res) => {
 // Get a list of policies with pagination support
 export const getPolicies = async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || 15; // Default to 15 policies
+    const limit = parseInt(req.query.limit) || 16; // Default to 16 policies
     const offset = parseInt(req.query.offset) || 0;  // Default to start from the beginning
 
     const policies = await Policy.find().skip(offset).limit(limit);

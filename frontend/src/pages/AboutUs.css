@@ -6,15 +6,15 @@
 }
 
 .about-image-container {
-  width: 100%;
-  height: auto; /* Height is flexible */
+  width: 100vw;
+  height: 65vh; /* Height is flexible */
   overflow: hidden;
   position: relative;
 }
 
 .about-hero-image {
-  width: 100%; /* Full width */
-  height: auto; /* Height adjusts to maintain aspect ratio */
+  width: 100vw; /* Full width */
+  height: 300vh;/* Height adjusts to maintain aspect ratio */
   object-fit: cover;
   object-position: top; /* Ensures the top of the image is always visible */
 }
@@ -49,12 +49,12 @@
 /* Responsive Design */
 @media screen and (max-width: 768px) {
   .about-image-container {
-    height: auto; /* Height is flexible on mobile */
+    height: 30vh; /* Height is flexible on mobile */
   }
 
   .about-hero-image {
     width: 100%; /* Full width on mobile */
-    height: auto; /* Height adjusts to maintain aspect ratio */
+    height: 30vh; /* Height adjusts to maintain aspect ratio */
   }
 
   .about-section {

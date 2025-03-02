@@ -122,7 +122,7 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
     <div className="manage-policies-container">
       <div className="manage-policies-header">
         <div className="manage-policies-back-button" onClick={onBack}>
-          ← Back
+        &#x21E6; Back
         </div>
         <div className="manage-policies-header-section">
           <h2 className="manage-policies-header-title">Manage Policies</h2>

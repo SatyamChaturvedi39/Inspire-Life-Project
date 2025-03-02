@@ -98,3 +98,16 @@ h2 {
   color: rgb(26, 19, 68);
   margin-top: 10px;
 }
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .date-selector h3 {
+    font-size: 25px;
+  }
+
+  .manage-slots{
+    margin-top: 2%;
+    max-width: 70vw;
+  }
+
+}
