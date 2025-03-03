@@ -1,82 +1,61 @@
 .admin-dashboard {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    text-align: center;
-    background-color: #f8f9fa;
-  }
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f8f9fa;
+}
 
-  .admin-image{
-    width: 101%;
-    height: 80vw;
-    object-fit: cover;
-    border: none; 
-    padding: 0; 
-    margin-top: 20%;
-  }
-  
-  .admin-content {
-    margin-top: -20px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .admin-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .admin-btn {
-    background-color: #f89c1c;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .admin-btn:hover {
-    background-color: #e88b0c;
-  }
-  
-  .appointment-container {
-    background: #dfe5eb;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0;
-  }
-  
-  .appointment-date {
-    background: #193c63;
-    color: white;
-    font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: inline-block;
-  }
-  
-  .appointment-tag {
-    background: white;
-    color: #193c63;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 2px 5px;
-    border-radius: 3px;
-    margin-left: 10px;
-  }
-  
-  .appointment-list {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 0;
-  }
-  
-  .appointment-slot {
-    font-size: 16px;
-    color: #333;
-    padding: 5px 0;
-  }
-  
+.admin-image {
+  width: 100%; /* Fix image width */
+  height: 40vh; /* Adjust height for better visibility */
+  object-fit: cover;
+  border: none;
+}
+
+.admin-content {
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.admin-btn {
+  background-color: #f89c1c;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-btn:hover {
+  background-color: #e88b0c;
+  transform: translateY(-3px);
+  box-shadow: 2px 2px 8px rgba(194, 193, 193, 0.5);
+}
+
+.admin-btn:active {
+  background-color: #e88b0c;
+  transform: translateY(2px);
+  box-shadow: 2px 2px 8px rgba(194, 193, 193, 0.5);
+}
+
+/* Remove the dummy scheduled appointments section */
+/* .appointment-container, .appointment-date, .appointment-tag, .appointment-list, .appointment-slot {
+  display: none;
+} */
+
+/* Ensure ManageSlots component takes full width */
+
+.appointment-slot-section {
+  width: 100vw;
+  margin-top: 15px;
+  background-color: #fff;
+  margin-left: -4%;
+}

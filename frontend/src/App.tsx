@@ -20,7 +20,7 @@ import AboutUs from "./pages/AboutUs";
 import Login from "./pages/Login";
 import AgentDashboard from "./pages/AgentDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import AdminDashboard from "./pages/AdminDashboard";
 const App: React.FC = () => {
   return (
     <AuthProvider>
@@ -42,6 +42,7 @@ const App: React.FC = () => {
           </ProtectedRoute>}/>
 
         {/* 404 - Not Found Page */}
+        <Route path="/admin" element={<AdminDashboard />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
