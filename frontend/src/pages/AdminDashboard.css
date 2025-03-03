@@ -59,3 +59,11 @@
   background-color: #fff;
   margin-left: -4%;
 }
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .appointment-slot-section2 {
+    width: 60vw;
+    margin-left: 14%;
+  }
+}
