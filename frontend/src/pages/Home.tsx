@@ -75,8 +75,8 @@ const Home = () => {
       {isDesktop ? (
         <>
           <LeadForm />
-          <h1 className="know-more">
-            <a href="/about-us">
+          <h1>
+            <a className="know-more-home" href="/about-us">
               Know More!
             </a>
           </h1>
@@ -85,8 +85,8 @@ const Home = () => {
       ) : (
         <>
           <CarouselScroll />
-          <h1 className="know-more">
-            <a href="/about-us">
+          <h1>
+            <a className="know-more-home" href="/about-us">
               Know More!
             </a>
           </h1>

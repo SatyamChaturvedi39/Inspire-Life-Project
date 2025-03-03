@@ -13,8 +13,8 @@
 }
 
 .home-image {
-  width: 101%;
-  height: 80vw;
+  width: 100vw;
+  height: 35vh;
   object-fit: cover;
   border: none; 
   padding: 0; 
@@ -66,7 +66,7 @@
   box-shadow: 2px 2px 8px rgb(194, 193, 193);
 }
 
-.know-more {
+.know-more-home {
   margin-top: 1vh;
   color: #102453;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -166,8 +166,8 @@
       margin: 0; /* Remove margins on buttons */
   }
 
-  .know-more {  
-      color: #102453;
+  .know-more-home {  
+      color: #211053;
       font-size: 24px;
       margin: 40px 0;
   }

@@ -1,14 +1,12 @@
 .lead-form-container {
   display: block;
-  width: 90vw;
-  max-width: 500px;
-  margin: 0 auto;
+  width: 70vw;
+  margin-top: 2vh;
   border-radius: 10px;
   background-color: #f1f0f0;
   box-shadow: 2px 2px 8px rgba(194, 193, 193, 0.5);
   padding: 20px;
   text-align: center; /* Center align content */
-  
 }
 
 .lead-form {
@@ -54,6 +52,7 @@
   display: inline-block;
   margin-left: 10px;
   font-size: 14px;
+  margin-top: -1vh;
   vertical-align: middle; /* Align checkbox and text vertically */
 }
 
@@ -88,6 +87,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   display: inline-block; /* Ensure button only takes up necessary space */
+  height: 6vh;
 }
 
 .lead-form__button:hover {
@@ -113,9 +113,10 @@
   margin-bottom: 1vh;
   color: #20315A;
   white-space: nowrap;
-  font-size: 18px;
+  font-size: 25px;
   font-weight: bold;
   text-align: center;
+  margin-bottom: 1vh;
 }
 
 .form-message {
