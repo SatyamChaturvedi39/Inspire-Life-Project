@@ -26,7 +26,6 @@ const PolicyPage: React.FC = () => {
       try {
         const response = await axios.get("http://localhost:5001/api/policies", {
           params: {
-            limit: 16,
             offset: 0,
           },
         });

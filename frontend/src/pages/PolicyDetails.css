@@ -38,8 +38,19 @@
 
 /* Content container */
 .policy-content {
-  padding: 30px 5%;
+  padding: 10px 5%;
   width: 100%;
+}
+
+.policies-back-button {
+  background: none;
+  border: none;
+  font-weight: 700;
+  color: #0c2641;
+  font-size: 18px;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 2%;
 }
 
 /* Title styling */
@@ -48,6 +59,7 @@
   font-weight: bold;
   color: #0b1c2c;
   margin-bottom: 20px;
+  margin-top: -1%;
   text-align: center;
 }
 

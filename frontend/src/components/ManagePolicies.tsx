@@ -59,7 +59,7 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
   const fetchPolicies = async () => {
     try {
       const response = await axiosInstance.get("/policies", {
-        params: { limit: 15, offset: 0 },
+        params: {offset: 0 }
       });
       console.log("Fetched policies:", response.data.data);
       setPolicies(response.data.data);
