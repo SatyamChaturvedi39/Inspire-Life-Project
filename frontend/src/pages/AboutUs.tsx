@@ -31,9 +31,19 @@ const AboutUs: React.FC = () => {
             that make sense for you.
           </p>
           <p>
+            <a href="/policies">
+              ⇒ Explore Policies!
+            </a>
+          </p>
+          <p>
             We believe in fostering long-term relationships, built on trust, 
             integrity, and the goal of helping you live confidently. Join us on 
             the journey to securing your future with a company that genuinely cares.
+          </p>
+          <p>
+            <a href="/careers">
+              ⇒ Join Us!
+            </a>              
           </p>
         </div>
       </section>

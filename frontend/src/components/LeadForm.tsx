@@ -11,7 +11,6 @@ const LeadForm: React.FC = () => {
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState<string>(""); // Stores "green" or "red"
 
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -46,12 +45,12 @@ const LeadForm: React.FC = () => {
       setLoading(false);
       console.error("Submission error:", error);
       setMessage("Something went wrong. Please try again.");
-      setMessageColor("red")
+      setMessageColor("red");
     }
   };
 
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value.replace(/\D/g, '').slice(0, 13);
+    const input = e.target.value.replace(/\D/g, "").slice(0, 13);
     setPhoneNumber(input);
   };
 
@@ -59,12 +58,14 @@ const LeadForm: React.FC = () => {
     <div className="lead-form-container">
       <form onSubmit={handleSubmit} className="lead-form">
         <h2 className="stayline">Stay Informed:</h2>
-        {message && <p className="form-message" style={{ color: messageColor, fontWeight: "bold" }}>{message}</p>}
+        {message && (
+          <p className="form-message" style={{ color: messageColor, fontWeight: "bold" }}>
+            {message}
+          </p>
+        )}
         <div className="lead-form__field">
-          <label htmlFor="name"></label>
           <input
             type="text"
-            id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -73,10 +74,8 @@ const LeadForm: React.FC = () => {
           />
         </div>
         <div className="lead-form__field">
-          <label htmlFor="phoneNumber"></label>
           <input
             type="tel"
-            id="phoneNumber"
             value={phoneNumber}
             onChange={handlePhoneNumberChange}
             required
@@ -86,10 +85,8 @@ const LeadForm: React.FC = () => {
           />
         </div>
         <div className="lead-form__field">
-          <label htmlFor="email"></label>
           <input
             type="email"
-            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="lead-form__input"
@@ -97,26 +94,23 @@ const LeadForm: React.FC = () => {
           />
         </div>
         <div className="lead-form__field">
-          <label htmlFor="comment"></label>
           <textarea
-            id="comment"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             className="lead-form__textarea"
             placeholder="Add a comment"
           />
         </div>
-        <div className="lead-checkbox">
+        <div className="lead-form__field--checkbox">
           <input
             type="checkbox"
             id="termsCheckbox"
-            className="form-checkbox"
             checked={termsAgreed}
             onChange={() => setTermsAgreed(!termsAgreed)}
             required
           />
-          <label htmlFor="termsCheckbox" className="form-tnc">
-            I agree to the <a href="#"> Terms & Conditions</a>.
+          <label htmlFor="termsCheckbox" className="lead-checkbox">
+            I agree to the <a href="#">Terms & Conditions</a>.
           </label>
         </div>
         <div className="lead-button-div">
