@@ -1,5 +1,5 @@
 // src/context/AuthContext.tsx
-import React, { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import { createContext, useContext, useState, ReactNode, useEffect, useCallback } from "react";
 import axios from "axios";
 import { AuthContextType } from "./AuthTypes";
 
@@ -24,12 +24,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await axios.get("http://localhost:5001/api/auth/refresh", {
         withCredentials: true,
       });
-      setAccessToken(response.data.accessToken);
+      if (response.data.accessToken) {
+        setAccessToken(response.data.accessToken);
+        console.log("[AuthContext] Access token refreshed");
+      }
     } catch (error) {
-      console.error("Failed to refresh access token", error);
+      console.error("[AuthContext] Failed to refresh access token", error);
       clearAuth();
     }
   }, [clearAuth]);
+
+  useEffect(() => {
+    refreshAccessToken();
+  }, [refreshAccessToken]);
 
   return (
     <AuthContext.Provider value={{ accessToken, role, setAuth, clearAuth, refreshAccessToken }}>

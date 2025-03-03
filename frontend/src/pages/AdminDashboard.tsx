@@ -40,7 +40,7 @@ const AdminDashboard: React.FC = () => {
             </div>
 
             {/* Appointment Slot Section */}
-            <div className="appointment-slot-section">
+            <div className="appointment-slot-section2">
               <AppointmentSlot />
             </div>
           </>
