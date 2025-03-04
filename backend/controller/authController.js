@@ -99,3 +99,17 @@ export const refreshToken = async (req, res) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+// controllers/authController.js
+export const logout = (req, res) => {
+  // Clear the refresh token cookie with the correct options
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/" // Ensure this matches the path where the cookie was set
+  });
+  console.log("[Logout] Refresh token cookie cleared.");
+  return res.json({ message: "Logged out successfully" });
+};
+

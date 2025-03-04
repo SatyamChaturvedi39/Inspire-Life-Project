@@ -80,6 +80,26 @@ nav ul li a:hover::after {
   transform: scaleX(0.5);
 }
 
+/* Style the logout button so it looks like a link, similar to the login button */
+nav ul li.logout-link button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  font-family: inherit;
+  font-weight: 500;
+  padding: 15px 20px;
+  transition: 0.3s;
+  display: inline-block;
+  position: relative;
+  border-radius: 0 0 20px 20px;
+  cursor: pointer;
+}
+
+nav ul li.logout-link button:hover {
+  color: #64c3f7;
+}
+
+
 @media (max-width: 768px) {
   nav {
     top: 10vh;
