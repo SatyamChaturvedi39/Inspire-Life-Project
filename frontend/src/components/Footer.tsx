@@ -37,8 +37,11 @@ const Footer: React.FC = () => {
                 </Link>
               </h5>
               <p>Jayanagar, Bengaluru</p>
+              <br />
+              <p>Address:<address>715, 22nd Cross Rd, K.R.Road,<br /> Banashankari Stage II, Banashankari,<br /> Bengaluru, Karnataka 560070</address></p>
+              <p>Email: InspireLife@gmail.com</p>
             </div>
-          </div>
+            </div>
           <div className="Site-map">
             <div className="map">
               <div className="gmap_canvas">

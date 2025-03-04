@@ -10,7 +10,7 @@
 
 .footer-container {
   max-width: 100vw;
-  max-height: 90vh;
+  max-height: 120vh;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -145,8 +145,15 @@
 
   .Site-map{
     content-visibility: visible;
-       }     
-  
+    
+  }
+
+  .gmap_iframe {
+    height: 250px;
+    width: 100%; /* Make map responsive */
+  }
+
+   
 
   .Site-map2{
     content-visibility: hidden;
@@ -166,5 +173,6 @@
     text-decoration: none;
     color: inherit;
   }
-   
+
+     
   }
