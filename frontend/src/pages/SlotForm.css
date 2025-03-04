@@ -102,6 +102,17 @@
     }
 
     .slot-form__button {
-        width: 80%;
+        width: 100%;
     }
+}
+
+.slot-form__input,
+.slot-form__textarea,
+.react-datepicker-wrapper {
+    width: 100% !important; /* Ensures all input fields, including date picker, have full width */
+    display: block;
+}
+
+.react-datepicker__input-container input {
+    width: 100% !important; /* Ensures the date input field matches other input widths */
 }

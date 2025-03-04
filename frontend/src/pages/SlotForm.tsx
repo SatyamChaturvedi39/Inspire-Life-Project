@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./SlotForm.css";
 import slotImage from "../assets/slotimage.jpg";
+import BookingConfirmationPopup from "../components/BookingConfirmationPopup";
 
 const SlotForm: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -15,6 +16,7 @@ const SlotForm: React.FC = () => {
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState<string>("");
   const [bookedSlots, setBookedSlots] = useState<string[]>([]); // ✅ Track booked slots
+  const [showPopup, setShowPopup] = useState(false);
 
   const timeSlots = [
     "09:00 AM - 10:00 AM",
@@ -91,6 +93,12 @@ const SlotForm: React.FC = () => {
       setLoading(false);
 
       if (response.ok) {
+        if (response.ok) {
+          setMessage("Slot booked successfully!");
+          setMessageColor("green");
+          setShowPopup(true); // Show popup
+        }
+
         setMessage("Slot booked successfully!");
         setMessageColor("green");
         setName("");
@@ -115,8 +123,14 @@ const SlotForm: React.FC = () => {
     }
   };
 
+  // Handler to close the popup
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
-    <div className="slot-form-container">
+    <>
+      {" "}
       {/* Header Image */}
       <div
         className="slot-header-image"
@@ -128,110 +142,136 @@ const SlotForm: React.FC = () => {
           borderRadius: "10px 10px 0 0",
         }}
       ></div>
+      <div className="slot-form-container">
+        <form onSubmit={handleSubmit} className="slot-form">
+          <h2>Book a Slot</h2>
+          {message && (
+            <p
+              className="form-message"
+              style={{ color: messageColor, fontWeight: "bold" }}
+            >
+              {message}
+            </p>
+          )}
 
-      <form onSubmit={handleSubmit} className="slot-form">
-        <h2>Book a Slot</h2>
-        {message && (
-          <p
-            className="form-message"
-            style={{ color: messageColor, fontWeight: "bold" }}
-          >
-            {message}
-          </p>
-        )}
+          {/* Form Fields */}
+          <div className="slot-form-fields-container">
+            <div className="slot-form__field">
+              <label>Name:</label>
+              <input
+                type="text"
+                className="slot-form__input"
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => {
+                  const newValue = e.target.value.replace(/[^a-zA-Z\s]/g, ""); // Allow only letters and spaces
+                  setName(newValue);
+                }}
+              />
+            </div>
 
-        {/* Form Fields */}
-        <div className="slot-form-fields-container">
-          <div className="slot-form__field">
-            <label>Name:</label>
-            <input
-              type="text"
-              className="slot-form__input"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
+            <div className="slot-form__field">
+              <label>Phone Number:</label>
+              <input
+                type="text"
+                className="slot-form__input"
+                placeholder="Enter your phone number"
+                value={phoneNumber}
+                onChange={(e) => {
+                  const newValue = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+                  if (newValue.length <= 10) {
+                    setPhoneNumber(newValue); // Allow only up to 10 digits
+                  }
+                }}
+                maxLength={10} // Prevents typing beyond 10 characters
+              />
+            </div>
 
-          <div className="slot-form__field">
-            <label>Phone Number:</label>
-            <input
-              type="text"
-              className="slot-form__input"
-              placeholder="Enter your phone number"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </div>
+            <div className="slot-form__field">
+              <label>Email:</label>
+              <input
+                type="email"
+                className="slot-form__input"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-          <div className="slot-form__field">
-            <label>Email:</label>
-            <input
-              type="email"
-              className="slot-form__input"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+            <div className="slot-form__field">
+              <label>Comments:</label>
+              <textarea
+                className="slot-form__textarea"
+                placeholder="Any additional comments?"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+            </div>
 
-          <div className="slot-form__field">
-            <label>Comments:</label>
-            <textarea
-              className="slot-form__textarea"
-              placeholder="Any additional comments?"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            ></textarea>
-          </div>
-        </div>
-
-        {/* Date Picker */}
-        <div className="slot-form__field">
-          <label>Select a Date:</label>
-          <DatePicker
-            selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-            minDate={new Date()}
-            dateFormat="yyyy-MM-dd"
-            className="slot-form__input"
-            placeholderText="Choose a date"
-          />
-        </div>
-
-        {/* Time Slot Selector */}
-        <div className="slot-form__field">
-          <label>Select a Time Slot:</label>
-          <select
-            value={selectedTime}
-            onChange={(e) => setSelectedTime(e.target.value)}
-            className="slot-form__input"
-          >
-            <option value="">Select a time slot</option>
-            {timeSlots.map((slot, index) => (
-              <option
-                key={index}
-                value={slot}
-                disabled={bookedSlots.includes(slot)}
+            {/* Date Picker */}
+            <div className="slot-form__field">
+              <label>Select a Date:</label>
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                minDate={new Date()}
+                dateFormat="dd-MM-yyyy" // Set format to dd-mm-yyyy
+                className="slot-form__input"
+                placeholderText="DD-MM-YYYY"
+                onKeyDown={(e) => {
+                  if (!/[0-9-]/.test(e.key) && e.key !== "Backspace") {
+                    e.preventDefault(); // Allow only numbers and dashes (-)
+                  }
+                }}
+              />
+            </div>
+            {/* Time Slot Selector */}
+            <div className="slot-form__field">
+              <label>Select a Time Slot:</label>
+              <select
+                value={selectedTime}
+                onChange={(e) => setSelectedTime(e.target.value)}
+                className="slot-form__input"
               >
-                {slot} {bookedSlots.includes(slot) ? "(Booked)" : ""}
-              </option>
-            ))}
-          </select>
-        </div>
+                <option value="">Select a time slot</option>
+                {timeSlots.map((slot, index) => (
+                  <option
+                    key={index}
+                    value={slot}
+                    disabled={bookedSlots.includes(slot)}
+                  >
+                    {slot} {bookedSlots.includes(slot) ? "(Booked)" : ""}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        {/* Submit Button */}
-        <div className="slot-button-div">
-          <button
-            type="submit"
-            className="slot-form__button"
-            disabled={loading || bookedSlots.includes(selectedTime)}
-          >
-            {loading ? "Booking..." : "BOOK SLOT"}
-          </button>
-        </div>
-      </form>
-    </div>
+            {/* Submit Button */}
+            <div className="slot-button-div">
+              <button
+                type="submit"
+                className="slot-form__button"
+                disabled={loading || bookedSlots.includes(selectedTime)}
+              >
+                {loading ? "Booking..." : "BOOK SLOT"}
+              </button>
+            </div>
+          </div>
+        </form>
+
+        {/* Booking Confirmation Popup */}
+        {showPopup && (
+          <BookingConfirmationPopup
+            onClose={handleClosePopup}
+            bookingDetails={{
+              name,
+              date: selectedDate ? convertToIST(selectedDate) : "",
+              time: selectedTime,
+            }}
+          />
+        )}
+      </div>
+    </>
   );
 };
 
