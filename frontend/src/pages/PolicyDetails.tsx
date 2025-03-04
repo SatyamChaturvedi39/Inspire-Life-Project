@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./PolicyDetails.css";
 import policyImage from "../assets/policy.jpg";
@@ -34,6 +34,13 @@ const PolicyDetails: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   
+  const navigate = useNavigate();
+
+  // Back button handler
+  const handleBack = () => {
+    navigate("/policies");
+  };
+
   useEffect(() => {
     if (!slug) {
       setError("Invalid policy request.");
@@ -46,7 +53,6 @@ const PolicyDetails: React.FC = () => {
         const url = `http://localhost:5001/api/policies/${slug}`;
         const response = await axios.get(url);
         setPolicy(response.data.data);
-        
       } catch (error) {
         console.error("Error fetching policy details:", error);
         setError("Failed to load policy details. Please try again.");
@@ -68,6 +74,7 @@ const PolicyDetails: React.FC = () => {
 
   return (
     <div className="policy-details-container">
+      
       {/* Full-width hero image */}
       <div className="policy-hero-image-container">
         <img src={policyImage} alt="Insurance Services" className="policy-hero-image" />
@@ -75,9 +82,13 @@ const PolicyDetails: React.FC = () => {
 
       {loading && <div className="loading-container"><p>Loading...</p></div>}
       {error && <p className="error">{error}</p>}
+      {/* Back button added here */}
       
       {policy && (
         <div className="policy-content">
+        <div className="manage-policies-back-button" onClick={handleBack}>
+        &#x21E6; Back
+        </div>
           <h1 className="policy-title">{policy?.policyName}</h1>
           
           <div className="policy-info">
@@ -109,7 +120,6 @@ const PolicyDetails: React.FC = () => {
               <p className="feature-title">Tax Benefit</p>
               <p className="feature-value">{policy.keyFeatures?.taxBenefit}</p>
             </div>
-            
           </div>
           <div className="dummy-text">
               <h3>Why Choose This Policy?</h3>

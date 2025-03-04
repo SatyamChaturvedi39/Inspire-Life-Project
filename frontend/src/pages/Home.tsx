@@ -60,7 +60,7 @@ const Home = () => {
               className="home-button"
               onClick={() => handleButtonClick("policies")}
             >
-              Buy a Policy
+              Explore Policies
             </button>
             <button
               className="home-button"
@@ -75,13 +75,21 @@ const Home = () => {
       {isDesktop ? (
         <>
           <LeadForm />
-          <h1 className="know-more">Know More</h1>
+          <h1>
+            <a className="know-more-home" href="/about-us">
+              Know More!
+            </a>
+          </h1>
           <CarouselScroll />
         </>
       ) : (
         <>
           <CarouselScroll />
-          <h1 className="know-more">Know More</h1>
+          <h1>
+            <a className="know-more-home" href="/about-us">
+              Know More!
+            </a>
+          </h1>
           <LeadForm />
         </>
       )}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./ManagePolicies.css";
 import PolicyFormPopup, { PolicyFormData } from "./PolicyFormPopup";
+import { useAxiosInstance } from "../context/axiosInstance";
 
 interface KeyFeatures {
   policyTerm?: string;
@@ -22,13 +22,13 @@ interface Policy {
 }
 
 interface ManagePoliciesProps {
-    onBack: () => void;
-    onAdd: () => void;
-    onDelete: (policyId: string) => void;
-    onUpdate: (policyId: string) => void;
-  }
+  onBack: () => void;
+  onAdd: () => void;
+  onDelete: (policyId: string) => void;
+  onUpdate: (policyId: string) => void;
+}
 
-const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
+const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete, onUpdate }) => {
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMode, setPopupMode] = useState<"create" | "update">("create");
@@ -37,15 +37,29 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [policyToDelete, setPolicyToDelete] = useState<string | null>(null);
 
+  // Axios instance automatically attaches the token
+  const axiosInstance = useAxiosInstance();
 
   useEffect(() => {
     fetchPolicies();
   }, []);
 
+  useEffect(() => {
+    if (showPopup) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showPopup]);
+  
+
   const fetchPolicies = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/policies", {
-        params: { limit: 15, offset: 0 },
+      const response = await axiosInstance.get("/policies", {
+        params: {offset: 0 }
       });
       console.log("Fetched policies:", response.data.data);
       setPolicies(response.data.data);
@@ -54,7 +68,13 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
     }
   };
 
+  // Convert policyName to slug
+  const generateSlug = (policyName: string) => {
+    return policyName.toLowerCase().trim().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+  };
+
   const handleAddClick = () => {
+    onAdd();
     setPopupMode("create");
     setSelectedPolicy(null);
     setShowPopup(true);
@@ -71,19 +91,16 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
     setShowConfirmDialog(true);
   };
 
-  const generateSlug = (policyName: string) => {
-    return policyName.toLowerCase().trim().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-  };
-  
   const handleDeletePolicy = async () => {
     if (!policyToDelete) return;
     try {
-      // Use slug for deletion, not _id
       const policy = policies.find((p) => p._id === policyToDelete);
       if (policy) {
         const slug = generateSlug(policy.policyName);
-        await axios.delete(`http://localhost:5001/api/policies/${slug}`);
+        console.log("Deleting policy with slug:", slug);
+        await axiosInstance.delete(`/policies/${slug}`);
         setPolicies(policies.filter((p) => p._id !== policyToDelete));
+        onDelete(policyToDelete);
       }
     } catch (error) {
       console.error("Error deleting policy:", error);
@@ -92,18 +109,17 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
       setPolicyToDelete(null);
     }
   };
-  
 
   const handlePopupSubmit = async (formData: PolicyFormData) => {
     try {
       if (popupMode === "create") {
         console.log("Creating policy with data:", formData);
-        await axios.post("http://localhost:5001/api/policies", formData);
+        await axiosInstance.post("/policies", formData);
       } else if (popupMode === "update" && selectedPolicy) {
-        // Generate slug from selectedPolicy's policyName
         const slug = generateSlug(selectedPolicy.policyName);
         console.log("Updating policy with slug:", slug, "and data:", formData);
-        await axios.put(`http://localhost:5001/api/policies/${slug}`, formData);
+        await axiosInstance.put(`/policies/${slug}`, formData);
+        onUpdate(selectedPolicy._id);
       }
       fetchPolicies();
     } catch (error) {
@@ -113,7 +129,6 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
     }
   };
 
-  // Toggle delete mode when DELETE header button is clicked
   const handleToggleDeleteMode = () => {
     setDeleteMode(!deleteMode);
   };
@@ -122,7 +137,7 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
     <div className="manage-policies-container">
       <div className="manage-policies-header">
         <div className="manage-policies-back-button" onClick={onBack}>
-        &#x21E6; Back
+          &#x21E6; Back
         </div>
         <div className="manage-policies-header-section">
           <h2 className="manage-policies-header-title">Manage Policies</h2>
@@ -143,12 +158,11 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
             <div key={policy._id} className="manage-policies-policy-card">
               {deleteMode && (
                 <div
-                className="manage-policies-delete-icon"
-                onClick={() => confirmDeletePolicy(policy._id)}
-              >
-                ×
+                  className="manage-policies-delete-icon"
+                  onClick={() => confirmDeletePolicy(policy._id)}
+                >
+                  ×
                 </div>
-              
               )}
               <div className="manage-policies-policy-info">
                 <h3 className="manage-policies-policy-name">{policy.policyName}</h3>
@@ -176,11 +190,11 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
             selectedPolicy
               ? {
                   policyName: selectedPolicy.policyName,
-                  policyDescription: selectedPolicy.policyDescription, // Pre-fill with full description
+                  policyDescription: selectedPolicy.policyDescription,
                   companyName: selectedPolicy.companyName,
                   ageRange: selectedPolicy.ageRange,
                   shortDescription: selectedPolicy.shortDescription,
-                  keyFeatures: selectedPolicy.keyFeatures || {}
+                  keyFeatures: selectedPolicy.keyFeatures || {},
                 }
               : undefined
           }
@@ -192,15 +206,22 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack }) => {
       {showConfirmDialog && (
         <div className="delete-confirm-dialog">
           <div className="delete-confirm-box">
-            <p>Are you sure you want to delete this policy?<br></br> This action cannot be undone.</p>
+            <p>
+              Are you sure you want to delete this policy?
+              <br />
+              This action cannot be undone.
+            </p>
             <div className="delete-confirm-actions">
-              <button className="delete-confirm-yes" onClick={handleDeletePolicy}>Yes</button>
-              <button className="delete-confirm-no" onClick={() => setShowConfirmDialog(false)}>No</button>
+              <button className="delete-confirm-yes" onClick={handleDeletePolicy}>
+                Yes
+              </button>
+              <button className="delete-confirm-no" onClick={() => setShowConfirmDialog(false)}>
+                No
+              </button>
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
 };

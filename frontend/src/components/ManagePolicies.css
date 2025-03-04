@@ -7,7 +7,7 @@
   .manage-policies-header {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /*back button left-aligned */
+    align-items: flex-start;
     margin-bottom: 20px;
   }
   
@@ -20,13 +20,13 @@
     cursor: pointer;
     align-self: flex-start;
     margin-top: 2%;
-    margin-left: 1%;
+    margin-bottom: 1%;
   }
   
   .manage-policies-header-section {
     width: 100%;
     display: flex;
-    justify-content: space-between; /* Title on left, buttons on right */
+    justify-content: space-between;
     align-items: center;
   }
   
@@ -42,7 +42,7 @@
   }
   
   .manage-policies-add-button {
-    background-color: #28a745; /* Green for ADD button */
+    background-color: #28a745;
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -56,7 +56,7 @@
   }
   
   .manage-policies-delete-button {
-    background-color: #dc3545; /* Red for DELETE button */
+    background-color: #dc3545;
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -76,7 +76,7 @@
     gap: 15px;
   }
   
-  /* Policy Card - MOBILE FIRST: column layout, text left, update button right-aligned via self-end */
+  /* Policy Card */
   .manage-policies-policy-card {
     background-color: #fff;
     border-radius: 8px;
@@ -84,7 +84,7 @@
     position: relative;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column; /* Mobile: stack content vertically */
+    flex-direction: column; /*stack content vertically */
     align-items: flex-start;
   }
   
@@ -118,10 +118,10 @@
     margin-bottom: 3px;
   }
   
-  /* Update button on mobile: place it at the end of the card */
+  
   .manage-policies-update-button {
-    align-self: flex-end; /* Right-align the button in column layout */
-    background-color: rgba(14, 56, 105, 1); /* Blue for UPDATE */
+    align-self: flex-end;
+    background-color: rgba(14, 56, 105, 1);
     color: #fff;
     border: none;
     padding: 6px 10px;
@@ -140,7 +140,7 @@
     font-size: 16px;
   }
   
-  /* ========== DESKTOP STYLES (min-width: 481px) ========== */
+  /* ========== DESKTOP STYLES ========== */
   @media (min-width: 1024px) {
     .manage-policies-header-title {
       font-size: 24px;
@@ -153,7 +153,7 @@
       padding: 8px 12px;
     }
   
-    /* On desktop, policy card is row-based, text on left, update button on the right */
+  
     .manage-policies-policy-card {
       flex-direction: row;
       justify-content: space-between;
@@ -165,8 +165,8 @@
     }
   
     .manage-policies-update-button {
-      align-self: auto; /* revert to normal flow in row layout */
-      margin-left: 15px; /* small gap from text area */
+      align-self: auto;
+      margin-left: 15px;
     }
   }
 

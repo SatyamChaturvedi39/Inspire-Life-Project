@@ -34,7 +34,7 @@ const Login: React.FC = () => {
       <h2>Login</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <input type="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
+        <input type="text" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
         <input type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit">Login</button>
       </form>

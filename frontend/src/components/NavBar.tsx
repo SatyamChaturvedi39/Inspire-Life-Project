@@ -1,12 +1,31 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Navbar.css";
 
 const NavBar = () => {
   const location = useLocation();
-  
-  // Check if the current path starts with /policy/ to highlight Policies link
+  const navigate = useNavigate();
+  const { accessToken, clearAuth } = useAuth();
+
   const isPolicyPage = location.pathname.startsWith('/policies/');
-  
+
+  const handleLogout = async () => {
+    try {
+      // Call the backend logout endpoint to clear the refresh token cookie.
+      await fetch("http://localhost:5001/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error("Error during logout", error);
+    } finally {
+      // Immediately clear the in-memory auth state.
+      clearAuth();
+      navigate("/login");
+    }
+  };
+
+
   return (
     <nav>
       <ul>
@@ -16,10 +35,7 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link
-            to="/about-us"
-            className={location.pathname === "/about-us" ? "active" : ""}
-          >
+          <Link to="/about-us" className={location.pathname === "/about-us" ? "active" : ""}>
             About Us
           </Link>
         </li>
@@ -32,30 +48,39 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link
-            to="/careers"
-            className={location.pathname === "/careers" ? "active" : ""}
-          >
+          <Link to="/careers" className={location.pathname === "/careers" ? "active" : ""}>
             Careers
           </Link>
         </li>
         <li>
-          <Link
-            to="/contact"
-            className={location.pathname === "/contact" ? "active" : ""}
-          >
+          <Link to="/contact" className={location.pathname === "/contact" ? "active" : ""}>
             Contact
           </Link>
         </li>
-        {/* Login Page Link */}
-        <li className="login-link">
-          <Link
-            to="/login"
-            className={location.pathname.startsWith("/login") ? "active" : ""}
-          >
-            Login
-          </Link>
-        </li>
+        {accessToken ? (
+          <>
+            <li>
+              <Link
+                to="/dashboard/admin"
+                className={location.pathname.startsWith("/dashboard/admin") ? "active" : ""}
+              >
+                Dashboard
+              </Link>
+            </li>
+            <li className="logout-link">
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          </>
+        ) : (
+          <li className="login-link">
+            <Link
+              to="/login"
+              className={location.pathname.startsWith("/login") ? "active" : ""}
+            >
+              Login
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
