@@ -1,31 +1,40 @@
-import{createContext,useContext,useState,ReactNode,useEffect,useCallback,} from "react";
+import { 
+  createContext, 
+  useContext, 
+  useState, 
+  ReactNode, 
+  useCallback 
+} from "react";
 import axios from "axios";
 import { AuthContextType } from "./AuthTypes";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  // By default, no user is logged in.
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
-  // New state to flag that the user has explicitly logged out.
-  const [isLoggedOut, setIsLoggedOut] = useState<boolean>(false);
+  // Start with logged out state.
+  const [isLoggedOut, setIsLoggedOut] = useState<boolean>(true);
 
+  // Sets the auth state and marks the user as logged in.
   const setAuth = useCallback((token: string, userRole: string) => {
     setAccessToken(token);
     setRole(userRole);
-    setIsLoggedOut(false); // Reset the flag when a new token is set.
+    setIsLoggedOut(false);
   }, []);
 
+  // Clears the auth state, marking the user as logged out.
   const clearAuth = useCallback(() => {
     setAccessToken(null);
     setRole(null);
     setIsLoggedOut(true);
   }, []);
 
+  // This function attempts to refresh the access token, but only if the user is not logged out.
   const refreshAccessToken = useCallback(async () => {
-    // Only refresh if user hasn't explicitly logged out.
     if (isLoggedOut) {
-      console.log("[AuthContext] Skipping refresh because user is logged out.");
+      console.log("[AuthContext] User is logged out. Skipping token refresh.");
       return;
     }
     try {
@@ -42,12 +51,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [clearAuth, isLoggedOut]);
 
-  useEffect(() => {
-    // Only attempt to refresh if user is not logged out.
-    if (!isLoggedOut) {
-      refreshAccessToken();
-    }
-  }, [refreshAccessToken, isLoggedOut]);
+  // Removed auto refresh on mount, so that if the user hasn't logged in, they remain logged out.
+  // useEffect(() => {
+  //   if (!isLoggedOut) {
+  //     refreshAccessToken();
+  //   }
+  // }, [refreshAccessToken, isLoggedOut]);
 
   return (
     <AuthContext.Provider value={{ accessToken, role, setAuth, clearAuth, refreshAccessToken }}>
