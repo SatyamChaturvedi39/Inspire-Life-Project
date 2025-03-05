@@ -1,16 +1,16 @@
-import Client from "../models/Client.js";
+import Lead from "../models/Lead.js";
 
-export const getClient = async (req, res) =>{
+export const getLead = async (req, res) =>{
     try {
-        const clients = await Client.find({});
-        res.status(200).json({success:true, data:clients});
+        const leadss = await Lead.find({});
+        res.status(200).json({success:true, data:leads});
         } catch (error) {
-            console.log("Error fetching Client details");
+            console.log("Error fetching Lead details");
             res.status(500).json({success:false, message: "Server error" });
     }
 }
 
-export const createClient = async (req, res) => {
+export const createLead = async (req, res) => {
     const data = req.body; // Store all request data in a single variable
 
     if (!data.name || !data.phoneNumber) {
@@ -21,11 +21,11 @@ export const createClient = async (req, res) => {
     }
 
     try {
-        const newClient = new Client(data);
-        await newClient.save();
-        res.status(201).json({ success: true, data: newClient });
+        const newLead = new Lead(data);
+        await newLead.save();
+        res.status(201).json({ success: true, data: newLead });
     } catch (error) {
-        console.error("Error creating client:", error.message);
+        console.error("Error creating Lead:", error.message);
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 };

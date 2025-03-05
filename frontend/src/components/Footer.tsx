@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Footer.css";
 import logo from "../assets/logo.png";
-import PopUp from "./PopUp"; // Using PopUp.tsx
+import PopUp from "./LeadFormPopup"; // Using PopUp.tsx
 
 const Footer: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);

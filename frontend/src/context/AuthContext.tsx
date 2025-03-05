@@ -51,13 +51,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [clearAuth, isLoggedOut]);
 
-  // Removed auto refresh on mount, so that if the user hasn't logged in, they remain logged out.
-  // useEffect(() => {
-  //   if (!isLoggedOut) {
-  //     refreshAccessToken();
-  //   }
-  // }, [refreshAccessToken, isLoggedOut]);
-
   return (
     <AuthContext.Provider value={{ accessToken, role, setAuth, clearAuth, refreshAccessToken }}>
       {children}

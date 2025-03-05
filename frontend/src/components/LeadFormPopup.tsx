@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Popup.css";
+import "./LeadFormPopUp.css";
 
 interface PopupProps {
   onClose: () => void;
@@ -26,7 +26,7 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:5001/api/clients", {
+      const response = await fetch("http://localhost:5001/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

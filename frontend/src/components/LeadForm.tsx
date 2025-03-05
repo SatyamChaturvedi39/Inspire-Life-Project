@@ -18,7 +18,7 @@ const LeadForm: React.FC = () => {
 
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5001/api/clients", {
+      const response = await fetch("http://localhost:5001/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

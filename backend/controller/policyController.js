@@ -18,8 +18,18 @@ export const createPolicy = async (req, res) => {
       return res.status(400).json({ success: false, message: "Required fields missing" });
     }
 
+    const existingPolicy = await Policy.findOne({ policyName });
+    if (existingPolicy) {
+      console.error("[CreatePolicy] Policy already exists with the name of :", policyName);
+      return res.status(400).json({ success: false, message: "Policy already exists" });
+    }
+    
+    // Generate a slug from the policy name (ensures it is URL friendly)
+    const slug = policyName.toLowerCase().trim().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+
     const newPolicy = new Policy({
       policyName,
+      slug,
       policyDescription,
       companyName,
       ageRange,
@@ -68,6 +78,16 @@ export const putPolicyBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
     const updateData = req.body;
+
+    // If the policyName is being updated, recalculate the slug based on the new name.
+    if (updateData.policyName) {
+      updateData.slug = updateData.policyName
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9-]/g, "");
+    }
+
     const updatedPolicy = await Policy.findOneAndUpdate(
       { slug: slug },
       { $set: updateData },
@@ -84,6 +104,7 @@ export const putPolicyBySlug = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 export const deletePolicyBySlug = async (req, res) => {
   try {

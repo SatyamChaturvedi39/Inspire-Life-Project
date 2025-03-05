@@ -4,7 +4,7 @@ import { connectDB } from "./config/db.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import meetingRoutes from "./routes/meetingRoutes.js";
-import clientRoutes from "./routes/clientRoutes.js";
+import leadRoutes from "./routes/leadRoutes.js";
 import policyRoutes from "./routes/policyRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
@@ -25,7 +25,7 @@ app.use(express.json()); //allows us to accept JSON data in the req.body
 app.use(cookieParser());
 
 // Routes
-app.use("/api/clients", clientRoutes);
+app.use("/api/leads", leadRoutes);
 app.use("/api/policies", policyRoutes);
 app.use("/api/meetings", meetingRoutes);
 app.use("/api/auth", authRoutes);

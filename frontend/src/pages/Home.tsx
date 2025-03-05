@@ -7,7 +7,7 @@ import StarLogo from "../assets/starlogo.png";
 import CareLogo from "../assets/carelogo.png";
 import "./Home.css";
 import CarouselScroll from "../components/CarouselScroll";
-import Popup from "../components/PopUp";
+import Popup from "../components/LeadFormPopup";
 import LeadForm from "../components/LeadForm";
 
 const Home = () => {
