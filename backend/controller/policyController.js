@@ -27,6 +27,14 @@ export const createPolicy = async (req, res) => {
     // Generate a slug from the policy name (ensures it is URL friendly)
     const slug = policyName.toLowerCase().trim().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 
+    // Determine creator info from req.user; convert role to model name
+    // Assuming req.user.role is "admin" or "agent"
+    const createdByModel = req.user && req.user.role === "admin" ? "Admin" : "Agent";
+    const createdBy = req.user ? req.user.id : null;
+    if (!createdBy) {
+      return res.status(401).json({ success: false, message: "User not authenticated" });
+    }
+
     const newPolicy = new Policy({
       policyName,
       slug,
@@ -36,6 +44,8 @@ export const createPolicy = async (req, res) => {
       shortDescription,
       agentId,
       keyFeatures,
+      createdBy,
+      createdByModel,
     });
 
     await newPolicy.save();
@@ -88,14 +98,24 @@ export const putPolicyBySlug = async (req, res) => {
         .replace(/[^a-z0-9-]/g, "");
     }
 
+    // Get current user details from req.user (set by authentication middleware)
+    const userId = req.user ? req.user.id : null;
+    const isAdmin = req.user && req.user.role === "admin";
+
+    // Build filter: if not admin, only allow update if createdBy equals current user id
+    const filter = { slug: slug };
+    if (!isAdmin) {
+      filter.createdBy = userId;
+    }
+
     const updatedPolicy = await Policy.findOneAndUpdate(
-      { slug: slug },
+      filter,
       { $set: updateData },
       { new: true, runValidators: true }
     );
     if (!updatedPolicy) {
-      console.error("[PutPolicyBySlug] Policy not found for slug:", slug);
-      return res.status(404).json({ message: "Policy not found" });
+      console.error("[PutPolicyBySlug] Policy not found or insufficient privileges for slug:", slug);
+      return res.status(404).json({ message: "Policy not found or insufficient privileges" });
     }
     console.log("[PutPolicyBySlug] Policy updated:", updatedPolicy);
     res.status(200).json({ message: "Policy updated successfully", data: updatedPolicy });
@@ -109,10 +129,19 @@ export const putPolicyBySlug = async (req, res) => {
 export const deletePolicyBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
-    const deletedPolicy = await Policy.findOneAndDelete({ slug: slug });
+    const userId = req.user ? req.user.id : null;
+    const isAdmin = req.user && req.user.role === "admin";
+
+    // Build filter: if not admin, only allow deletion if createdBy equals current user id
+    const filter = { slug: slug };
+    if (!isAdmin) {
+      filter.createdBy = userId;
+    }
+
+    const deletedPolicy = await Policy.findOneAndDelete(filter);
     if (!deletedPolicy) {
-      console.error("[DeletePolicyBySlug] Policy not found for slug:", slug);
-      return res.status(404).json({ message: "Policy not found" });
+      console.error("[DeletePolicyBySlug] Policy not found or insufficient privileges for slug:", slug);
+      return res.status(404).json({ message: "Policy not found or insufficient privileges" });
     }
     console.log("[DeletePolicyBySlug] Policy deleted:", deletedPolicy);
     res.status(200).json({ message: "Policy deleted successfully", data: deletedPolicy });
