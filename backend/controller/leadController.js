@@ -8,7 +8,7 @@ export const getLead = async (req, res) =>{
             console.log("Error fetching Lead details");
             res.status(500).json({success:false, message: "Server error" });
     }
-}
+};
 
 export const createLead = async (req, res) => {
     const data = req.body; // Store all request data in a single variable
@@ -27,5 +27,20 @@ export const createLead = async (req, res) => {
     } catch (error) {
         console.error("Error creating Lead:", error.message);
         res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+};
+
+export const getRecentLeads = async (req, res) => {
+    try {
+      // Calculate the date 7 days ago
+      const oneWeekAgo = new Date();
+      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+  
+      // Find leads with createdAt greater than or equal to oneWeekAgo, sorted by newest first.
+      const leads = await Lead.find({ createdAt: { $gte: oneWeekAgo } }).sort({ createdAt: -1 });
+      res.json({ success: true, data: leads });
+    } catch (error) {
+      console.error("[GetRecentLeads] Error:", error);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 };

@@ -4,10 +4,11 @@ import adminImage from "../assets/adminimage.jpg"; // Import admin image
 import ManagePolicies from "../components/ManagePolicies"; // Import the ManagePolicies component
 import ManageSlots from "../components/ManageSlots"; // Import the ManageSlots component
 import AppointmentSlot from "../components/AppointmentSlot"; // Import the AppointmentSlot component
+import RecentLeads from "../components/RecentLeads"; // Import the RecentLeads component
 
 const AdminDashboard: React.FC = () => {
   const [activeComponent, setActiveComponent] = useState<
-    "default" | "managePolicies" | "manageSlots"
+    "default" | "managePolicies" | "manageSlots" | "showLeads"
   >("default");
 
   return (
@@ -36,7 +37,12 @@ const AdminDashboard: React.FC = () => {
                 Manage Applicants
               </button>
               <button className="admin-btn">Manage Agents</button>
-              <button className="admin-btn">Show Leads</button>
+              <button
+                className="admin-btn"
+                onClick={() => setActiveComponent("showLeads")}
+              >
+                Show Leads
+              </button>
             </div>
 
             {/* Appointment Slot Section */}
@@ -57,9 +63,11 @@ const AdminDashboard: React.FC = () => {
               console.log("Delete policy");
             }}
           />
-        ) : (
+        ) : activeComponent === "manageSlots" ? (
           <ManageSlots onBack={() => setActiveComponent("default")} />
-        )}
+        ) : activeComponent === "showLeads" ? (
+          <RecentLeads onBack={() => setActiveComponent('default')}/>
+        ) : null}
       </div>
     </div>
   );
