@@ -42,7 +42,7 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
 
   useEffect(() => {
     fetchPolicies();
-  }, []);
+  });
 
   useEffect(() => {
     if (showPopup) {
