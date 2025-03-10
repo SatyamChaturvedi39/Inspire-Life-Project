@@ -20,7 +20,7 @@ const AdminDashboard: React.FC = () => {
 
       <div className="admin-content">
         {activeComponent === "default" ? (
-          <>
+          <div>
             <h2>Welcome, Shivakumar!</h2>
 
             {/* Manage Buttons */}
@@ -61,7 +61,7 @@ const AdminDashboard: React.FC = () => {
             <div className="appointment-slot-section2">
               <AppointmentSlot />
             </div>
-          </>
+          </div>
         ) : activeComponent === "managePolicies" ? (
           <ManagePolicies
             onBack={() => setActiveComponent("default")}

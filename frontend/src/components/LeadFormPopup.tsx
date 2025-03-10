@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LeadFormPopUp.css";
+import TermsAndConditionsPopup from "./TermsAndConditions";
 
 interface PopupProps {
   onClose: () => void;
@@ -16,7 +17,16 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showTermsPopup, setShowTermsPopup] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -122,7 +132,16 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
               required
             />
             <label htmlFor="termsCheckbox" className="lead-checkbox">
-              I agree to the <a href="#">Terms & Conditions</a>.
+              I agree to the{" "}
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowTermsPopup(true);
+                }}
+              >
+                Terms &amp; Conditions
+              </a>.
             </label>
           </div>
           <div className="lead-button-div">
@@ -134,8 +153,20 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
             </button>
           </div>
         </form>
+        </div>
+        {showTermsPopup && (
+          <TermsAndConditionsPopup
+            onAccept={() => {
+              setTermsAgreed(true);
+              setShowTermsPopup(false);
+            }}
+            onDecline={() => {
+              setTermsAgreed(false);
+              setShowTermsPopup(false);
+            }}
+          />
+        )}
       </div>
-    </div>
   );
 };
 

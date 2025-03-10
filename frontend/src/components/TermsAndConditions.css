@@ -1,0 +1,105 @@
+/* MOBILE-FIRST STYLES */
+.terms-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  .terms-popup-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  .terms-popup-container h2 {
+    margin: 0;
+    padding: 15px;
+    background: #0B152B;
+    color: #fff;
+    text-align: left; /* Left align header text */
+  }
+  
+  .terms-popup-content {
+    padding: 15px;
+    flex: 1;
+    overflow-y: auto;
+    text-align: left; /* Left align all content text */
+  }
+  
+  .terms-popup-content p {
+    margin-bottom: 15px;
+    line-height: 1.5;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+  }
+  
+  .terms-popup-actions {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    padding: 10px 15px;
+    background: #f1f1f1;
+  }
+  
+  .terms-popup-actions button {
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px; /* Equal margin for centering */
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .terms-popup-accept {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .terms-popup-accept:hover {
+    background-color: #218838;
+  }
+  
+  .terms-popup-decline {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .terms-popup-decline:hover {
+    background-color: #c82333;
+  }
+  
+  /* DESKTOP STYLES */
+  @media (min-width: 768px) {
+    .terms-popup-container {
+      width: 80%;
+      max-width: 700px;
+    }
+    
+    .terms-popup-container h2 {
+      font-size: 28px;
+    }
+    
+    .terms-popup-content p {
+      font-size: 16px;
+    }
+    
+    .terms-popup-actions button {
+      font-size: 16px;
+      padding: 12px 24px;
+    }
+  }  

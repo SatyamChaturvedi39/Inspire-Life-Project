@@ -1,7 +1,10 @@
 .admin-dashboard {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #f8f9fa;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .admin-image {
@@ -9,11 +12,6 @@
   height: 40vh; /* Adjust height for better visibility */
   object-fit: cover;
   border: none;
-}
-
-.admin-content {
-  background: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .admin-buttons {
@@ -57,13 +55,12 @@
   width: 100vw;
   margin-top: 15px;
   background-color: #fff;
-  margin-left: -4%;
 }
 
 /* Desktop Styles */
 @media (min-width: 1024px) {
   .appointment-slot-section2 {
+    margin-left: -12%;
     width: 60vw;
-    margin-left: 14%;
   }
 }

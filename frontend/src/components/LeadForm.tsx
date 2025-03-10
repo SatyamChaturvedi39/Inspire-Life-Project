@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./LeadForm.css";
+import TermsAndConditionsPopup from "./TermsAndConditions";
 
 const LeadForm: React.FC = () => {
   const [name, setName] = useState("");
@@ -10,6 +11,7 @@ const LeadForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState<string>(""); // Stores "green" or "red"
+  const [showTermsPopup, setShowTermsPopup] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -110,7 +112,17 @@ const LeadForm: React.FC = () => {
             required
           />
           <label htmlFor="termsCheckbox" className="lead-checkbox">
-            I agree to the <a href="#">Terms & Conditions</a>.
+            I agree to the{" "}
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowTermsPopup(true);
+              }}
+            >
+              Terms &amp; Conditions
+            </a>
+            .
           </label>
         </div>
         <div className="lead-button-div">
@@ -123,6 +135,18 @@ const LeadForm: React.FC = () => {
           </button>
         </div>
       </form>
+      {showTermsPopup && (
+        <TermsAndConditionsPopup
+          onAccept={() => {
+            setTermsAgreed(true);
+            setShowTermsPopup(false);
+          }}
+          onDecline={() => {
+            setTermsAgreed(false);
+            setShowTermsPopup(false);
+          }}
+        />
+      )}
     </div>
   );
 };
