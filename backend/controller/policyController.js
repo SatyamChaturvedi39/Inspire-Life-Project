@@ -72,7 +72,7 @@ export const getPolicyBySlug = async (req, res) => {
   try {
     const slug = req.params.slug.toLowerCase().trim();
     console.log("[GetPolicyBySlug] Fetching policy for slug:", slug);
-    const policy = await Policy.findOne({ slug }).populate("agentId", "name contact");
+    const policy = await Policy.findOne({ slug }).populate("createdBy", "name contact");
     if (!policy) {
       console.error("[GetPolicyBySlug] Policy not found for slug:", slug);
       return res.status(404).json({ success: false, message: "Policy not found" });
