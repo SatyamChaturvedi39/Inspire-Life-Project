@@ -1,0 +1,48 @@
+.manage-clients {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    text-align: center;
+  }
+  
+  .back-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .back-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .policy-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .policy-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .policy-item:hover {
+    background-color: #e9ecef;
+  }
+  

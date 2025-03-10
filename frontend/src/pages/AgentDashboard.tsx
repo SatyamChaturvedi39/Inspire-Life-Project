@@ -3,11 +3,11 @@ import "./AgentDashboard.css";
 import agentImage from "../assets/adminimage.jpg";
 import ManageSlots from "../components/ManageSlots";
 import ManagePolicies from "../components/ManagePolicies";
-import AppointmentSlot from "../components/AppointmentSlot"; // Import the AppointmentSlot component
+import AppointmentSlot from "../components/AppointmentSlot";
 
 const AgentDashboard: React.FC = () => {
   const [activeComponent, setActiveComponent] = useState<
-    "default" | "manageSlots" | "managePolicies"
+    "default" | "manageApplicants" | "managePolicies"
   >("default");
 
   return (
@@ -26,18 +26,18 @@ const AgentDashboard: React.FC = () => {
               </button>
               <button
                 className="agent-btn"
-                onClick={() => setActiveComponent("manageSlots")}
+                onClick={() => setActiveComponent("manageApplicants")}
               >
-                Manage Slots
+                Manage Clients
               </button>
+              <button className="admin-btn">Show Leads</button>
             </div>
 
-            {/* Include the AppointmentSlot component below the buttons */}
             <div className="appointment-slot-section">
               <AppointmentSlot />
             </div>
           </div>
-        ) : activeComponent === "manageSlots" ? (
+        ) : activeComponent === "manageApplicants" ? (
           <ManageSlots onBack={() => setActiveComponent("default")} />
         ) : (
           <ManagePolicies
