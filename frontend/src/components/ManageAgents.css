@@ -1,0 +1,243 @@
+.manage-agents-container {
+    padding: 10px;
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
+}
+
+.manage-agents-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.manage-agents-back-button {
+    background: #0c2641;
+    border: none;
+    font-weight: 200;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+
+.manage-agents-header-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.manage-agents-header-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0c2641;
+    margin: 0;
+    text-align: center;
+    
+}
+
+.manage-agents-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.manage-agents-add-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.manage-agents-add-button:hover {
+    background-color: #218838;
+}
+
+.manage-agents-delete-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    
+    
+}
+
+.manage-agents-delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Agents List */
+.manage-agents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Agent Card */
+.manage-agents-agent-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.manage-agents-delete-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #dc3545;
+}
+
+.manage-agents-agent-info {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.manage-agents-agent-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.manage-agents-agent-email {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 3px;
+}
+
+.manage-agents-update-button {
+    align-self: flex-end;
+    background-color: rgba(14, 56, 105, 1);
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.manage-agents-update-button:hover {
+    background-color: #0056b3;
+}
+
+.manage-agents-no-agents {
+    text-align: center;
+    color: #888;
+    font-size: 16px;
+}
+
+/* Popup Styles */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.popup label {
+    display: block;
+    font-size: 14px;
+    margin: 10px 0 5px;
+    text-align: left;
+}
+
+.popup input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.popup-buttons button {
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.popup-buttons button:first-child {
+    background: #28a745;
+    color: white;
+}
+
+.popup-buttons button:last-child {
+    background: #c82333;
+    color: white;
+}
+
+/* ========== DESKTOP STYLES ========== */
+@media (min-width: 1024px) {
+    .manage-agents-header-title {
+        font-size: 24px;
+        text-align: center;
+        color: #0c2641;
+        
+    }
+
+    .manage-agents-add-button,
+    .manage-agents-update-button {
+        font-size: 14px;
+        padding: 6px 12px;
+        
+    }
+
+    .manage-agents-delete-button{
+        font-size: 14px;
+        padding: 6px 12px;
+        margin-left: 10%;
+        margin-top: 5%;
+    }
+
+    .manage-agents-agent-card {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .manage-agents-agent-info {
+        margin-bottom: 0;
+    }
+
+    .manage-agents-update-button {
+        align-self: auto;
+        margin-left: 15px;
+    }
+}

@@ -5,11 +5,12 @@ import ManagePolicies from "../components/ManagePolicies"; // Import the ManageP
 import ManageSlots from "../components/ManageSlots"; // Import the ManageSlots component
 import ManageClients from "../components/ManageClients"; // Import the ManageClients component
 import RecentLeads from "../components/RecentLeads"; // Import the RecentLeads component
+import ManageAgents from "../components/ManageAgents"; // Import the ManageAgents component
 import AppointmentSlot from "../components/AppointmentSlot"; // Import the AppointmentSlot component
 
 const AdminDashboard: React.FC = () => {
   const [activeComponent, setActiveComponent] = useState<
-    "default" | "managePolicies" | "manageClients" | "manageApplicants" | "manageSlots" | "showLeads"
+    "default" | "managePolicies" | "manageClients" | "manageApplicants" | "manageSlots" | "showLeads" | "manageAgents"
   >("default");
 
   return (
@@ -20,7 +21,7 @@ const AdminDashboard: React.FC = () => {
       <div className="admin-content">
         {activeComponent === "default" ? (
           <>
-            <h2>Welcome, Satyam!</h2>
+            <h2>Welcome, Shivakumar!</h2>
 
             {/* Manage Buttons */}
             <div className="admin-buttons">
@@ -42,7 +43,12 @@ const AdminDashboard: React.FC = () => {
               >
                 Manage Applicants
               </button>
-              <button className="admin-btn">Manage Agents</button>
+              <button
+                className="admin-btn"
+                onClick={() => setActiveComponent("manageAgents")}
+              >
+                Manage Agents
+              </button>
               <button
                 className="admin-btn"
                 onClick={() => setActiveComponent("showLeads")}
@@ -69,6 +75,8 @@ const AdminDashboard: React.FC = () => {
               console.log("Delete policy");
             }}
           />
+        ) : activeComponent === "manageAgents" ? (
+          <ManageAgents onBack={() => setActiveComponent("default")} />
         ) : activeComponent === "manageClients" ? (
           <ManageClients onBack={() => setActiveComponent("default")} />
         ) : activeComponent === "manageApplicants" ? (

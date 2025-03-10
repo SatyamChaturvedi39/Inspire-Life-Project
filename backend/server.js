@@ -29,7 +29,7 @@ app.use("/api/leads", leadRoutes);
 app.use("/api/policies", policyRoutes);
 app.use("/api/meetings", meetingRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/admin", adminRoutes);
+app.use("/api/agents", adminRoutes);
 app.use("/api/policymeetings", policymeetingsRoutes); // Add the new routes
 
 // Start the server

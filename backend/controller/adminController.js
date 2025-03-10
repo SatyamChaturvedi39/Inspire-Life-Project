@@ -1,4 +1,3 @@
-// controllers/adminController.js
 import Agent from "../models/Agent.js";
 import bcrypt from "bcrypt";
 
@@ -45,16 +44,18 @@ export const getAgents = async (req, res) => {
 };
 
 // Update an agent (Admin power)
+// Password update is optional. If provided and non-empty, it will be updated.
 export const updateAgent = async (req, res) => {
   try {
-    const { id } = req.params; // Expect agent ID in URL
+    const { id } = req.params;
     const updateData = req.body;
-    // If password is updated, hash it
-    if (updateData.password) {
+    if (updateData.password && updateData.password.trim() !== "") {
       const saltRounds = 10;
       updateData.passwordHash = await bcrypt.hash(updateData.password, saltRounds);
-      delete updateData.password;
     }
+    // Remove password field from updateData to avoid accidentally setting it to empty string
+    delete updateData.password;
+    
     const updatedAgent = await Agent.findByIdAndUpdate(id, { $set: updateData }, { new: true, runValidators: true });
     if (!updatedAgent) {
       console.error("[UpdateAgent] Agent not found for id:", id);
