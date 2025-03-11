@@ -86,7 +86,7 @@ const PolicyDetails: React.FC = () => {
       
       {policy && (
         <div className="policy-content">
-        <div className="manage-policies-back-button" onClick={handleBack}>
+        <div className="policies-back-button" onClick={handleBack}>
         &#x21E6; Back
         </div>
           <h1 className="policy-title">{policy?.policyName}</h1>

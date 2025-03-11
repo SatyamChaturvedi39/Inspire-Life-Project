@@ -4,10 +4,11 @@ import agentImage from "../assets/adminimage.jpg";
 import ManageSlots from "../components/ManageSlots";
 import ManagePolicies from "../components/ManagePolicies";
 import AppointmentSlot from "../components/AppointmentSlot";
+import RecentLeads from "../components/RecentLeads";
 
 const AgentDashboard: React.FC = () => {
   const [activeComponent, setActiveComponent] = useState<
-    "default" | "manageApplicants" | "managePolicies"
+    "default" | "manageApplicants" | "managePolicies" | "showLeads"
   >("default");
 
   return (
@@ -30,16 +31,20 @@ const AgentDashboard: React.FC = () => {
               >
                 Manage Clients
               </button>
-              <button className="admin-btn">Show Leads</button>
+              <button
+                className="admin-btn"
+                onClick={() => setActiveComponent("showLeads")}
+              >
+                Show Leads
+              </button>
             </div>
-
             <div className="appointment-slot-section">
               <AppointmentSlot />
             </div>
           </div>
         ) : activeComponent === "manageApplicants" ? (
           <ManageSlots onBack={() => setActiveComponent("default")} />
-        ) : (
+        ) : activeComponent === "managePolicies" ? (
           <ManagePolicies
             onBack={() => setActiveComponent("default")}
             onUpdate={(policyId: string) => {
@@ -48,11 +53,13 @@ const AgentDashboard: React.FC = () => {
             onAdd={() => {
               console.log("Add policy");
             }}
-            onDelete={() => {
-              console.log("Delete policy");
+            onDelete={(policyId: string) => {
+              console.log("Delete policy:", policyId);
             }}
           />
-        )}
+        ) : activeComponent === "showLeads" ? (
+          <RecentLeads onBack={() => setActiveComponent("default")} />
+        ) : null}
       </div>
     </div>
   );

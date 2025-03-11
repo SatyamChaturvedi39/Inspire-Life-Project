@@ -38,11 +38,14 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard/admin" element={
           <ProtectedRoute requiredRole="admin">
-            <AgentDashboard />
+            <AdminDashboard />
           </ProtectedRoute>}/>
 
         {/* 404 - Not Found Page */}
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/dashboard/agent" element={
+          <ProtectedRoute requiredRole="agent">
+            <AgentDashboard />
+          </ProtectedRoute>}/>
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
