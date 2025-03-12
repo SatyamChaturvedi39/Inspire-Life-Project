@@ -2,6 +2,7 @@
 
 .recent-leads-container {
     padding: 20px;
+    width: 100vh;
     background-color: #f8f8f8;
     font-family: Arial, sans-serif;
   }
@@ -15,15 +16,16 @@
   }
   
   .recent-leads-back-button {
-    background: none;
+    background: #0c2641;
     border: none;
-    font-weight: 700;
-    color: #0c2641;
-    font-size: 18px;
+    font-weight: 200;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 14px;
     cursor: pointer;
     align-self: flex-start;
-    margin-top: 2%;
-    margin-bottom: 1%;
+    margin-bottom: 5%;
   }
   
   .recent-leads-title {
