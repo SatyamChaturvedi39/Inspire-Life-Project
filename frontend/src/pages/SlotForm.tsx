@@ -15,8 +15,13 @@ const SlotForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState<string>("");
-  const [bookedSlots, setBookedSlots] = useState<string[]>([]); // ✅ Track booked slots
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [bookingInfo, setBookingInfo] = useState<{
+    name: string;
+    date: string;
+    time: string;
+  } | null>(null); // ✅ Store booking info
 
   const timeSlots = [
     "09:00 AM - 10:00 AM",
@@ -29,14 +34,12 @@ const SlotForm: React.FC = () => {
     "04:00 PM - 05:00 PM",
   ];
 
-  // ✅ Convert date to IST format (YYYY-MM-DD)
   const convertToIST = (date: Date) => {
-    const istOffset = 5.5 * 60 * 60 * 1000; // IST is GMT+5:30
+    const istOffset = 5.5 * 60 * 60 * 1000;
     const istDate = new Date(date.getTime() + istOffset);
-    return istDate.toISOString().split("T")[0]; // Format YYYY-MM-DD
+    return istDate.toISOString().split("T")[0];
   };
 
-  // ✅ Fetch booked slots from the backend
   const fetchBookedSlots = async (date: Date) => {
     try {
       const formattedDate = convertToIST(date);
@@ -47,7 +50,7 @@ const SlotForm: React.FC = () => {
 
       if (response.ok) {
         const takenTimes = data.map((slot: { time: string }) => slot.time);
-        setBookedSlots(takenTimes); // ✅ Update state with booked slots
+        setBookedSlots(takenTimes);
       } else {
         setMessage("Failed to fetch booked slots.");
         setMessageColor("red");
@@ -57,13 +60,11 @@ const SlotForm: React.FC = () => {
     }
   };
 
-  // ✅ Fetch booked slots when date is selected
   useEffect(() => {
     if (!selectedDate) return;
     fetchBookedSlots(selectedDate);
   }, [selectedDate]);
 
-  // ✅ Handle Form Submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedDate || !selectedTime || !name || !phoneNumber) {
@@ -93,21 +94,26 @@ const SlotForm: React.FC = () => {
       setLoading(false);
 
       if (response.ok) {
-        if (response.ok) {
-          setMessage("Slot booked successfully!");
-          setMessageColor("green");
-          setShowPopup(true); // Show popup
-        }
-
         setMessage("Slot booked successfully!");
         setMessageColor("green");
+
+        const newBookingInfo = {
+          name,
+          date: convertToIST(selectedDate),
+          time: selectedTime,
+        };
+
+        setBookingInfo(newBookingInfo); // ✅ Store correct details
+        setShowPopup(true);
+
+        // Reset form AFTER storing booking details
         setName("");
         setPhoneNumber("");
         setEmail("");
         setComment("");
         setSelectedTime("");
 
-        // ✅ Re-fetch booked slots immediately
+        // Re-fetch booked slots
         setTimeout(() => {
           if (selectedDate) fetchBookedSlots(selectedDate);
         }, 500);
@@ -123,15 +129,12 @@ const SlotForm: React.FC = () => {
     }
   };
 
-  // Handler to close the popup
   const handleClosePopup = () => {
     setShowPopup(false);
   };
 
   return (
     <>
-      {" "}
-      {/* Header Image */}
       <div
         className="slot-header-image"
         style={{
@@ -154,7 +157,6 @@ const SlotForm: React.FC = () => {
             </p>
           )}
 
-          {/* Form Fields */}
           <div className="slot-form-fields-container">
             <div className="slot-form__field">
               <label>Name:</label>
@@ -163,10 +165,7 @@ const SlotForm: React.FC = () => {
                 className="slot-form__input"
                 placeholder="Enter your name"
                 value={name}
-                onChange={(e) => {
-                  const newValue = e.target.value.replace(/[^a-zA-Z\s]/g, ""); // Allow only letters and spaces
-                  setName(newValue);
-                }}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 
@@ -177,13 +176,8 @@ const SlotForm: React.FC = () => {
                 className="slot-form__input"
                 placeholder="Enter your phone number"
                 value={phoneNumber}
-                onChange={(e) => {
-                  const newValue = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-                  if (newValue.length <= 10) {
-                    setPhoneNumber(newValue); // Allow only up to 10 digits
-                  }
-                }}
-                maxLength={10} // Prevents typing beyond 10 characters
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                maxLength={10}
               />
             </div>
 
@@ -208,24 +202,18 @@ const SlotForm: React.FC = () => {
               ></textarea>
             </div>
 
-            {/* Date Picker */}
             <div className="slot-form__field">
               <label>Select a Date:</label>
               <DatePicker
                 selected={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
                 minDate={new Date()}
-                dateFormat="dd-MM-yyyy" // Set format to dd-mm-yyyy
+                dateFormat="dd-MM-yyyy"
                 className="slot-form__input"
                 placeholderText="DD-MM-YYYY"
-                onKeyDown={(e) => {
-                  if (!/[0-9-]/.test(e.key) && e.key !== "Backspace") {
-                    e.preventDefault(); // Allow only numbers and dashes (-)
-                  }
-                }}
               />
             </div>
-            {/* Time Slot Selector */}
+
             <div className="slot-form__field">
               <label>Select a Time Slot:</label>
               <select
@@ -246,7 +234,6 @@ const SlotForm: React.FC = () => {
               </select>
             </div>
 
-            {/* Submit Button */}
             <div className="slot-button-div">
               <button
                 type="submit"
@@ -259,15 +246,10 @@ const SlotForm: React.FC = () => {
           </div>
         </form>
 
-        {/* Booking Confirmation Popup */}
-        {showPopup && (
+        {showPopup && bookingInfo && (
           <BookingConfirmationPopup
             onClose={handleClosePopup}
-            bookingDetails={{
-              name,
-              date: selectedDate ? convertToIST(selectedDate) : "",
-              time: selectedTime,
-            }}
+            bookingDetails={bookingInfo}
           />
         )}
       </div>

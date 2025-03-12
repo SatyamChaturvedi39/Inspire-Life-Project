@@ -14,10 +14,11 @@ const BookingConfirmationPopup: React.FC<BookingConfirmationPopupProps> = ({
   onClose,
   bookingDetails,
 }) => {
+  console.log("Popup received bookingDetails:", bookingDetails);
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-        <h2 className="heading-popup">Booking Confirmed!</h2>
+        <h2 className="heading-popup"> Booking Confirmed!</h2>
         <p>
           <strong>Name:</strong> {bookingDetails.name}
         </p>
