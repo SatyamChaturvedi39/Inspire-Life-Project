@@ -5,13 +5,12 @@ import "./Navbar.css";
 const NavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { accessToken, clearAuth } = useAuth();
+  const { accessToken, role, clearAuth } = useAuth();
 
-  const isPolicyPage = location.pathname.startsWith('/policies/');
+  const isPolicyPage = location.pathname.startsWith("/policies/");
 
   const handleLogout = async () => {
     try {
-      // Call the backend logout endpoint to clear the refresh token cookie.
       await fetch("http://localhost:5001/api/auth/logout", {
         method: "POST",
         credentials: "include",
@@ -19,12 +18,13 @@ const NavBar = () => {
     } catch (error) {
       console.error("Error during logout", error);
     } finally {
-      // Immediately clear the in-memory auth state.
       clearAuth();
       navigate("/login");
     }
   };
 
+  // Determine dashboard path based on user role
+  const dashboardPath = role === "admin" ? "/dashboard/admin" : "/dashboard/agent";
 
   return (
     <nav>
@@ -61,8 +61,8 @@ const NavBar = () => {
           <>
             <li>
               <Link
-                to="/dashboard/admin"
-                className={location.pathname.startsWith("/dashboard/admin") ? "active" : ""}
+                to={dashboardPath}
+                className={location.pathname.startsWith(dashboardPath) ? "active" : ""}
               >
                 Dashboard
               </Link>
@@ -73,10 +73,7 @@ const NavBar = () => {
           </>
         ) : (
           <li className="login-link">
-            <Link
-              to="/login"
-              className={location.pathname.startsWith("/login") ? "active" : ""}
-            >
+            <Link to="/login" className={location.pathname.startsWith("/login") ? "active" : ""}>
               Login
             </Link>
           </li>

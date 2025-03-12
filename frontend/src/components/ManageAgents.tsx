@@ -27,7 +27,7 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
 
   useEffect(() => {
     fetchAgents();
-  });
+  },[]);
 
   const fetchAgents = async () => {
     try {

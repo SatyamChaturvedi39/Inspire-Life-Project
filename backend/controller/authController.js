@@ -5,7 +5,7 @@ import Agent from "../models/Agent.js";
 
 // Generate a short-lived access token (expires in 15 minutes)
 const generateAccessToken = (payload) => {
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "45m" });
 };
 
 // Generate a long-lived refresh token (expires in 7 days)
@@ -46,17 +46,16 @@ export const login = async (req, res) => {
     }
 
     // Prepare payload for token generation
-    const payload = { id: user._id, role };
+    const payload = { id: user._id, role, name: user.name };
 
-    // Generate the access token (15 minutes expiration)
+    // Generate the access token (expires in 45 minutes here)
     const accessToken = generateAccessToken(payload);
-    // Generate the refresh token (7 days expiration)
+    // Generate the refresh token (expires in 7 days)
     const refreshToken = generateRefreshToken(payload);
 
     console.log("[Login] Generated access token:", accessToken);
 
     // Set the refresh token as an httpOnly cookie.
-    // In development, secure can be false; in production, it should be true.
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // use false for local dev if not using https
@@ -65,8 +64,8 @@ export const login = async (req, res) => {
     });
 
     console.log("[Login] Login successful for:", email);
-    // Send the access token and user role as JSON
-    return res.json({ accessToken, role });
+    // Return the access token, role, and name so the frontend can use them.
+    return res.json({ accessToken, role, name: user.name });
   } catch (error) {
     console.error("[Login] Error during login:", error);
     return res.status(500).json({ message: "Internal Server Error" });

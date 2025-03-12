@@ -1,37 +1,43 @@
-import { 
-  createContext, 
-  useContext, 
-  useState, 
-  ReactNode, 
-  useCallback 
-} from "react";
+import {createContext,useContext,useState,ReactNode,useCallback,useRef} from "react";
 import axios from "axios";
 import { AuthContextType } from "./AuthTypes";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  // By default, no user is logged in.
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
-  // Start with logged out state.
+  const [name, setName] = useState<string | null>(null);
   const [isLoggedOut, setIsLoggedOut] = useState<boolean>(true);
+  const sessionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Sets the auth state and marks the user as logged in.
-  const setAuth = useCallback((token: string, userRole: string) => {
+  const setAuth = useCallback((token: string, userRole: string, userName: string) => {
     setAccessToken(token);
     setRole(userRole);
+    setName(userName);
     setIsLoggedOut(false);
+    if (sessionTimeoutRef.current) {
+      clearTimeout(sessionTimeoutRef.current);
+    }
+    // For testing, you may set this to a lower value (e.g., 30 seconds) then later change to 30 minutes.
+    sessionTimeoutRef.current = setTimeout(() => {
+      alert("Your session has expired. Please login again.");
+      clearAuth();
+      window.location.href = "/login";
+    }, 30 * 60 * 1000);
   }, []);
 
-  // Clears the auth state, marking the user as logged out.
   const clearAuth = useCallback(() => {
     setAccessToken(null);
     setRole(null);
+    setName(null);
     setIsLoggedOut(true);
+    if (sessionTimeoutRef.current) {
+      clearTimeout(sessionTimeoutRef.current);
+      sessionTimeoutRef.current = null;
+    }
   }, []);
 
-  // This function attempts to refresh the access token, but only if the user is not logged out.
   const refreshAccessToken = useCallback(async () => {
     if (isLoggedOut) {
       console.log("[AuthContext] User is logged out. Skipping token refresh.");
@@ -52,7 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [clearAuth, isLoggedOut]);
 
   return (
-    <AuthContext.Provider value={{ accessToken, role, setAuth, clearAuth, refreshAccessToken }}>
+    <AuthContext.Provider value={{ accessToken, role, name, setAuth, clearAuth, refreshAccessToken }}>
       {children}
     </AuthContext.Provider>
   );

@@ -15,9 +15,14 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5001/api/auth/login", { email, password }, { withCredentials: true });
-      const { accessToken, role } = response.data;
-      setAuth(accessToken, role);
+      const response = await axios.post(
+        "http://localhost:5001/api/auth/login",
+        { email, password },
+        { withCredentials: true }
+      );
+      // Extract accessToken, role, and name from the response.
+      const { accessToken, role, name } = response.data;
+      setAuth(accessToken, role, name);
       if (role === "admin") {
         navigate("/dashboard/admin");
       } else {
@@ -34,8 +39,20 @@ const Login: React.FC = () => {
       <h2>Login</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <input type="text" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
+        <input
+          type="text"
+          value={email}
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         <button type="submit">Login</button>
       </form>
     </div>

@@ -21,14 +21,18 @@ export const authenticateToken = (req, res, next) => {
 
   try {
     // Verify the token using the secret from the environment variable.
-    // If the token is invalid or expired, jwt.verify will throw an error.
     const payload = jwt.verify(token, process.env.JWT_SECRET);
+    
+    // If the token does not contain a role, assign "agent" as default.
+    if (!payload.role) {
+      payload.role = "agent";
+    }
+    
     // Attach the decoded payload (which should include the user's ID and role) to the request.
     req.user = payload;
     console.log("[AuthMiddleware] Token verified:", req.user);
     next(); // Token is valid, so move to the next middleware or route handler.
   } catch (err) {
-    // Log the error message for debugging purposes.
     console.error("[AuthMiddleware] Token verification failed:", err.message);
     return res.status(403).json({ message: "Invalid token." });
   }
@@ -37,17 +41,14 @@ export const authenticateToken = (req, res, next) => {
 // Middleware to authorize access based on a single required role.
 export const authorizeRole = (requiredRole) => {
   return (req, res, next) => {
-    // If the authenticateToken middleware hasn't attached a user, then there's no authenticated user.
     if (!req.user) {
       console.error("[AuthMiddleware] No authenticated user.");
       return res.status(401).json({ message: "Unauthorized access" });
     }
-    // If the user's role matches the required role, allow the request.
     if (req.user.role === requiredRole) {
       console.log(`[AuthMiddleware] Role authorized: ${req.user.role}`);
       next();
     } else {
-      // If the roles don't match, log the mismatch and reject the request.
       console.error(`[AuthMiddleware] Forbidden: Required ${requiredRole}, got ${req.user.role}`);
       return res.status(403).json({ message: "Forbidden. Insufficient privileges." });
     }
@@ -61,7 +62,6 @@ export const authorizeMultipleRoles = (allowedRoles) => {
       console.error("[AuthMiddleware] No authenticated user.");
       return res.status(401).json({ message: "Unauthorized access" });
     }
-    // Check if the user's role is one of the allowed roles.
     if (allowedRoles.includes(req.user.role)) {
       console.log(`[AuthMiddleware] Access granted for role: ${req.user.role}`);
       next();

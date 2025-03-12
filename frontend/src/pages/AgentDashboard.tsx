@@ -5,8 +5,10 @@ import ManageSlots from "../components/ManageSlots";
 import ManagePolicies from "../components/ManagePolicies";
 import AppointmentSlot from "../components/AppointmentSlot";
 import RecentLeads from "../components/RecentLeads";
+import { useAuth } from "../context/AuthContext";
 
 const AgentDashboard: React.FC = () => {
+  const {name} = useAuth();
   const [activeComponent, setActiveComponent] = useState<
     "default" | "manageApplicants" | "managePolicies" | "showLeads"
   >("default");
@@ -17,7 +19,7 @@ const AgentDashboard: React.FC = () => {
       <div className="agent-dashboard-details">
         {activeComponent === "default" ? (
           <div className="agent-content">
-            <h2>Welcome, Shivakumar!</h2>
+            <h2>Welcome, {name || "Agent"}!</h2>
             <div className="agent-buttons">
               <button
                 className="agent-btn"
