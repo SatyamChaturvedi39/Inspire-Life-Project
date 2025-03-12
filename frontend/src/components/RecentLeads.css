@@ -2,7 +2,7 @@
 
 .recent-leads-container {
     padding: 20px;
-    width: 100vh;
+    width: 350px;
     background-color: #f8f8f8;
     font-family: Arial, sans-serif;
   }
@@ -70,9 +70,9 @@
   }
   
   /* Responsive styles */
-  @media (max-width: 768px) {
+  @media (min-width: 1024px) {
     .recent-leads-container {
-      padding: 10px;
+      width: 75vw;
     }
     .recent-leads-title {
       font-size: 20px;
