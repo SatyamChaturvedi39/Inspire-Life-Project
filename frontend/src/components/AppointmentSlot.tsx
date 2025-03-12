@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./AppointmentSlot.css"; // Assuming you have a CSS file for styling
+import "./AppointmentSlot.css";
 
 interface Slot {
   _id: string;
   name: string;
   phoneNumber: string;
-  date: string; // Assuming date is stored as a string in "YYYY-MM-DD" format
+  date: string;
   time: string;
   status: string;
 }
@@ -15,7 +15,6 @@ const AppointmentSlot: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch slots from the backend
   useEffect(() => {
     const fetchSlots = async () => {
       try {
@@ -36,16 +35,13 @@ const AppointmentSlot: React.FC = () => {
     fetchSlots();
   }, []);
 
-  // Function to format the date as "24th February, 2025"
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     const day = date.getDate();
     const month = date.toLocaleString("default", { month: "long" });
     const year = date.getFullYear();
-
-    // Add ordinal suffix to the day (e.g., 1st, 2nd, 3rd, 4th, etc.)
     const getOrdinalSuffix = (day: number): string => {
-      if (day > 3 && day < 21) return "th"; // 11th, 12th, 13th, etc.
+      if (day > 3 && day < 21) return "th";
       switch (day % 10) {
         case 1:
           return "st";
@@ -57,16 +53,35 @@ const AppointmentSlot: React.FC = () => {
           return "th";
       }
     };
-
     return `${day}${getOrdinalSuffix(day)} ${month}, ${year}`;
   };
 
-  // Filter out slots with phoneNumber "N/A" and sort by date
-  const filteredSlots = slots
-    .filter((slot) => slot.phoneNumber !== "N/A")
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-  // Group slots by date
+  const parseTime = (time: string): number => {
+    const match = time.match(/(\d+)(?::(\d+))?\s*(AM|PM)?/i);
+    if (!match) return 0;
+    let hours = parseInt(match[1], 10);
+    const minutes = match[2] ? parseInt(match[2], 10) : 0;
+    const period = match[3];
+    if (period) {
+      if (period.toUpperCase() === "PM" && hours !== 12) hours += 12;
+      if (period.toUpperCase() === "AM" && hours === 12) hours = 0;
+    }
+    return hours * 60 + minutes;
+  };
+
+  const filteredSlots = slots
+    .filter(
+      (slot) => slot.phoneNumber !== "N/A" && new Date(slot.date) >= today
+    )
+    .sort((a, b) => {
+      const dateDiff = new Date(a.date).getTime() - new Date(b.date).getTime();
+      if (dateDiff !== 0) return dateDiff;
+      return parseTime(a.time) - parseTime(b.time);
+    });
+
   const groupedSlots: { [key: string]: Slot[] } = {};
   filteredSlots.forEach((slot) => {
     const dateKey = formatDate(slot.date);
@@ -97,7 +112,8 @@ const AppointmentSlot: React.FC = () => {
               {slots.map((slot) => (
                 <li key={slot._id} className="slot-item-appointment">
                   <p>
-                    <strong> &rArr; {slot.time}</strong> - {slot.name}
+                    <strong>&rArr; {slot.time}</strong> - {slot.name} : +91{" "}
+                    {slot.phoneNumber}
                   </p>
                 </li>
               ))}
