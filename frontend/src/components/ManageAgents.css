@@ -2,6 +2,7 @@
     padding: 10px;
     background-color: #f8f8f8;
     font-family: Arial, sans-serif;
+    width: 400px;
 }
 
 .manage-agents-header {
@@ -205,14 +206,30 @@
 
 /* ========== DESKTOP STYLES ========== */
 @media (min-width: 1024px) {
-    .manage-agents-header-title {
+
+    .manage-agents-container {
+        width:69vw;
+        padding: 10px;
+        background-color: #f8f8f8;
+        font-family: Arial, sans-serif;
+    }
+    .manage-agents-header h2 {
         font-size: 24px;
         text-align: center;
         color: #0c2641;
         
     }
 
-    .manage-agents-add-button,
+    .manage-agents-header-details{
+        display:flex;
+        flex-direction: row;      
+    }
+    .manage-agents-add-button{
+        font-size: 14px;
+        width: 80px;
+        padding: 6px 12px;
+        margin-left: 48.5vw;  
+    }
     .manage-agents-update-button {
         font-size: 14px;
         padding: 6px 12px;
