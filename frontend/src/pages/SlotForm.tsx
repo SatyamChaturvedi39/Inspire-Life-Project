@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./SlotForm.css";
@@ -106,6 +107,9 @@ const SlotForm: React.FC = () => {
         setBookingInfo(newBookingInfo); // ✅ Store correct details
         setShowPopup(true);
 
+        // Debug: Log booking details before sending Telegram notification
+        console.log("Booking successful, sending Telegram notification with:", formData);
+
         // Reset form AFTER storing booking details
         setName("");
         setPhoneNumber("");
@@ -117,6 +121,22 @@ const SlotForm: React.FC = () => {
         setTimeout(() => {
           if (selectedDate) fetchBookedSlots(selectedDate);
         }, 500);
+
+        // Send Telegram notification to admin group using Axios
+        axios
+          .post("http://localhost:5001/api/telegram/send-telegram-notification", {
+            name,
+            phoneNumber,
+            email,
+            date: convertToIST(selectedDate),
+            time: selectedTime,
+          })
+          .then((res) => {
+            console.log("Telegram notification response:", res.data);
+          })
+          .catch((error) => {
+            console.error("Telegram notification error:", error);
+          });
       } else {
         setMessage(result.message || "Error booking slot.");
         setMessageColor("red");

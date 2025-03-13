@@ -103,8 +103,10 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
     <div className="manage-agents-container">
       <div className="manage-agents-header">
         <button onClick={onBack} className="manage-agents-back-button">&#x21E6; Back</button>
+        <div className="manage-agents-header-details">
         <h2><center>Manage Agents</center></h2>
         <button className="manage-agents-add-button" onClick={handleAddClick}>ADD</button>
+        </div>
       </div>
 
       <div className="manage-agents-list">
