@@ -1,16 +1,17 @@
-// routes/telegramRoutes.ts
-
 import { Request, Response, Router } from "express";
 import TelegramBot from "node-telegram-bot-api";
 
 const router = Router();
 
-// Replace with your actual bot token from BotFather
-const BOT_TOKEN: string = "7037439232:AAEpnBTPYBES7hfirMXQMYoXlLO2ElfQwTU";
-// Replace with your Telegram group chat ID (should be negative)
-const GROUP_CHAT_ID: string = "-4740071168";
+// Retrieve tokens from environment variables
+const BOT_TOKEN: string = process.env.BOT_TOKEN || "";
+const GROUP_CHAT_ID: string = process.env.GROUP_CHAT_ID || "";
 
-// Create a TelegramBot instance. Polling is not needed for sending messages only.
+if (!BOT_TOKEN || !GROUP_CHAT_ID) {
+  console.error("Missing BOT_TOKEN or GROUP_CHAT_ID in environment variables.");
+}
+
+// Create a TelegramBot instance (polling not needed for sending messages only)
 const bot = new TelegramBot(BOT_TOKEN, { polling: false });
 
 // POST endpoint to send a Telegram notification
@@ -20,11 +21,11 @@ router.post("/send-telegram-notification", async (req: Request, res: Response) =
 
     // Compose a message with booking details
     const message = `New Slot Booking:
-Name: ${name}
-Phone: ${phoneNumber}
-Email: ${email || "N/A"}
-Date: ${date}
-Time: ${time}`;
+    Name: ${name}
+    Phone: ${phoneNumber}
+    Email: ${email || "N/A"}
+    Date: ${date}
+    Time: ${time}`;
 
     // Send the message to the Telegram group
     await bot.sendMessage(GROUP_CHAT_ID, message);

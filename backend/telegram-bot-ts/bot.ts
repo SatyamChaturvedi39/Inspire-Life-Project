@@ -1,8 +1,15 @@
-// telegram-bot-ts/bot.ts
 import TelegramBot from "node-telegram-bot-api";
+import dotenv from "dotenv";
 
-// Replace with your actual bot token
-const token: string = "7037439232:AAEpnBTPYBES7hfirMXQMYoXlLO2ElfQwTU";
+dotenv.config();
+
+// Retrieve the bot token from environment variables
+const token: string = process.env.BOT_TOKEN || "";
+if (!token) {
+  console.error("BOT_TOKEN is not set in environment variables.");
+  process.exit(1);
+}
+
 const bot: TelegramBot = new TelegramBot(token, { polling: true });
 
 console.log("Telegram Bot (TS) is running and polling for messages...");
