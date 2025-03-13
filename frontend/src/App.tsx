@@ -24,32 +24,41 @@ import AdminDashboard from "./pages/AdminDashboard";
 const App: React.FC = () => {
   return (
     <AuthProvider>
-    <Router>
-      <Header />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/policies" element={<Policies />} />
-        <Route path="/policies/:slug" element={<PolicyDetails />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/slotform" element={<SlotForm />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/admin" element={
-          <ProtectedRoute requiredRole="admin">
-            <AdminDashboard />
-          </ProtectedRoute>}/>
+      <Router>
+        <Header />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/policies" element={<Policies />} />
+          <Route path="/policies/:slug" element={<PolicyDetails />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/slotform" element={<SlotForm />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/login" element={<Login />} />
 
-        {/* 404 - Not Found Page */}
-        <Route path="/dashboard/agent" element={
-          <ProtectedRoute requiredRole="agent">
-            <AgentDashboard />
-          </ProtectedRoute>}/>
-        <Route path="*" element={<Home />} />
-      </Routes>
-      <Footer />
-    </Router>
+          <Route
+            path="/dashboard/admin"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 404 - Not Found Page */}
+          <Route
+            path="/dashboard/agent"
+            element={
+              <ProtectedRoute requiredRole="agent">
+                <AgentDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Home />} />
+        </Routes>
+        <Footer />
+      </Router>
     </AuthProvider>
   );
 };

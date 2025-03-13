@@ -1,0 +1,240 @@
+/* InsuranceChatbot.css */
+
+.insurance-chatbot {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.chat-history {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #f7f7f9;
+}
+
+.chat-message {
+  display: flex;
+  align-items: flex-start;
+  max-width: 80%;
+}
+
+.bot-message {
+  align-self: flex-start;
+}
+
+.user-message {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.bot-avatar {
+  width: 100px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #2e70db;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.message-bubble {
+  padding: 10px 15px;
+  border-radius: 18px;
+  word-break: break-word;
+}
+
+.bot-message .message-bubble {
+  background-color: #e5e5ea;
+  border-top-left-radius: 4px;
+}
+
+.user-message .message-bubble {
+  background-color: #4285f4;
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.user-input-form {
+  display: flex;
+  padding: 10px;
+  background-color: white;
+  border-top: 1px solid #ddd;
+}
+
+.user-input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+}
+
+.send-button {
+  margin-left: 8px;
+  padding: 8px 15px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.chat-options {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  max-height: 35%;
+  overflow-y: auto;
+}
+
+.option-container {
+  margin-bottom: 10px;
+}
+
+.option-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+  font-size: 14px;
+}
+
+.main-options, .sub-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option-button {
+  padding: 8px 12px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.option-button:hover {
+  background-color: #f0f0f0;
+}
+
+.back-button {
+  padding: 8px 12px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
+
+.map-container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.placeholder-map {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.placeholder-map img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.placeholder-map p {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.policy-page-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.visit-page-button {
+  padding: 10px 15px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.booking-form-container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-group textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.submit-button {
+  padding: 8px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
