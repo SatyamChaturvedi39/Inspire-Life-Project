@@ -151,6 +151,11 @@
     height: 54vh;
   }
 
+ .policies-hero-image {
+    width: 100vw;
+    height: 60vh;
+  } 
+
   .search-container {
     padding: 24px;
     margin-top: 0;
