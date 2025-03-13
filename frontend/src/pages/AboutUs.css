@@ -46,6 +46,10 @@
   margin-bottom: 1rem;
 }
 
+.about-content a{
+  color: rgb(14 53 110)
+}
+
 /* Responsive Design */
 @media screen and (max-width: 768px) {
   .about-image-container {
@@ -87,6 +91,7 @@
     width: 100%;
     height:60vh;
     object-fit: cover;
+    object-position: 35%;
     
     
 }
