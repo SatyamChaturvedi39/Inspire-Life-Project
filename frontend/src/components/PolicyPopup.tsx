@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PolicyPopup.css";
 
 interface PolicyPopupProps {
@@ -16,17 +16,44 @@ const PolicyPopup: React.FC<PolicyPopupProps> = ({ onClose, policyName }) => {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false); // New state for success message
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
+  const [unavailableSlots, setUnavailableSlots] = useState<string[]>([]);
+  const [scheduledSlots, setScheduledSlots] = useState<string[]>([]);
 
-  // Generate time slots from 9 AM to 5 PM (1-hour slots)
-  const timeSlots = [];
-  for (let hour = 9; hour <= 17; hour++) {
+  const today = new Date();
+  const maxDate = new Date(today);
+  maxDate.setMonth(maxDate.getMonth() + 1);
+  const maxDateString = maxDate.toISOString().split("T")[0];
+
+  // Generate all time slots from 9 AM to 5 PM
+  const allTimeSlots = [];
+  for (let hour = 9; hour <= 16; hour++) {
     const formattedHour = hour <= 12 ? hour : hour - 12;
     const nextHour = hour + 1 <= 12 ? hour + 1 : hour + 1 - 12;
     const amPm = hour < 12 ? "AM" : "PM";
     const nextAmPm = hour + 1 < 12 ? "AM" : "PM";
-    timeSlots.push(`${formattedHour}:00 ${amPm} - ${nextHour}:00 ${nextAmPm}`);
+    allTimeSlots.push(`${formattedHour}:00 ${amPm} - ${nextHour}:00 ${nextAmPm}`);
   }
+
+  // Fetch available, unavailable, and scheduled slots when the date changes
+  useEffect(() => {
+    if (date) {
+      fetchSlotStatus(date);
+    }
+  }, [date]);
+
+  const fetchSlotStatus = async (selectedDate: string) => {
+    try {
+      const response = await fetch(`http://localhost:5001/api/availability?date=${selectedDate}`);
+      const data = await response.json();
+      setAvailableSlots(data.availableSlots || []);
+      setUnavailableSlots(data.unavailableSlots || []);
+      setScheduledSlots(data.scheduledSlots || []);
+    } catch (error) {
+      console.error("Error fetching slot status:", error);
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -46,7 +73,7 @@ const PolicyPopup: React.FC<PolicyPopupProps> = ({ onClose, policyName }) => {
       policyName,
     };
 
-    console.log("Submitting form data:", appointmentData); // Debug: Log form data
+    console.log("Submitting form data:", appointmentData);
 
     try {
       setLoading(true);
@@ -60,19 +87,19 @@ const PolicyPopup: React.FC<PolicyPopupProps> = ({ onClose, policyName }) => {
       });
 
       const result = await response.json();
-      console.log("API response:", result); // Debug: Log API response
+      console.log("API response:", result);
 
       setLoading(false);
 
       if (response.ok) {
-        setIsSubmitted(true); // Set isSubmitted to true on successful submission
-        console.log("Form submitted successfully!"); // Debug: Log success
+        setIsSubmitted(true);
+        console.log("Form submitted successfully!");
       } else {
         setErrorMessage(result.message || "Error submitting appointment request.");
       }
     } catch (error) {
       setLoading(false);
-      console.error("Submission error:", error); // Debug: Log error
+      console.error("Submission error:", error);
       setErrorMessage("Something went wrong. Please try again.");
     }
   };
@@ -80,6 +107,10 @@ const PolicyPopup: React.FC<PolicyPopupProps> = ({ onClose, policyName }) => {
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.replace(/\D/g, "").slice(0, 13);
     setPhoneNumber(input);
+  };
+
+  const isSlotDisabled = (slot: string) => {
+    return unavailableSlots.includes(slot) || scheduledSlots.includes(slot);
   };
 
   return (
@@ -92,7 +123,7 @@ const PolicyPopup: React.FC<PolicyPopupProps> = ({ onClose, policyName }) => {
           </div>
         </div>
         <div className="form-container">
-          {isSubmitted ? ( // Conditional rendering for success message
+          {isSubmitted ? (
             <div className="success-message">
               <h3>Form Submitted Successfully!</h3>
               <p>Our agent will contact you shortly. Thank you!</p>
@@ -155,7 +186,8 @@ const PolicyPopup: React.FC<PolicyPopupProps> = ({ onClose, policyName }) => {
                   onChange={(e) => setDate(e.target.value)}
                   required
                   className="form-input"
-                  min={new Date().toISOString().split("T")[0]}
+                  min={today.toISOString().split("T")[0]}
+                  max={maxDateString}
                 />
               </div>
 
@@ -169,9 +201,16 @@ const PolicyPopup: React.FC<PolicyPopupProps> = ({ onClose, policyName }) => {
                   className="form-input"
                 >
                   <option value="">-- Select Time --</option>
-                  {timeSlots.map((slot) => (
-                    <option key={slot} value={slot}>
-                      {slot}
+                  {allTimeSlots.map((slot) => (
+                    <option
+                      key={slot}
+                      value={slot}
+                      disabled={isSlotDisabled(slot)}
+                      style={{
+                        color: isSlotDisabled(slot) ? "#999" : "#000",
+                      }}
+                    >
+                      {slot} {isSlotDisabled(slot) ? `(${unavailableSlots.includes(slot) ? "Unavailable" : "Scheduled"})` : ""}
                     </option>
                   ))}
                 </select>

@@ -18,13 +18,11 @@ const app = express();
 connectDB(); // Connect to the database
 
 // Middleware
-app.use(
-  cors({
-    origin: "http://localhost:5173", // Frontend origin
-    credentials: true,
-  })
-);
-app.use(express.json()); // Accept JSON data in the req.body
+app.use(cors({
+  origin: "http://localhost:5173", // Frontend origin
+  credentials: true,
+}));
+app.use(express.json()); // Allows us to accept JSON data in the req.body
 app.use(cookieParser());
 
 // Routes

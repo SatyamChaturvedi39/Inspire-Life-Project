@@ -7,8 +7,15 @@ const policyMeetingSchema = new mongoose.Schema(
     email: { type: String, required: true },
     date: { type: String, required: true },
     timeSlot: { type: String, required: true },
+    status: { 
+      type: String, 
+      enum: ["Scheduled", "Completed", "Cancelled", "Available", "Booked", "Unavailable"], 
+      default: "Available" 
+    },
     query: { type: String },
     policyName: { type: String, required: true },
+    adminId: { type: mongoose.Schema.Types.ObjectId, ref: "Admin", default: null },
+    agentId: { type: mongoose.Schema.Types.ObjectId, ref: "Agent", default: null },
   },
   { timestamps: true } // Adds createdAt and updatedAt fields
 );

@@ -21,13 +21,10 @@
   padding: 20px;
   max-height: 90vh;
   overflow-y: auto;
-
-  /* Custom scrollbar styling */
   scrollbar-width: thin;
   scrollbar-color: #ccc #f1f0f0;
 }
 
-/* Webkit browsers (Chrome, Safari, newer Edge) */
 .policy-popup-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -171,7 +168,6 @@
   box-shadow: none;
 }
 
-/* Success Message Styles */
 .success-message {
   text-align: center;
   padding: 20px;

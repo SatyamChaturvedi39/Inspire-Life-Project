@@ -1,7 +1,10 @@
 import express from "express";
-import { scheduleAppointment } from "../controller/policymeetingsController.js";
+import { scheduleAppointment, getPolicies } from "../controller/policymeetingsController.js";
 
 const router = express.Router();
+
+// Route to get policies
+router.get("/", getPolicies);
 
 // Route to schedule an appointment
 router.post("/appointments", scheduleAppointment);
