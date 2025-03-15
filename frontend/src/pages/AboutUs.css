@@ -10,6 +10,7 @@
   height: 65vh; /* Height is flexible */
   overflow: hidden;
   position: relative;
+  
 }
 
 .about-hero-image {
@@ -92,6 +93,7 @@
     height:60vh;
     object-fit: cover;
     object-position: 35%;
+    
     
     
 }
