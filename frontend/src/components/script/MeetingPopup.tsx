@@ -14,15 +14,25 @@ const MeetingPopup: React.FC<MeetingPopupProps> = ({ onClose, meetingType, polic
   const [date, setDate] = useState("");
   const [timeSlot, setTimeSlot] = useState("");
   const [query, setQuery] = useState("");
+  const [termsAgreed, setTermsAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const today = new Date();
+  const maxDate = new Date(today);
+  maxDate.setMonth(maxDate.getMonth() + 1);
+  const maxDateString = maxDate.toISOString().split("T")[0];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!date || !timeSlot) {
       setErrorMessage("Please select both date and time slot.");
+      return;
+    }
+    if (phoneNumber.length !== 10) {
+      setErrorMessage("Phone number must be exactly 10 digits.");
       return;
     }
 
@@ -61,97 +71,135 @@ const MeetingPopup: React.FC<MeetingPopupProps> = ({ onClose, meetingType, polic
       setLoading(false);
     }
   };
-
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value.replace(/\D/g, "").slice(0, 10); // Limit to 10 digits
+    setPhoneNumber(input);
+  };
   return (
     <div className="meeting-popup-overlay">
       <div className="meeting-popup-container">
         <div className="meeting-popup-header">
-          <h2>Book a Meeting</h2>
+          <h2>Booking Form</h2>
           <button className="close-button" onClick={onClose}>
             ×
           </button>
         </div>
-        {isSubmitted ? (
-          <div className="success-message">
-            <h3>Meeting Booked Successfully!</h3>
-            <p>Our team will contact you shortly.</p>
-            <button onClick={onClose}>Close</button>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="meeting-form">
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            <div className="form-field">
-              <label htmlFor="name">Name*</label>
-              <input
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
+        <div className="form-container">
+          {isSubmitted ? (
+            <div className="success-message">
+              <h3>Form submitted successfully!</h3>
+              <p>Our agent will contact you shortly. Thank you!</p>
+              <button className="submit-button" onClick={onClose}>
+                  Okay
+                </button>
             </div>
-            <div className="form-field">
-              <label htmlFor="phoneNumber">Phone Number*</label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-field">
-              <label htmlFor="email">Email*</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-field">
-              <label htmlFor="date">Date*</label>
-              <input
-                type="date"
-                id="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-field">
-              <label htmlFor="timeSlot">Time Slot*</label>
-              <select
-                id="timeSlot"
-                value={timeSlot}
-                onChange={(e) => setTimeSlot(e.target.value)}
-                required
-              >
-                <option value="">Select a time slot</option>
-                <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
-                <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
-                <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
-                <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
-                <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
-                <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
-                <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
-              </select>
-            </div>
-            <div className="form-field">
-              <label htmlFor="query">Query</label>
-              <textarea
-                id="query"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                rows={4}
-              />
-            </div>
-            <button type="submit" disabled={loading}>
-              {loading ? "Submitting..." : "Submit"}
-            </button>
-          </form>
-        )}
+          ) : (
+            <form onSubmit={handleSubmit} className="meeting-form">
+              {errorMessage && <p className="error-message">{errorMessage}</p>}
+              <div className="form-field">
+                <label htmlFor="name">Name*</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="form-input"
+                  placeholder="Enter your name"
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="phoneNumber">Phone Number*</label>
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  value={phoneNumber}
+                  onChange={handlePhoneNumberChange}
+                  required
+                  className="form-input"
+                  placeholder="Enter your phone number(WhatsApp)"
+                  pattern="\d{10}"
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="email">Email*</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="form-input"
+                  placeholder="Enter your email"
+                  pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                  title="Please enter a valid email address (example: name@gmail.com)"
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="date">Select a Date*</label>
+                <input
+                  type="date"
+                  id="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  required
+                  className="form-input"
+                  min={today.toISOString().split("T")[0]}
+                  max={maxDateString}
+                />
+              </div>
+              <div className="form-field">
+                <label htmlFor="timeSlot">Select a Time Slot*</label>
+                <select
+                  id="timeSlot"
+                  value={timeSlot}
+                  onChange={(e) => setTimeSlot(e.target.value)}
+                  required
+                  className="form-input"
+                >
+                  <option value="">Select a time slot</option>
+                  <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+                  <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                  <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                  <option value="1:00 PM - 2:00 PM">12:00 AM - 1:00 PM</option>
+                  <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+                  <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
+                  <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
+                </select>
+              </div>
+              <div className="form-field">
+                <label htmlFor="query">Query</label>
+                <textarea
+                  id="query"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="form-textarea"
+                  placeholder="Ask a question or any specific detail about the policy"
+                  rows={4}
+                />           
+              </div>
+              <div className="form-field--checkbox">
+                  <input
+                    type="checkbox"
+                    id="termsCheckbox"
+                    checked={termsAgreed}
+                    onChange={() => setTermsAgreed(!termsAgreed)}
+                    required
+                  />
+                  <label htmlFor="termsCheckbox" className="checkbox-label">
+                    I agree to the{" "}
+                    <a href="#" className="terms-link">
+                      Terms & Conditions
+                    </a>
+                    .
+                  </label>
+                </div>
+              <button type="submit" disabled={loading}>
+                {loading ? "Submitting..." : "Submit"}
+              </button>
+            </form>
+          )}
+        </div>  
       </div>
     </div>
   );
