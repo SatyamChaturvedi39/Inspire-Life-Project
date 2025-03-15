@@ -1,25 +1,11 @@
-import React, {
-  useState,
-  ChangeEvent,
-  FormEvent,
-  useRef,
-  useEffect,
-} from "react";
+import React, { useState, FormEvent, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./InsuranceChatbot.css";
+import chatbot from "../assets/chatbot.png";
 
 // Define types for our data structure
 type ChatMessage = {
   sender: "bot" | "user";
-  message: string;
-};
-
-type FormDataType = {
-  name: string;
-  email: string;
-  phone: string;
-  service: string;
-  preferredDate: string;
-  preferredTime: string;
   message: string;
 };
 
@@ -29,35 +15,19 @@ type MenuOption = {
 };
 
 // Define valid section types for state management
-type ActiveSectionType =
-  | "policies"
-  | "services"
-  | "location"
-  | "lic-page"
-  | "star-page"
-  | "care-page"
-  | "booking-form"
-  | null;
+type ActiveSectionType = "policies" | "services" | "location" | null;
 
 const InsuranceChatbot: React.FC = () => {
+  const navigate = useNavigate();
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([
     {
       sender: "bot",
       message:
-        "Hello! I can help you with insurance policies, contact information, services, or finding our office. What would you like to know about today?",
+        "Hello! I can help you with insurance policies, contact information, services, finding our office, or career opportunities. What would you like to know about today?",
     },
   ]);
   const [showOptions, setShowOptions] = useState<boolean>(true);
   const [activeSection, setActiveSection] = useState<ActiveSectionType>(null);
-  const [formData, setFormData] = useState<FormDataType>({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    preferredDate: "",
-    preferredTime: "",
-    message: "",
-  });
   const [userTyping, setUserTyping] = useState<string>("");
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -70,19 +40,20 @@ const InsuranceChatbot: React.FC = () => {
     }
   }, [chatHistory]);
 
-  // Main menu options
+  // Main menu options - added "Work with us" option
   const mainOptions: MenuOption[] = [
     { id: "policies", label: "Insurance Policies" },
     { id: "contact", label: "Contact Information" },
     { id: "services", label: "Our Services" },
     { id: "location", label: "Office Locator" },
+    { id: "careers", label: "Work with us" },
   ];
 
-  // Policies submenu
+  // Updated policy options with proper slugs that match your API
   const policyOptions: MenuOption[] = [
-    { id: "lic", label: "LIC Insurance" },
-    { id: "star", label: "Star Health Insurance" },
-    { id: "care", label: "Care Health Insurance" },
+    { id: "lic-insurance", label: "LIC Insurance" },
+    { id: "star-health-insurance", label: "Star Health Insurance" },
+    { id: "care-health-insurance", label: "Care Health Insurance" },
   ];
 
   // Services submenu
@@ -91,6 +62,28 @@ const InsuranceChatbot: React.FC = () => {
     { id: "renewal", label: "Policy Renewal & Review" },
     { id: "consultation", label: "Coverage Consultation" },
   ];
+
+  // Function to handle navigations based on your app structure
+  const handleNavigation = (page: string): void => {
+    // Map the chatbot options to your application routes
+    const routes: { [key: string]: string } = {
+      booking: "/slotform",
+      "lic-insurance": "/policies",
+      "star-health-insurance": "/policies",
+      "care-health-insurance": "/policies",
+      claims: "/slotform",
+      renewal: "/slotform",
+      consultation: "/slotform",
+      location: "/contact",
+      careers: "/careers",
+      policies: "/policies",
+      contact: "/contact",
+    };
+
+    if (routes[page]) {
+      setTimeout(() => navigate(routes[page]), 1000);
+    }
+  };
 
   const handleOptionClick = (optionId: string): void => {
     let botResponse = "";
@@ -102,49 +95,134 @@ const InsuranceChatbot: React.FC = () => {
       setActiveSection("policies");
     } else if (optionId === "contact") {
       botResponse =
-        "You can reach us at: 1-800-123-4567 or email at contact@insuranceagency.com";
-      setActiveSection(null);
-      setShowOptions(true);
+        "I'll redirect you to our contact page for more information.";
+
+      // Add user message
+      setChatHistory([
+        ...chatHistory,
+        { sender: "user", message: "Contact Information" },
+      ]);
+
+      // Add bot message then navigate after delay
+      setTimeout(() => {
+        setChatHistory((prevHistory) => [
+          ...prevHistory,
+          { sender: "bot", message: botResponse },
+        ]);
+
+        handleNavigation("contact");
+      }, 500);
+
+      return;
     } else if (optionId === "services") {
       botResponse =
         "We offer the following services. Which one would you like to know more about?";
       setActiveSection("services");
     } else if (optionId === "location") {
-      botResponse = "Here's our office location:";
-      setActiveSection("location");
+      botResponse =
+        "Let me redirect you to our contact page where you can find our location.";
+
+      // Add user message
+      setChatHistory([
+        ...chatHistory,
+        { sender: "user", message: "Office Locator" },
+      ]);
+
+      // Add bot message then navigate after delay
+      setTimeout(() => {
+        setChatHistory((prevHistory) => [
+          ...prevHistory,
+          { sender: "bot", message: botResponse },
+        ]);
+
+        handleNavigation("location");
+      }, 500);
+
+      return;
+    } else if (optionId === "careers") {
+      botResponse =
+        "Great! Let me redirect you to our careers page where you can explore opportunities to work with us.";
+
+      // Add user message
+      setChatHistory([
+        ...chatHistory,
+        { sender: "user", message: "Work with us" },
+      ]);
+
+      // Add bot message then navigate after delay
+      setTimeout(() => {
+        setChatHistory((prevHistory) => [
+          ...prevHistory,
+          { sender: "bot", message: botResponse },
+        ]);
+
+        handleNavigation("careers");
+      }, 500);
+
+      return;
     }
 
     // Handle policy options
-    else if (optionId === "lic") {
-      botResponse =
-        "LIC Insurance offers comprehensive life insurance coverage. Would you like to visit the LIC policy page?";
-      setActiveSection("lic-page");
-    } else if (optionId === "star") {
-      botResponse =
-        "Star Health Insurance provides excellent health coverage options. Would you like to visit the Star Health policy page?";
-      setActiveSection("star-page");
-    } else if (optionId === "care") {
-      botResponse =
-        "Care Health Insurance specializes in affordable health plans. Would you like to visit the Care Health policy page?";
-      setActiveSection("care-page");
+    else if (
+      [
+        "lic-insurance",
+        "star-health-insurance",
+        "care-health-insurance",
+      ].includes(optionId)
+    ) {
+      const policyName =
+        optionId === "lic-insurance"
+          ? "LIC Insurance"
+          : optionId === "star-health-insurance"
+          ? "Star Health Insurance"
+          : "Care Health Insurance";
+
+      botResponse = `I'll redirect you to our ${policyName} page where you can find all the details.`;
+
+      // Add user message
+      setChatHistory([...chatHistory, { sender: "user", message: policyName }]);
+
+      // Add bot message then navigate after delay
+      setTimeout(() => {
+        setChatHistory((prevHistory) => [
+          ...prevHistory,
+          { sender: "bot", message: botResponse },
+        ]);
+
+        handleNavigation(optionId);
+      }, 500);
+
+      return;
     }
 
     // Handle service options
-    else if (optionId === "claims") {
-      botResponse =
-        "For Claims Assistance, please book a slot with our expert:";
-      setActiveSection("booking-form");
-      setFormData({ ...formData, service: "Claims Assistance" });
-    } else if (optionId === "renewal") {
-      botResponse =
-        "For Policy Renewal & Review, please book a slot with our expert:";
-      setActiveSection("booking-form");
-      setFormData({ ...formData, service: "Policy Renewal & Review" });
-    } else if (optionId === "consultation") {
-      botResponse =
-        "For Coverage Consultation, please book a slot with our expert:";
-      setActiveSection("booking-form");
-      setFormData({ ...formData, service: "Coverage Consultation" });
+    else if (["claims", "renewal", "consultation"].includes(optionId)) {
+      const serviceName =
+        optionId === "claims"
+          ? "Claims Assistance"
+          : optionId === "renewal"
+          ? "Policy Renewal & Review"
+          : "Coverage Consultation";
+
+      botResponse = `I'll redirect you to our booking page where you can schedule ${serviceName}.`;
+
+      // Add user message
+      setChatHistory([
+        ...chatHistory,
+        { sender: "user", message: serviceName },
+      ]);
+
+      // Add bot message then navigate after delay
+      setTimeout(() => {
+        setChatHistory((prevHistory) => [
+          ...prevHistory,
+          { sender: "bot", message: botResponse },
+        ]);
+
+        handleNavigation("booking");
+      }, 500);
+
+      return;
     }
 
     // Find the label for the selected option
@@ -164,50 +242,6 @@ const InsuranceChatbot: React.FC = () => {
         ]);
       }
     }, 500);
-  };
-
-  const handleFormChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-
-    // Add user message confirming form submission
-    setChatHistory([
-      ...chatHistory,
-      {
-        sender: "user",
-        message: `Booking an appointment for ${formData.service}`,
-      },
-    ]);
-
-    // Simulate typing delay for bot response
-    setTimeout(() => {
-      setChatHistory((prevHistory) => [
-        ...prevHistory,
-        {
-          sender: "bot",
-          message: `Thank you ${formData.name}! Your appointment for ${formData.service} has been scheduled for ${formData.preferredDate} at ${formData.preferredTime}. We'll contact you soon to confirm.`,
-        },
-      ]);
-      setActiveSection(null);
-      setShowOptions(true);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        service: "",
-        preferredDate: "",
-        preferredTime: "",
-        message: "",
-      });
-    }, 800);
   };
 
   const handleBackToMain = (): void => {
@@ -264,12 +298,15 @@ const InsuranceChatbot: React.FC = () => {
               chat.sender === "bot" ? "bot-message" : "user-message"
             }`}
           >
-            {chat.sender === "bot" && <div className="bot-avatar">R</div>}
+            {chat.sender === "bot" && (
+              <div className="bot-avatar">
+                <img src={chatbot} alt="Raksha" className="avatar-image" />
+              </div>
+            )}
             <div className="message-bubble">{chat.message}</div>
           </div>
         ))}
       </div>
-
       {/* User input area */}
       <form onSubmit={handleCustomUserInput} className="user-input-form">
         <input
@@ -339,130 +376,6 @@ const InsuranceChatbot: React.FC = () => {
                 Back to Main Menu
               </button>
             </div>
-          </div>
-        )}
-
-        {activeSection === "location" && (
-          <div className="map-container">
-            <div className="placeholder-map">
-              <img src="/api/placeholder/600/300" alt="Office Location Map" />
-              <p>123 Insurance Street, Business District, City, 12345</p>
-            </div>
-            <button onClick={handleBackToMain} className="back-button">
-              Back to Main Menu
-            </button>
-          </div>
-        )}
-
-        {(activeSection === "lic-page" ||
-          activeSection === "star-page" ||
-          activeSection === "care-page") && (
-          <div className="policy-page-buttons">
-            <button className="visit-page-button">
-              Visit{" "}
-              {activeSection === "lic-page"
-                ? "LIC"
-                : activeSection === "star-page"
-                ? "Star Health"
-                : "Care Health"}{" "}
-              Page
-            </button>
-            <button onClick={handleBackToMain} className="back-button">
-              Back to Main Menu
-            </button>
-          </div>
-        )}
-
-        {activeSection === "booking-form" && (
-          <div className="booking-form-container">
-            <form onSubmit={handleFormSubmit}>
-              <div className="form-group">
-                <label>Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleFormChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleFormChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Phone</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleFormChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Service</label>
-                <input
-                  type="text"
-                  name="service"
-                  value={formData.service}
-                  readOnly
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Preferred Date</label>
-                <input
-                  type="date"
-                  name="preferredDate"
-                  value={formData.preferredDate}
-                  onChange={handleFormChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Preferred Time</label>
-                <input
-                  type="time"
-                  name="preferredTime"
-                  value={formData.preferredTime}
-                  onChange={handleFormChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Message (Optional)</label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleFormChange}
-                />
-              </div>
-
-              <div className="form-actions">
-                <button type="submit" className="submit-button">
-                  Book Appointment
-                </button>
-                <button
-                  type="button"
-                  onClick={handleBackToMain}
-                  className="back-button"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
           </div>
         )}
       </div>

@@ -171,7 +171,7 @@
 
   .chatbot-popup {
     width: calc(100% - 20vw); /* Full width minus margins */
-    height: 55vh;
+    height: 70vh;
     bottom: 3vh;
     right: 2vw;
   }
