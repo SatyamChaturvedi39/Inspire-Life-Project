@@ -1,23 +1,16 @@
 import mongoose from "mongoose";
 
-const meetingSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    phoneNumber: { type: String, required: true }, // Removed unique: true
-    email: { type: String },
-    comment: { type: String },
-    date: { type: Date, required: true },
-    time: { type: String, required: true },
-    status: { 
-        type: String, 
-        enum: ["Scheduled", "Completed", "Cancelled", "Available", "Booked", "Unavailable"], 
-        default: "Available" 
-    },
-    adminId: { type: mongoose.Schema.Types.ObjectId, ref: "Admin", default: null },
-    agentId: { type: mongoose.Schema.Types.ObjectId, ref: "Agent", default: null },
-}, {
-    timestamps: true
+const MeetingSchema = new mongoose.Schema({
+  meetingType: { type: String, required: true },
+  name: { type: String, required: true },
+  phoneNumber: { type: String, required: true },
+  email: { type: String, required: true },
+  date: { type: Date, required: true },
+  timeSlot: { type: String, required: true }, // Ensure this field is correct
+  query: { type: String, required: true },
+  policyName: { type: String },
+  agentId: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
 });
 
-const Meeting = mongoose.model('Meeting', meetingSchema);
-
-export default Meeting;
+export default mongoose.model("Meeting", MeetingSchema);

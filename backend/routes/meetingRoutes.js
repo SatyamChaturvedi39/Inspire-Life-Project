@@ -1,10 +1,10 @@
 import express from "express";
-import { bookSlot, getAllSlots, updateSlotStatus } from "../controller/meetingController.js";
+import { createMeeting, getMeetings } from "../controller/meetingController.js"; // Ensure this path is correct
 
 const router = express.Router();
 
-router.get("/", getAllSlots); // Route to get all booked slots
-router.post("/", bookSlot); // Route to book a new slot
-router.put("/update-status", updateSlotStatus); // Route to update slot status ✅
+// Define the routes
+router.post("/", createMeeting); // POST /api/meetings
+router.get("/", getMeetings); // GET /api/meetings
 
 export default router;
