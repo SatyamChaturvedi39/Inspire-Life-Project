@@ -174,7 +174,7 @@ const MeetingPopup: React.FC<MeetingPopupProps> = ({ onClose, meetingType, polic
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   className="form-textarea"
-                  placeholder="Ask a question or any specific detail about the policy"
+                  placeholder="Ask your queries"
                   rows={4}
                 />           
               </div>
