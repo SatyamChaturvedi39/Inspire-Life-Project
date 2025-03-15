@@ -15,14 +15,16 @@ const Contact: React.FC = () => {
           <div className="Contact-Container">
             <div>
               <h2 className="Address">Address</h2>
-              <p className="Add-Info">Inspire Life Insurance Solutions</p>
-              <p className="Add-Info">Jayanagar, Bengaluru.</p>
+              <p className="Add-Info">715, 22nd Cross Rd, K.R.Road,<br />
+               Banashankari Stage II, Banashankari,<br />
+               Bengaluru, Karnataka 560070</p>
+              
             </div>
             
             <div>
               <h2 className="Contact-No">Contact Number</h2>
-              <p className="Contact-Info">+91-9876543210</p>
-              <p className="Contact-Info">+91-9976521348</p>
+              <p className="Contact-Info">+91-7026262632</p>
+              
             </div>
             
             <section className='Map'>

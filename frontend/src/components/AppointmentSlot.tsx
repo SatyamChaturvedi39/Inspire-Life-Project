@@ -6,7 +6,7 @@ interface Slot {
   name: string;
   phoneNumber: string;
   date: string;
-  time: string;
+  time?: string; // Marking it as optional
   status: string;
 }
 
@@ -59,7 +59,8 @@ const AppointmentSlot: React.FC = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const parseTime = (time: string): number => {
+  const parseTime = (time: string | undefined): number => {
+    if (!time) return 0;
     const match = time.match(/(\d+)(?::(\d+))?\s*(AM|PM)?/i);
     if (!match) return 0;
     let hours = parseInt(match[1], 10);
@@ -112,7 +113,7 @@ const AppointmentSlot: React.FC = () => {
               {slots.map((slot) => (
                 <li key={slot._id} className="slot-item-appointment">
                   <p>
-                    <strong>&rArr; {slot.time}</strong> - {slot.name} : +91{" "}
+                    <strong>&rArr; {slot.time || "TBA"}</strong> - {slot.name} : +91{" "}
                     {slot.phoneNumber}
                   </p>
                 </li>
