@@ -23,11 +23,7 @@ const Login: React.FC = () => {
       // Extract accessToken, role, and name from the response.
       const { accessToken, role, name } = response.data;
       setAuth(accessToken, role, name);
-      if (role === "admin") {
-        navigate("/dashboard/admin");
-      } else {
-        navigate("/dashboard/agent");
-      }
+      navigate("/dashboard"); // Unified dashboard for both admin and agent
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
       setError(errorMessage);

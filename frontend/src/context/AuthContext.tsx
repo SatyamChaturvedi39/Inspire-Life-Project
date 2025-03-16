@@ -1,4 +1,4 @@
-import {createContext,useContext,useState,ReactNode,useCallback,useRef} from "react";
+import { createContext, useContext, useState, ReactNode, useCallback, useRef } from "react";
 import axios from "axios";
 import { AuthContextType } from "./AuthTypes";
 
@@ -12,14 +12,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const sessionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const setAuth = useCallback((token: string, userRole: string, userName: string) => {
+    console.log("[AuthContext] Setting auth:", { token, userRole, userName });
+
     setAccessToken(token);
     setRole(userRole);
     setName(userName);
     setIsLoggedOut(false);
+
     if (sessionTimeoutRef.current) {
       clearTimeout(sessionTimeoutRef.current);
     }
-    // For testing, you may set this to a lower value (e.g., 30 seconds) then later change to 30 minutes.
+
     sessionTimeoutRef.current = setTimeout(() => {
       alert("Your session has expired. Please login again.");
       clearAuth();
@@ -28,10 +31,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const clearAuth = useCallback(() => {
+    console.log("[AuthContext] Clearing auth");
+
     setAccessToken(null);
     setRole(null);
     setName(null);
     setIsLoggedOut(true);
+
     if (sessionTimeoutRef.current) {
       clearTimeout(sessionTimeoutRef.current);
       sessionTimeoutRef.current = null;
@@ -57,8 +63,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [clearAuth, isLoggedOut]);
 
+  // 🔴 NEW: Debug Login Issue
+  const login = async (email: string, password: string) => {
+    try {
+      console.log("🔹 Attempting login with:", { email, password });
+
+      const response = await axios.post(
+        "http://localhost:5001/api/auth/login",
+        { email, password },
+        { withCredentials: true }
+      );
+
+      console.log("✅ Login response:", response.data);
+
+      if (response.data.accessToken) {
+        setAuth(response.data.accessToken, response.data.role, response.data.name);
+      } else {
+        console.error("❌ Login failed: No access token received");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("❌ Login error:", error.response?.data || error.message);
+      } else {
+        console.error("❌ Login error:", error);
+      }
+      
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ accessToken, role, name, setAuth, clearAuth, refreshAccessToken }}>
+    <AuthContext.Provider value={{ accessToken, role, name, setAuth, clearAuth, refreshAccessToken, login }}>
       {children}
     </AuthContext.Provider>
   );

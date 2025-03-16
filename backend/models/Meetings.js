@@ -9,7 +9,12 @@ const MeetingSchema = new mongoose.Schema({
   timeSlot: { type: String, required: true }, // Ensure this field is correct
   query: { type: String, required: true },
   policyName: { type: String },
-  agentId: { type: String, required: true },
+  employeeId: { type: String, required: true },
+  status: { 
+    type: String, 
+    enum: ["Scheduled", "Available", "Unavailable"],  
+    default: "Available" 
+  },
   createdAt: { type: Date, default: Date.now },
 });
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-//Context Imports
+// Context Imports
 import { AuthProvider } from "./context/AuthContext";
 
 // Component Imports
@@ -18,9 +18,9 @@ import Contact from "./pages/Contact";
 import SlotForm from "./pages/SlotForm";
 import AboutUs from "./pages/AboutUs";
 import Login from "./pages/Login";
-import AgentDashboard from "./pages/AgentDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
-import AdminDashboard from "./pages/AdminDashboard";
+import Dashboard from "./pages/Dashboard";
+
 const App: React.FC = () => {
   return (
     <AuthProvider>
@@ -37,24 +37,17 @@ const App: React.FC = () => {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
 
+          {/* Common Dashboard for Admin & Agent */}
           <Route
-            path="/dashboard/admin"
+            path="/dashboard"
             element={
               <ProtectedRoute requiredRole="admin">
-                <AdminDashboard />
+                <Dashboard />
               </ProtectedRoute>
             }
           />
-
+          
           {/* 404 - Not Found Page */}
-          <Route
-            path="/dashboard/agent"
-            element={
-              <ProtectedRoute requiredRole="agent">
-                <AgentDashboard />
-              </ProtectedRoute>
-            }
-          />
           <Route path="*" element={<Home />} />
         </Routes>
         <Footer />

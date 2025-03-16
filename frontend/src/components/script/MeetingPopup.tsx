@@ -45,7 +45,7 @@ const MeetingPopup: React.FC<MeetingPopupProps> = ({ onClose, meetingType, polic
       timeSlot,
       query,
       policyName: meetingType === "client" ? policyName : undefined,
-      agentId: "agent1", // Replace with dynamic agent ID if needed
+      employeeId: "employeeid kodi", // Replace with dynamic agent ID if needed
     };
 
     setLoading(true);
