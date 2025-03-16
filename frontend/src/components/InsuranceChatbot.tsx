@@ -12,6 +12,7 @@ type ChatMessage = {
 type MenuOption = {
   id: string;
   label: string;
+  keywords: string[]; // Keywords that will trigger this option
 };
 
 // Define valid section types for state management
@@ -40,28 +41,183 @@ const InsuranceChatbot: React.FC = () => {
     }
   }, [chatHistory]);
 
-  // Main menu options - added "Work with us" option
+  // Main menu options with keywords for natural language matching
   const mainOptions: MenuOption[] = [
-    { id: "policies", label: "Insurance Policies" },
-    { id: "contact", label: "Contact Information" },
-    { id: "services", label: "Our Services" },
-    { id: "location", label: "Office Locator" },
-    { id: "careers", label: "Work with us" },
+    {
+      id: "policies",
+      label: "Insurance Policies",
+      keywords: [
+        "policy",
+        "policies",
+        "insurance",
+        "plan",
+        "coverage",
+        "insure",
+        "protection",
+      ],
+    },
+    {
+      id: "contact",
+      label: "Contact Information",
+      keywords: [
+        "contact",
+        "phone",
+        "email",
+        "call",
+        "reach",
+        "message",
+        "number",
+        "details",
+      ],
+    },
+    {
+      id: "services",
+      label: "Our Services",
+      keywords: [
+        "service",
+        "services",
+        "offering",
+        "provide",
+        "assistance",
+        "help",
+        "support",
+      ],
+    },
+    {
+      id: "location",
+      label: "Office Locator",
+      keywords: [
+        "location",
+        "office",
+        "address",
+        "where",
+        "find",
+        "visit",
+        "place",
+        "branch",
+        "directions",
+        "map",
+      ],
+    },
+    {
+      id: "careers",
+      label: "Work with us",
+      keywords: [
+        "career",
+        "job",
+        "work",
+        "employment",
+        "hire",
+        "position",
+        "opportunity",
+        "vacancy",
+        "joining",
+        "apply",
+      ],
+    },
   ];
 
-  // Updated policy options with proper slugs that match your API
+  // Updated policy options with keywords
   const policyOptions: MenuOption[] = [
-    { id: "lic-insurance", label: "LIC Insurance" },
-    { id: "star-health-insurance", label: "Star Health Insurance" },
-    { id: "care-health-insurance", label: "Care Health Insurance" },
+    {
+      id: "lic-insurance",
+      label: "LIC Insurance",
+      keywords: ["lic", "life insurance", "life insurance corporation"],
+    },
+    {
+      id: "star-health-insurance",
+      label: "Star Health Insurance",
+      keywords: ["star", "star health", "health insurance", "medical"],
+    },
+    {
+      id: "care-health-insurance",
+      label: "Care Health Insurance",
+      keywords: [
+        "care",
+        "care health",
+        "medical coverage",
+        "health plan",
+        "healthcare",
+      ],
+    },
   ];
 
-  // Services submenu
+  // Services submenu with keywords
   const serviceOptions: MenuOption[] = [
-    { id: "claims", label: "Claims Assistance" },
-    { id: "renewal", label: "Policy Renewal & Review" },
-    { id: "consultation", label: "Coverage Consultation" },
+    {
+      id: "claims",
+      label: "Claims Assistance",
+      keywords: [
+        "claim",
+        "claims",
+        "file claim",
+        "claim process",
+        "claim assistance",
+        "claim help",
+      ],
+    },
+    {
+      id: "renewal",
+      label: "Policy Renewal & Review",
+      keywords: [
+        "renewal",
+        "renew",
+        "review",
+        "extend",
+        "policy review",
+        "update policy",
+      ],
+    },
+    {
+      id: "consultation",
+      label: "Coverage Consultation",
+      keywords: [
+        "consultation",
+        "consult",
+        "advice",
+        "coverage consultation",
+        "guidance",
+        "recommendation",
+      ],
+    },
   ];
+
+  // Get all options for matching against user input
+  const getAllOptions = (): MenuOption[] => {
+    return [...mainOptions, ...policyOptions, ...serviceOptions];
+  };
+
+  // Function to find the best match for user input from available options
+  const findBestMatch = (
+    userInput: string,
+    availableOptions: MenuOption[]
+  ): string | null => {
+    const input = userInput.toLowerCase();
+    let bestMatchId: string | null = null;
+    let highestScore = 0;
+
+    availableOptions.forEach((option) => {
+      // Check if the input contains the option label
+      if (input.includes(option.label.toLowerCase())) {
+        return option.id; // Direct match with label
+      }
+
+      // Check for keyword matches
+      for (const keyword of option.keywords) {
+        if (input.includes(keyword.toLowerCase())) {
+          // Simple scoring - can be improved with more sophisticated NLP later
+          const score = keyword.length / input.length; // Longer keyword matches are more significant
+          if (score > highestScore) {
+            highestScore = score;
+            bestMatchId = option.id;
+          }
+        }
+      }
+    });
+
+    // Only return a match if the score is significant enough
+    return highestScore > 0.1 ? bestMatchId : null;
+  };
 
   // Function to handle navigations based on your app structure
   const handleNavigation = (page: string): void => {
@@ -226,7 +382,7 @@ const InsuranceChatbot: React.FC = () => {
     }
 
     // Find the label for the selected option
-    const allOptions = [...mainOptions, ...policyOptions, ...serviceOptions];
+    const allOptions = getAllOptions();
     const selectedOption = allOptions.find((option) => option.id === optionId);
     const optionLabel = selectedOption ? selectedOption.label : optionId;
 
@@ -269,23 +425,72 @@ const InsuranceChatbot: React.FC = () => {
     e.preventDefault();
     if (!userTyping.trim()) return;
 
-    // Add user message
+    // Add user message to chat history
     setChatHistory([...chatHistory, { sender: "user", message: userTyping }]);
+    const userInput = userTyping;
     setUserTyping("");
 
-    // Simulate typing delay for bot response
-    setTimeout(() => {
-      setChatHistory((prevHistory) => [
-        ...prevHistory,
-        {
-          sender: "bot",
-          message:
-            "I'm designed to help with specific insurance-related queries. Please select one of the options below:",
-        },
-      ]);
-      setActiveSection(null);
-      setShowOptions(true);
-    }, 800);
+    // Try to match the user input against available options based on current section
+    let matchedOptionId: string | null = null;
+
+    if (activeSection === "policies") {
+      matchedOptionId = findBestMatch(userInput, policyOptions);
+    } else if (activeSection === "services") {
+      matchedOptionId = findBestMatch(userInput, serviceOptions);
+    } else {
+      // In main menu, check all main options first
+      matchedOptionId = findBestMatch(userInput, mainOptions);
+
+      // If no match in main options, check if it's about a specific policy or service
+      if (!matchedOptionId) {
+        const policyMatch = findBestMatch(userInput, policyOptions);
+        if (policyMatch) {
+          // If found a direct policy match, use it instead of going through main menu
+          matchedOptionId = policyMatch;
+        } else {
+          const serviceMatch = findBestMatch(userInput, serviceOptions);
+          if (serviceMatch) {
+            // If found a direct service match, use it instead of going through main menu
+            matchedOptionId = serviceMatch;
+          }
+        }
+      }
+    }
+
+    // If we found a match, process it
+    if (matchedOptionId) {
+      setTimeout(() => {
+        handleOptionClick(matchedOptionId as string);
+      }, 800);
+    } else {
+      // No match found, respond with default message
+      setTimeout(() => {
+        setChatHistory((prevHistory) => [
+          ...prevHistory,
+          {
+            sender: "bot",
+            message:
+              "I'm not sure I understand. Could you please select one of these options or try rephrasing your question?",
+          },
+        ]);
+        setShowOptions(true);
+      }, 800);
+    }
+  };
+
+  // Function to handle "back to main" keywords
+  const isBackToMainRequest = (userInput: string): boolean => {
+    const backKeywords = [
+      "back",
+      "main menu",
+      "return",
+      "start over",
+      "main",
+      "home",
+    ];
+    const input = userInput.toLowerCase();
+
+    return backKeywords.some((keyword) => input.includes(keyword));
   };
 
   return (
