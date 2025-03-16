@@ -1,8 +1,9 @@
 export interface AuthContextType {
   accessToken: string | null;
   role: string | null;
-  name: string | null;           // Added field to store the user's name
-  setAuth: (token: string, role: string, name: string) => void; // Accept name as parameter
+  name: string | null;
+  id: string | null;
+  setAuth: (token: string, role: string, name: string, id: string) => void;
   clearAuth: () => void;
   refreshAccessToken: () => Promise<void>;
 }

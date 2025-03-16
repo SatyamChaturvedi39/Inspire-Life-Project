@@ -8,16 +8,13 @@ interface SlotItemProps {
 }
 
 const SlotItem: React.FC<SlotItemProps> = ({ time, status, onClick }) => {
-  const statusClass = status.toLowerCase(); // Convert to lowercase for CSS
-
+  const statusClass = status.toLowerCase();
+  
   const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent any default behavior
-    console.log("Slot clicked:", time, status); // Add logging to debug
-    if (status !== "Booked") {
-      onClick();
-    } else {
-      console.log("Slot is booked, cannot modify"); // Add logging for this case
-    }
+    e.preventDefault();
+    console.log("Slot clicked:", time, status);
+    // Always call onClick regardless of status in management dashboards.
+    onClick();
   };
 
   return (

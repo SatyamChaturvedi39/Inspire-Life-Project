@@ -4,7 +4,7 @@ import axios from "axios";
 import "./PolicyDetails.css";
 import policyImage from "../assets/policy.jpg";
 import bookSlotImage from "../assets/bookslot.png";
-import PolicyPopup from "../components/PolicyPopup";
+import SlotForm from "../components/SlotForm"; // Import SlotForm as a popup
 
 interface KeyFeatures {
   policyTerm?: string;
@@ -15,28 +15,24 @@ interface KeyFeatures {
 }
 
 interface Policy {
-  id: string;
+  _id: string;
   policyName: string;
   policyDescription: string;
   companyName: string;
   ageRange: string;
   keyFeatures: KeyFeatures;
-  agentId?: {
-    name?: string;
-    contact?: string;
-  };
+  createdBy: string; // Agent/Admin id who created the policy
 }
 
 const PolicyDetails: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>(); // Get slug from URL
+  const { slug } = useParams<{ slug: string }>();
   const [policy, setPolicy] = useState<Policy | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showSlotForm, setShowSlotForm] = useState(false);
   
   const navigate = useNavigate();
 
-  // Back button handler
   const handleBack = () => {
     navigate("/policies");
   };
@@ -52,6 +48,7 @@ const PolicyDetails: React.FC = () => {
       try {
         const url = `http://localhost:5001/api/policies/${slug}`;
         const response = await axios.get(url);
+        // Assuming the API returns the policy in response.data.data
         setPolicy(response.data.data);
       } catch (error) {
         console.error("Error fetching policy details:", error);
@@ -64,37 +61,34 @@ const PolicyDetails: React.FC = () => {
     fetchPolicyDetails();
   }, [slug]);
 
-  const handleShowPopup = () => {
-    setShowPopup(true);
+  const handleShowSlotForm = () => {
+    setShowSlotForm(true);
   };
 
-  const handleClosePopup = () => {
-    setShowPopup(false);
+  const handleCloseSlotForm = () => {
+    setShowSlotForm(false);
   };
 
   return (
     <div className="policy-details-container">
-      
-      {/* Full-width hero image */}
       <div className="policy-hero-image-container">
         <img src={policyImage} alt="Insurance Services" className="policy-hero-image" />
       </div>
 
       {loading && <div className="loading-container"><p>Loading...</p></div>}
       {error && <p className="error">{error}</p>}
-      {/* Back button added here */}
       
       {policy && (
         <div className="policy-content">
-        <div className="policies-back-button" onClick={handleBack}>
-        &#x21E6; Back
-        </div>
-          <h1 className="policy-title">{policy?.policyName}</h1>
+          <div className="policies-back-button" onClick={handleBack}>
+            &#x21E6; Back
+          </div>
+          <h1 className="policy-title">{policy.policyName}</h1>
           
           <div className="policy-info">
-            <p><strong>Company:</strong> {policy?.companyName}</p>
-            <p><strong>Available for:</strong> {policy?.ageRange}</p>
-            <p><strong>Description:</strong> {policy?.policyDescription}</p>
+            <p><strong>Company:</strong> {policy.companyName}</p>
+            <p><strong>Available for:</strong> {policy.ageRange}</p>
+            <p><strong>Description:</strong> {policy.policyDescription}</p>
           </div>
           
           <h2 className="features-title">Key Features & Benefits</h2>
@@ -122,9 +116,10 @@ const PolicyDetails: React.FC = () => {
             </div>
           </div>
           <div className="dummy-text">
-              <h3>Why Choose This Policy?</h3>
-              <p>Get the best insurance services with this policy. Our policy offers a wide range of benefits that help protect you and your family from unexpected events. With competitive premiums and comprehensive coverage, we ensure you receive maximum value for your investment. Our dedicated team of experts is always ready to assist you with claims and inquiries, providing timely and efficient service when you need it most.
-              </p>
+            <h3>Why Choose This Policy?</h3>
+            <p>
+              Get the best insurance services with this policy. Our policy offers a wide range of benefits that help protect you and your family from unexpected events. With competitive premiums and comprehensive coverage, we ensure you receive maximum value for your investment. Our dedicated team of experts is always ready to assist you with claims and inquiries, providing timely and efficient service when you need it most.
+            </p>
           </div>
           
           <div className="appointment-section">
@@ -133,16 +128,19 @@ const PolicyDetails: React.FC = () => {
               src={bookSlotImage} 
               alt="Book appointment" 
               className="book-slot-image" 
-              onClick={handleShowPopup}
+              onClick={handleShowSlotForm}
+              style={{ cursor: "pointer" }}
             />
           </div>
         </div>
       )}
 
-      {showPopup && (
-        <PolicyPopup 
-          onClose={handleClosePopup}
-          policyName={policy?.policyName || ""}
+      {showSlotForm && policy && (
+        <SlotForm 
+          meetingType="policy" 
+          onClose={handleCloseSlotForm} 
+          ownerId={policy.createdBy} 
+          policyId={policy._id} 
         />
       )}
     </div>

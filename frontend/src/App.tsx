@@ -15,11 +15,10 @@ import Careers from "./pages/Careers";
 import Policies from "./pages/Policies";
 import PolicyDetails from "./pages/PolicyDetails";
 import Contact from "./pages/Contact";
-import SlotForm from "./pages/SlotForm";
 import AboutUs from "./pages/AboutUs";
 import Login from "./pages/Login";
 import AgentDashboard from "./pages/AgentDashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./context/ProtectedRoute";
 import AdminDashboard from "./pages/AdminDashboard";
 const App: React.FC = () => {
   return (
@@ -33,7 +32,6 @@ const App: React.FC = () => {
           <Route path="/policies" element={<Policies />} />
           <Route path="/policies/:slug" element={<PolicyDetails />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/slotform" element={<SlotForm />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
 

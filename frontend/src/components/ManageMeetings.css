@@ -1,0 +1,128 @@
+.manage-slots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background-color: #ffffff;
+    border-color: black;
+    box-shadow: 2px 2px 8px rgb(136, 133, 133);
+    border-radius: 10px;
+    border-width: 1px;
+  }
+  
+  /* Back Button */
+  .back-btn {
+    background: #0c2641;
+    border: none;
+    font-weight: 200;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-top: 2%;
+    margin-bottom: 1%;
+  }
+  
+  .back-btn:hover {
+    text-decoration: underline;
+  }
+  
+  /* Title */
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+    text-decoration: underline;
+  }
+  
+  /* Date Selector */
+  .date-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100vw;
+    margin-bottom: 20px;
+  }
+  
+  .date-selector button {
+    background-color: #113a66;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .date-selector button:hover {
+    background-color: #08233f;
+  }
+  
+  .date-selector h3 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Slots Grid */
+  .slots-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 90vw;
+    justify-content: center;
+    border-color: black;
+  }
+  
+  /* Popup Overlay */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.281);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Error & Loading Messages */
+  .error-message,
+  .loading {
+    font-size: 14px;
+    color: rgb(26, 19, 68);
+    margin-top: 10px;
+  }
+  
+  /* Desktop Styles */
+  @media (min-width: 1024px) {
+    .date-selector h3 {
+      font-size: 25px;
+    }
+  
+    .manage-slots {
+      margin-top: 2%;
+      max-width: 70vw;
+    }
+    .appointment-slot-section{
+        margin-left: 0;
+        margin-right: 20%;
+    }
+  }
+  
+  /* Additional styling for ManageMeetings */
+  .manage-meetings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  
+  
