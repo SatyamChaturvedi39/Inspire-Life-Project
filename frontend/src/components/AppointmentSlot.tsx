@@ -1,28 +1,42 @@
 import React, { useEffect, useState } from "react";
 import "./AppointmentSlot.css";
+import { useAuth } from "../context/AuthContext";
 
 interface Slot {
   _id: string;
   name: string;
   phoneNumber: string;
   date: string;
-  time?: string; // Marking it as optional
+  time?: string;
   status: string;
+  meetingType?: "policy" | "career";
+  ownerId: string;
 }
 
-const AppointmentSlot: React.FC = () => {
+interface AppointmentSlotProps {
+  filterType?: "all" | "policy" | "career";
+  ownerId?: string;
+}
+
+const AppointmentSlot: React.FC<AppointmentSlotProps> = ({
+  filterType = "all",
+  ownerId: propOwnerId,
+}) => {
   const [slots, setSlots] = useState<Slot[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { id: authId, role } = useAuth();
+
+  const currentOwnerId = propOwnerId || authId || "";
 
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await fetch("http://localhost:5001/api/meetings");
+        const response = await fetch("http://localhost:5001/api/appointments");
         if (!response.ok) {
           throw new Error("Failed to fetch slots");
         }
-        const data = await response.json();
+        const data: Slot[] = await response.json();
         setSlots(data);
       } catch (error) {
         console.error("Error fetching slots:", error);
@@ -74,9 +88,13 @@ const AppointmentSlot: React.FC = () => {
   };
 
   const filteredSlots = slots
-    .filter(
-      (slot) => slot.phoneNumber !== "N/A" && new Date(slot.date) >= today
-    )
+    .filter((slot) => {
+      const slotDate = new Date(slot.date);
+      if (slot.phoneNumber === "N/A" || slotDate < today) return false;
+      if (slot.ownerId !== currentOwnerId) return false;
+      if (filterType !== "all" && slot.meetingType !== filterType) return false;
+      return true;
+    })
     .sort((a, b) => {
       const dateDiff = new Date(a.date).getTime() - new Date(b.date).getTime();
       if (dateDiff !== 0) return dateDiff;
@@ -115,6 +133,9 @@ const AppointmentSlot: React.FC = () => {
                   <p>
                     <strong>&rArr; {slot.time || "TBA"}</strong> - {slot.name} : +91{" "}
                     {slot.phoneNumber}
+                    {filterType === "all" && slot.meetingType && role !== "agent"
+                      ? ` (${slot.meetingType === "policy" ? "Policy Meeting" : "Career Meeting"})`
+                      : ""}
                   </p>
                 </li>
               ))}

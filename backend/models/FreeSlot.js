@@ -1,15 +1,17 @@
+// models/FreeSlot.js
 import mongoose from "mongoose";
 
 const freeSlotSchema = new mongoose.Schema({
-    agentID: { type: mongoose.Schema.Types.ObjectId, ref: "Agent" },
-    adminID: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
-    date: { type: Date, required: true },
-    time: { type: String, required: true },
-    available: { type: Boolean, default: true },
-  },{
-    timestamps: true
-});
+  ownerId: { type: String, required: true },
+  meetingType: { type: String, enum: ["policy", "career"], default: "policy" },
+  date: { type: Date, required: true },
+  time: { type: String, required: true },
+  // Slot statuses used for availability management.
+  status: {
+    type: String,
+    enum: ["Available", "Booked", "Unavailable"],
+    default: "Available",
+  }
+}, { timestamps: true, collection: "freeSlots" });
 
-const Slot = mongoose.model('Slot', freeSlotSchema);
-
-export default Slot;
+export default mongoose.model("FreeSlot", freeSlotSchema);

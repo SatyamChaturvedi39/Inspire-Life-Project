@@ -1,4 +1,3 @@
-// src/api/axiosInstance.ts
 import axios from "axios";
 import { useEffect, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
@@ -19,7 +18,6 @@ export const useAxiosInstance = () => {
 
   instance.interceptors.request.use(
     async (config) => {
-      // If no token exists, try refreshing it
       if (!tokenRef.current) {
         await refreshAccessToken();
       }

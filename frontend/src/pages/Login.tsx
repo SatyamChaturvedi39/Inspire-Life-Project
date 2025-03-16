@@ -20,16 +20,18 @@ const Login: React.FC = () => {
         { email, password },
         { withCredentials: true }
       );
-      // Extract accessToken, role, and name from the response.
-      const { accessToken, role, name } = response.data;
-      setAuth(accessToken, role, name);
+      // Extract accessToken, role, name, and id from the response.
+      const { accessToken, role, name, id } = response.data;
+      // Pass all four values to setAuth.
+      setAuth(accessToken, role, name, id);
       if (role === "admin") {
         navigate("/dashboard/admin");
       } else {
         navigate("/dashboard/agent");
       }
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
+      const errorMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
       setError(errorMessage);
     }
   };

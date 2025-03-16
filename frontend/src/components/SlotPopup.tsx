@@ -1,23 +1,22 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./SlotPopup.css";
 
 interface Slot {
   time: string;
   date: string;
   status: "Available" | "Booked" | "Unavailable";
+  meetingType?: "policy" | "career";
 }
 
 interface SlotPopupProps {
   slot: Slot;
+  ownerId: string;
   onClose: () => void;
-  onStatusChange: (newStatus: "Available" | "Unavailable") => void;
+  onStatusChange: (newStatus: "Available" | "Unavailable") => Promise<void>;
 }
 
-const SlotPopup: React.FC<SlotPopupProps> = ({
-  slot,
-  onClose,
-  onStatusChange,
-}) => {
+const SlotPopup: React.FC<SlotPopupProps> = ({ slot, ownerId, onClose, onStatusChange }) => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,57 +25,26 @@ const SlotPopup: React.FC<SlotPopupProps> = ({
     setError(null);
 
     try {
-      const response = await fetch(
-        "http://localhost:5001/api/meetings/update-status",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            date: slot.date,
-            time: slot.time,
-            status: newStatus,
-          }),
-        }
-      );
+      const updatePayload = {
+        ownerId,
+        date: slot.date,
+        time: slot.time,
+        status: newStatus,
+        meetingType: slot.meetingType || "career", // default to "career" if missing
+      };
 
-      // First, get the response as text
-      const responseText = await response.text();
+      const response = await axios.put("http://localhost:5001/api/freeslots/update", updatePayload);
 
-      // Try to parse as JSON if possible
-      let errorData;
-      try {
-        errorData = JSON.parse(responseText);
-      } catch (e) {
-        // If it's not valid JSON, use the text directly
-        errorData = responseText;
+      if (response.data.success) {
+        // If update is successful, call parent's callback to update UI.
+        await onStatusChange(newStatus);
+        onClose(); // Close popup after success.
+      } else {
+        throw new Error(response.data.message || "Failed to update slot.");
       }
-
-      if (!response.ok) {
-        // Check if the error is related to enum validation
-        if (
-          typeof errorData === "object" &&
-          errorData.error &&
-          errorData.error.includes("is not a valid enum value")
-        ) {
-          throw new Error(
-            "The status value is not valid in the database model. Please update your Meeting model to include 'Unavailable' as a valid status."
-          );
-        } else {
-          throw new Error(
-            `Failed to update slot status: ${response.status} ${
-              response.statusText
-            }. ${JSON.stringify(errorData)}`
-          );
-        }
-      }
-
-      // If we got here, the request was successful
-      onStatusChange(newStatus);
-    } catch (error) {
-      console.error("Error updating slot status:", error);
-      setError(String(error));
+    } catch (err) {
+      console.error("Error updating slot:", err);
+      setError("Error updating slot. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -87,26 +55,7 @@ const SlotPopup: React.FC<SlotPopupProps> = ({
       <h3>MANAGE SLOT</h3>
       <p>Time: {slot.time}</p>
       <p>Status: {slot.status}</p>
-
-      {error && (
-        <div className="error-message">
-          {error}
-          {error.includes("not valid in the database model") && (
-            <div className="error-help">
-              <p>To fix this issue:</p>
-              <ol>
-                <li>
-                  Update your Meeting model to include "Unavailable" in the
-                  status enum
-                </li>
-                <li>Restart your server</li>
-                <li>Try again</li>
-              </ol>
-            </div>
-          )}
-        </div>
-      )}
-
+      {error && <div className="error-message">{error}</div>}
       <button
         className="available"
         onClick={() => handleStatusChange("Available")}

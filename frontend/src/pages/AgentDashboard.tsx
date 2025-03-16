@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import "./AgentDashboard.css";
 import agentImage from "../assets/adminimage.jpg";
-import ManageSlots from "../components/ManageSlots";
 import ManagePolicies from "../components/ManagePolicies";
 import AppointmentSlot from "../components/AppointmentSlot";
 import RecentLeads from "../components/RecentLeads";
 import { useAuth } from "../context/AuthContext";
+import ManageMeetings from "../components/ManageMeetings";
 
 const AgentDashboard: React.FC = () => {
-  const {name} = useAuth();
+  const { name } = useAuth();
   const [activeComponent, setActiveComponent] = useState<
-    "default" | "manageApplicants" | "managePolicies" | "showLeads"
+    "default" | "manageClients" | "managePolicies" | "showLeads"
   >("default");
 
   return (
@@ -29,7 +29,7 @@ const AgentDashboard: React.FC = () => {
               </button>
               <button
                 className="agent-btn"
-                onClick={() => setActiveComponent("manageApplicants")}
+                onClick={() => setActiveComponent("manageClients")}
               >
                 Manage Clients
               </button>
@@ -40,24 +40,18 @@ const AgentDashboard: React.FC = () => {
                 Show Leads
               </button>
             </div>
-            <div className="appointment-slot-section">
+            <div className="appointment-slot-section3">
               <AppointmentSlot />
             </div>
           </div>
-        ) : activeComponent === "manageApplicants" ? (
-          <ManageSlots onBack={() => setActiveComponent("default")} />
+        ) : activeComponent === "manageClients" ? (
+          <ManageMeetings meetingType="policy" onBack={() => setActiveComponent("default")} />
         ) : activeComponent === "managePolicies" ? (
           <ManagePolicies
             onBack={() => setActiveComponent("default")}
-            onUpdate={(policyId: string) => {
-              console.log("Update policy:", policyId);
-            }}
-            onAdd={() => {
-              console.log("Add policy");
-            }}
-            onDelete={(policyId: string) => {
-              console.log("Delete policy:", policyId);
-            }}
+            onUpdate={(policyId: string) => console.log("Update policy:", policyId)}
+            onAdd={() => console.log("Add policy")}
+            onDelete={(policyId: string) => console.log("Delete policy:", policyId)}
           />
         ) : activeComponent === "showLeads" ? (
           <RecentLeads onBack={() => setActiveComponent("default")} />
