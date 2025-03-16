@@ -54,6 +54,11 @@ const InsuranceChatbot: React.FC = () => {
         "coverage",
         "insure",
         "protection",
+        "health",
+        "finance",
+        "life",
+        "house",
+        "housing",
       ],
     },
     {
@@ -237,7 +242,7 @@ const InsuranceChatbot: React.FC = () => {
     };
 
     if (routes[page]) {
-      setTimeout(() => navigate(routes[page]), 1000);
+      setTimeout(() => navigate(routes[page]), 3000);
     }
   };
 
@@ -247,7 +252,8 @@ const InsuranceChatbot: React.FC = () => {
 
     // Handle main menu options
     if (optionId === "policies") {
-      botResponse = "Which insurance policy are you interested in?";
+      botResponse =
+        "Which insurance policy are you interested in? Please select one from the quick options above.";
       setActiveSection("policies");
     } else if (optionId === "contact") {
       botResponse =
@@ -272,7 +278,7 @@ const InsuranceChatbot: React.FC = () => {
       return;
     } else if (optionId === "services") {
       botResponse =
-        "We offer the following services. Which one would you like to know more about?";
+        "We offer the above services. Which one would you like to know more about?";
       setActiveSection("services");
     } else if (optionId === "location") {
       botResponse =
@@ -476,21 +482,6 @@ const InsuranceChatbot: React.FC = () => {
         setShowOptions(true);
       }, 800);
     }
-  };
-
-  // Function to handle "back to main" keywords
-  const isBackToMainRequest = (userInput: string): boolean => {
-    const backKeywords = [
-      "back",
-      "main menu",
-      "return",
-      "start over",
-      "main",
-      "home",
-    ];
-    const input = userInput.toLowerCase();
-
-    return backKeywords.some((keyword) => input.includes(keyword));
   };
 
   return (
