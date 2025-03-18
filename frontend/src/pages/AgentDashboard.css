@@ -55,7 +55,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  max-width: 45vw;
+  width: 45vw;
   max-height: 25vh;
   text-align: center;
 }
@@ -99,11 +99,10 @@
 
   /* Content Container */
   .agent-content {
-    width: 50vw;
     text-align: left;
     margin-top: 0;
     padding: 0;
-    width: 30vw;
+    width: 50vw;
   }
 
   .agent-content h2 {
@@ -112,20 +111,20 @@
 
   /* Buttons */
   .agent-buttons {
-    justify-content: flex-start;
-    width: 100%;
+    justify-content: center;
+    width: 50vw;
   }
 
   .agent-btn {
-    max-width: 20vw;
-    max-height: unset;
+    width: 40vw;
+    max-height: 10vh;
     padding: 14px 20px;
     font-size: 18px;
   }
 
   /* Appointment Slot Section */
   .appointment-slot-section3 {
-    width: 60vw;
-    margin-left: -70%;
+    width: 80vw;
+    margin-left: -11vw;
   }
 }

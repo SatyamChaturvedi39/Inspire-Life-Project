@@ -17,17 +17,21 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMode, setPopupMode] = useState<"create" | "update">("create");
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [agentToDelete, setAgentToDelete] = useState<string | null>(null);
-  
+
   const axiosInstance = useAxiosInstance();
 
   useEffect(() => {
     fetchAgents();
-  },[]);
+  }, []);
 
   const fetchAgents = async () => {
     try {
@@ -65,7 +69,9 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
     if (agentToDelete) {
       try {
         await axiosInstance.delete(`/agents/${agentToDelete}`);
-        setAgents((prevAgents) => prevAgents.filter((agent) => agent._id !== agentToDelete));
+        setAgents((prevAgents) =>
+          prevAgents.filter((agent) => agent._id !== agentToDelete)
+        );
       } catch (error) {
         console.error("Error deleting agent:", error);
       } finally {
@@ -102,10 +108,16 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
   return (
     <div className="manage-agents-container">
       <div className="manage-agents-header">
-        <button onClick={onBack} className="manage-agents-back-button">&#x21E6; Back</button>
+        <button onClick={onBack} className="manage-agents-back-button">
+          &#x21E6; Back
+        </button>
         <div className="manage-agents-header-details">
-        <h2><center>Manage Agents</center></h2>
-        <button className="manage-agents-add-button" onClick={handleAddClick}>ADD</button>
+          <h2>
+            <center>Manage Agents</center>
+          </h2>
+          <button className="manage-agents-add-button" onClick={handleAddClick}>
+            ADD
+          </button>
         </div>
       </div>
 
@@ -115,13 +127,21 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
             <div key={agent._id} className="manage-agents-agent-card">
               <div className="manage-agents-agent-info">
                 <h3 className="manage-agents-agent-name">{agent.name}</h3>
-                <p className="manage-agents-agent-email">Email: {agent.email}</p>
+                <p className="manage-agents-agent-email">
+                  Email: {agent.email}
+                </p>
               </div>
               <div className="manage-agents-agent-actions">
-                <button className="manage-agents-update-button" onClick={() => handleUpdateClick(agent)}>
+                <button
+                  className="manage-agents-update-button"
+                  onClick={() => handleUpdateClick(agent)}
+                >
                   UPDATE
                 </button>
-                <button className="manage-agents-delete-button" onClick={() => handleDeleteClick(agent._id)}>
+                <button
+                  className="manage-agents-delete-button"
+                  onClick={() => handleDeleteClick(agent._id)}
+                >
                   DELETE
                 </button>
               </div>
@@ -142,7 +162,9 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   required
                 />
               </label>
@@ -151,7 +173,9 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   required
                 />
               </label>
@@ -161,7 +185,9 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
                   <input
                     type={showPassword ? "text" : "password"}
                     value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
                     placeholder={popupMode === "update" ? "New Password" : ""}
                     required={popupMode === "create"}
                     style={{ flex: 1 }}
@@ -169,15 +195,25 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
                   <button
                     type="button"
                     onClick={togglePasswordVisibility}
-                    style={{ marginLeft: "5px", padding: "4px 8px", background:"#0c2641", color:"#ffffff", borderRadius:"4px" }}
+                    style={{
+                      marginLeft: "5px",
+                      padding: "4px 8px",
+                      background: "#0c2641",
+                      color: "#ffffff",
+                      borderRadius: "4px",
+                    }}
                   >
                     {showPassword ? "Hide" : "Show"}
                   </button>
                 </div>
               </label>
               <div className="popup-buttons">
-                <button type="submit">{popupMode === "create" ? "Add" : "Update"}</button>
-                <button type="button" onClick={() => setShowPopup(false)}>Cancel</button>
+                <button type="submit">
+                  {popupMode === "create" ? "Add" : "Update"}
+                </button>
+                <button type="button" onClick={() => setShowPopup(false)}>
+                  Cancel
+                </button>
               </div>
             </form>
           </div>
@@ -189,8 +225,12 @@ const ManageAgents: React.FC<ManageAgentsProps> = ({ onBack }) => {
           <div className="delete-confirm-box">
             <p>Are you sure you want to delete this agent account?</p>
             <div className="delete-confirm-actions">
-              <button className="delete-confirm-yes" onClick={confirmDelete}>Yes</button>
-              <button className="delete-confirm-no" onClick={cancelDelete}>No</button>
+              <button className="delete-confirm-yes" onClick={confirmDelete}>
+                Yes
+              </button>
+              <button className="delete-confirm-no" onClick={cancelDelete}>
+                No
+              </button>
             </div>
           </div>
         </div>

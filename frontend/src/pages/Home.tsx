@@ -11,6 +11,7 @@ import CarouselScroll from "../components/CarouselScroll";
 import Popup from "../components/LeadFormPopup";
 import LeadForm from "../components/LeadForm";
 import InsuranceChatbot from "../components/InsuranceChatbot";
+import Stats from "../components/Stats";
 
 const Home = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -81,6 +82,16 @@ const Home = () => {
           </div>
         </div>
 
+        {/* ✅ Services We Provide */}
+        <div className="services-section">
+          <h2 className="services-title">Services We Provide</h2>
+          <div className="services-logos">
+            <img src={StarLogo} alt="Star Health" className="service-logo" />
+            <img src={LicLogo} alt="LIC" className="service-logo" />
+            <img src={CareLogo} alt="Care Health" className="service-logo" />
+          </div>
+        </div>
+
         {isDesktop ? (
           <>
             <LeadForm />
@@ -111,13 +122,9 @@ const Home = () => {
           />
         )}
 
-        <div className="services-section">
-          <h2 className="services-title">Services We Provide</h2>
-          <div className="services-logos">
-            <img src={StarLogo} alt="Star Health" className="service-logo" />
-            <img src={LicLogo} alt="LIC" className="service-logo" />
-            <img src={CareLogo} alt="Care Health" className="service-logo" />
-          </div>
+        {/* ✅ Dynamic Stats Carousel Added Here */}
+        <div className="stats-carousel-section">
+          <Stats />
         </div>
       </div>
 

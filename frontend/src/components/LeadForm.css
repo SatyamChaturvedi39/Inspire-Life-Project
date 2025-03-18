@@ -1,12 +1,14 @@
 .lead-form-container {
   display: block;
-  width: 70vw;
-  margin-top: 2vh;
+  width: 85vw;
+  height: 30vh;
+  margin: 2vh auto 0;
   border-radius: 10px;
   background-color: #f1f0f0;
-  box-shadow: 2px 2px 8px rgba(194, 193, 193, 0.5);
+  box-shadow: 2px 2px 8px rgba(21, 20, 20, 0.5);
   padding: 20px;
-  text-align: center; /* Center align content */
+  text-align: center;
+  margin-bottom: 4vh;
 }
 
 .lead-form {
@@ -14,14 +16,23 @@
   width: 100%;
 }
 
+.lead-form__fields-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: space-between;
+}
+
 .lead-form__field {
+  flex: 1;
+  min-width: 200px;
   margin-bottom: 15px;
   border-radius: 15px;
   box-shadow: 2px 2px 8px rgba(194, 193, 193, 0.5);
 }
 
-.lead-form__input,
-.lead-form__textarea {
+.lead-form__input, .lead-form__textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -30,8 +41,7 @@
   font-family: Arial, sans-serif;
 }
 
-.lead-form__input:focus,
-.lead-form__textarea:focus {
+.lead-form__input:focus, .lead-form__textarea:focus {
   outline: none;
   border-color: #FA9D2C;
   box-shadow: 0 0 5px rgba(250, 157, 44, 0.5);
@@ -39,21 +49,29 @@
 
 .lead-form__textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 38px;
+}
+
+.lead-form__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .lead-form__field--checkbox {
-  display: block;
+  display: flex;
   margin-bottom: 15px;
-  text-align: left; /* Align checkbox and label to the left */
+  text-align: left;
+  align-items: center;
 }
 
 .lead-checkbox {
   display: inline-block;
   margin-left: 10px;
   font-size: 14px;
-  margin-top: -1vh;
-  vertical-align: middle; /* Align checkbox and text vertically */
+  vertical-align: middle;
 }
 
 .lead-checkbox a {
@@ -66,15 +84,13 @@
 }
 
 .lead-button-div {
-  display: block;
-  margin-top: 20px;
-  text-align: center; /* Center the button */
+  margin-left: auto;
+  margin-top: 0;
 }
 
 .lead-form__button {
   background-color: #FA9D2C;
   width: fit-content;
-  height: 5vh;
   color: white;
   border: none;
   border-radius: 8px;
@@ -86,8 +102,9 @@
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  display: inline-block; /* Ensure button only takes up necessary space */
+  display: inline-block;
   height: 6vh;
+  text-transform: uppercase;
 }
 
 .lead-form__button:hover {
@@ -115,8 +132,8 @@
   white-space: nowrap;
   font-size: 25px;
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 1vh;
+  text-align: left;
+  margin-bottom: 2vh;
 }
 
 .form-message {
@@ -124,4 +141,38 @@
   margin-bottom: 15px;
   font-size: 16px;
   font-weight: bold;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+  .lead-form-container {
+    width: 90vw;
+  }
+  
+  .lead-form__fields-container {
+    flex-direction: column;
+  }
+  
+  .lead-form__field {
+    width: 100%;
+  }
+  
+  .lead-form__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .lead-button-div {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .lead-form__button {
+    width: 80%;
+  }
+  
+  .stayline {
+    text-align: center;
+  }
 }

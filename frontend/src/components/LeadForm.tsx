@@ -60,81 +60,95 @@ const LeadForm: React.FC = () => {
     <div className="lead-form-container">
       <form onSubmit={handleSubmit} className="lead-form">
         <h2 className="stayline">Stay Informed:</h2>
+
         {message && (
-          <p className="form-message" style={{ color: messageColor, fontWeight: "bold" }}>
+          <p className="form-message" style={{ color: messageColor }}>
             {message}
           </p>
         )}
-        <div className="lead-form__field">
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="lead-form__input"
-            placeholder="Enter your name*"
-          />
+
+        <div className="lead-form__fields-container">
+          <div className="lead-form__field">
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="lead-form__input"
+              placeholder="Name*"
+            />
+          </div>
+
+          <div className="lead-form__field">
+            <input
+              type="tel"
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange}
+              required
+              className="lead-form__input"
+              placeholder="Phone Number*"
+              pattern="\d{10,13}"
+            />
+          </div>
+
+          <div className="lead-form__field">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="lead-form__input"
+              placeholder="Email*"
+            />
+          </div>
+
+          <div className="lead-form__field">
+            <input
+              type="text"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="lead-form__input"
+              placeholder="Add a comment"
+            />
+          </div>
         </div>
-        <div className="lead-form__field">
-          <input
-            type="tel"
-            value={phoneNumber}
-            onChange={handlePhoneNumberChange}
-            required
-            className="lead-form__input"
-            placeholder="Enter your phone number*"
-            pattern="\d{10,13}"
-          />
-        </div>
-        <div className="lead-form__field">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="lead-form__input"
-            placeholder="Enter your email"
-          />
-        </div>
-        <div className="lead-form__field">
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            className="lead-form__textarea"
-            placeholder="Add a comment"
-          />
-        </div>
-        <div className="lead-form__field--checkbox">
-          <input
-            type="checkbox"
-            id="termsCheckbox"
-            checked={termsAgreed}
-            onChange={() => setTermsAgreed(!termsAgreed)}
-            required
-          />
-          <label htmlFor="termsCheckbox" className="lead-checkbox">
-            I agree to the{" "}
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowTermsPopup(true);
-              }}
+
+        <div className="lead-form__bottom">
+          <div className="lead-form__field--checkbox">
+            <input
+              type="checkbox"
+              id="termsCheckbox"
+              checked={termsAgreed}
+              onChange={() => setTermsAgreed(!termsAgreed)}
+              required
+            />
+            <label htmlFor="termsCheckbox" className="lead-checkbox">
+              I agree to the{" "}
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowTermsPopup(true);
+                }}
+              >
+                Terms &amp; Conditions
+              </a>
+              .
+            </label>
+          </div>
+
+          <div className="lead-button-div">
+            <button
+              type="submit"
+              className="lead-form__button"
+              disabled={loading}
             >
-              Terms &amp; Conditions
-            </a>
-            .
-          </label>
-        </div>
-        <div className="lead-button-div">
-          <button
-            type="submit"
-            className="lead-form__button"
-            disabled={loading}
-          >
-            {loading ? "Submitting..." : "SUBMIT"}
-          </button>
+              {loading ? "Submitting..." : "SUBMIT"}
+            </button>
+          </div>
         </div>
       </form>
+
       {showTermsPopup && (
         <TermsAndConditionsPopup
           onAccept={() => {

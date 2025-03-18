@@ -9,7 +9,12 @@ import AppointmentSlot from "../components/AppointmentSlot"; // Import the Appoi
 
 const AdminDashboard: React.FC = () => {
   const [activeComponent, setActiveComponent] = useState<
-    "default" | "managePolicies" | "manageClients" | "manageApplicants" | "showLeads" | "manageAgents"
+    | "default"
+    | "managePolicies"
+    | "manageClients"
+    | "manageApplicants"
+    | "showLeads"
+    | "manageAgents"
   >("default");
 
   return (
@@ -23,19 +28,34 @@ const AdminDashboard: React.FC = () => {
             <h2>Welcome, Shivakumar!</h2>
             {/* Manage Buttons */}
             <div className="admin-buttons">
-              <button className="admin-btn" onClick={() => setActiveComponent("managePolicies")}>
+              <button
+                className="admin-btn"
+                onClick={() => setActiveComponent("managePolicies")}
+              >
                 Manage Policies
               </button>
-              <button className="admin-btn" onClick={() => setActiveComponent("manageClients")}>
+              <button
+                className="admin-btn"
+                onClick={() => setActiveComponent("manageClients")}
+              >
                 Manage Clients
               </button>
-              <button className="admin-btn" onClick={() => setActiveComponent("manageApplicants")}>
+              <button
+                className="admin-btn"
+                onClick={() => setActiveComponent("manageApplicants")}
+              >
                 Manage Applicants
               </button>
-              <button className="admin-btn" onClick={() => setActiveComponent("manageAgents")}>
+              <button
+                className="admin-btn"
+                onClick={() => setActiveComponent("manageAgents")}
+              >
                 Manage Agents
               </button>
-              <button className="admin-btn" onClick={() => setActiveComponent("showLeads")}>
+              <button
+                className="admin-btn"
+                onClick={() => setActiveComponent("showLeads")}
+              >
                 Show Leads
               </button>
             </div>
@@ -47,7 +67,9 @@ const AdminDashboard: React.FC = () => {
         ) : activeComponent === "managePolicies" ? (
           <ManagePolicies
             onBack={() => setActiveComponent("default")}
-            onUpdate={(policyId: string) => console.log("Update policy:", policyId)}
+            onUpdate={(policyId: string) =>
+              console.log("Update policy:", policyId)
+            }
             onAdd={() => console.log("Add policy")}
             onDelete={() => console.log("Delete policy")}
           />
@@ -55,9 +77,15 @@ const AdminDashboard: React.FC = () => {
           <ManageAgents onBack={() => setActiveComponent("default")} />
         ) : activeComponent === "manageClients" ? (
           // Passing policyId="all" ensures the required prop is provided.
-          <ManageMeetings meetingType="policy" onBack={() => setActiveComponent("default")} />
+          <ManageMeetings
+            meetingType="policy"
+            onBack={() => setActiveComponent("default")}
+          />
         ) : activeComponent === "manageApplicants" ? (
-          <ManageMeetings meetingType="career" onBack={() => setActiveComponent("default")} />
+          <ManageMeetings
+            meetingType="career"
+            onBack={() => setActiveComponent("default")}
+          />
         ) : activeComponent === "showLeads" ? (
           <RecentLeads onBack={() => setActiveComponent("default")} />
         ) : null}

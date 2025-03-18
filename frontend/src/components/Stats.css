@@ -1,0 +1,136 @@
+.stats-container {
+    width: 100vw;
+    padding: 32px 0;
+    position: relative;
+    margin-top: 2vh;
+  }
+  
+  .stats-carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    max-width: 1024px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  .stats-card {
+    flex-shrink: 0;
+    background-color: white;
+    border-radius: 8px;
+    border: 2px solid #1e40af; /* Dark blue border */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+  }
+  
+  .stats-card-side {
+    width: 256px;
+    height: 128px;
+    cursor: pointer;
+    opacity: 0.9;
+  }
+  
+  .stats-card-side:hover {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+  
+  .stats-card-active {
+    width: 288px;
+    height: 160px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .stats-title {
+    color: #4b5563; /* Gray text */
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  
+  .stats-value {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .stats-value-active {
+    font-size: 36px;
+  }
+  
+  .stats-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    gap: 8px;
+  }
+  
+  .stats-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #d1d5db; /* Light gray */
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .stats-indicator-active {
+    background-color: #1e40af; /* Dark blue */
+  }
+  
+  /* Add animation for smoother transitions */
+  @keyframes fadeIn {
+    from { opacity: 0.7; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  .stats-card-active {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* Optional: Add responsive design */
+  @media (max-width: 768px) {
+    .stats-card-side {
+      width: 200px;
+      height: 100px;
+    }
+    
+    .stats-card-active {
+      width: 240px;
+      height: 140px;
+    }
+    
+    .stats-value {
+      font-size: 20px;
+    }
+    
+    .stats-value-active {
+      font-size: 28px;
+    }
+  }
+  
+  /* For even smaller screens */
+  @media (max-width: 480px) {
+    .stats-carousel {
+      gap: 8px;
+    }
+    
+    .stats-card-side {
+      width: 160px;
+      height: 90px;
+    }
+    
+    .stats-card-active {
+      width: 200px;
+      height: 120px;
+    }
+  }

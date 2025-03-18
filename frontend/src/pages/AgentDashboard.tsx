@@ -45,13 +45,20 @@ const AgentDashboard: React.FC = () => {
             </div>
           </div>
         ) : activeComponent === "manageClients" ? (
-          <ManageMeetings meetingType="policy" onBack={() => setActiveComponent("default")} />
+          <ManageMeetings
+            meetingType="policy"
+            onBack={() => setActiveComponent("default")}
+          />
         ) : activeComponent === "managePolicies" ? (
           <ManagePolicies
             onBack={() => setActiveComponent("default")}
-            onUpdate={(policyId: string) => console.log("Update policy:", policyId)}
+            onUpdate={(policyId: string) =>
+              console.log("Update policy:", policyId)
+            }
             onAdd={() => console.log("Add policy")}
-            onDelete={(policyId: string) => console.log("Delete policy:", policyId)}
+            onDelete={(policyId: string) =>
+              console.log("Delete policy:", policyId)
+            }
           />
         ) : activeComponent === "showLeads" ? (
           <RecentLeads onBack={() => setActiveComponent("default")} />

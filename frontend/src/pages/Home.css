@@ -78,7 +78,8 @@
 .services-section {
   text-align: center;
   padding: 1rem;
-  margin-top: 1vh;
+  margin-top: -1vh;
+  margin-bottom: 2vh;
 }
 
 .services-title {
@@ -291,12 +292,14 @@
       color: #211053;
       font-size: 24px;
       margin: 40px 0;
+      margin-bottom: 10vh;
   }
 
   .services-section {
       padding: 60px 5%;
-      background-color: #f9f9f9;
-      margin-top: 40px;
+      background-color: #ffffff;
+      margin-top: -4vh;
+      margin-bottom: -7vh;
   }
 
   .services-title {

@@ -2,7 +2,8 @@
     padding: 10px;
     background-color: #f8f8f8;
     font-family: Arial, sans-serif;
-    width: 400px;
+    width: 90vw;
+    margin-bottom: 5vh;
 }
 
 .manage-agents-header {
@@ -10,6 +11,11 @@
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 20px;
+}
+.manage-agents-header-details{
+    display: flex;
+    flex-direction: row;
+    gap: 7vw;
 }
 
 .manage-agents-back-button {
@@ -40,7 +46,6 @@
     color: #0c2641;
     margin: 0;
     text-align: center;
-    
 }
 
 .manage-agents-header-actions {
@@ -50,12 +55,14 @@
 
 .manage-agents-add-button {
     background-color: #28a745;
+    display: inline;
     color: #fff;
     border: none;
     padding: 8px 14px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    margin-left: 10vw;
 }
 
 .manage-agents-add-button:hover {
@@ -70,8 +77,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    
-    
+    margin-left: 2vw;
 }
 
 .manage-agents-delete-button:hover {
@@ -95,15 +101,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-.manage-agents-delete-icon {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-    font-size: 20px;
-    color: #dc3545;
 }
 
 .manage-agents-agent-info {
@@ -134,11 +131,13 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    margin-left: 35vw;
 }
 
 .manage-agents-update-button:hover {
     background-color: #0056b3;
 }
+
 
 .manage-agents-no-agents {
     text-align: center;
@@ -208,32 +207,30 @@
 @media (min-width: 1024px) {
 
     .manage-agents-container {
-        width:69vw;
-        padding: 10px;
+        width:70vw;
+        padding: 20px;
         background-color: #f8f8f8;
         font-family: Arial, sans-serif;
-    }
-    .manage-agents-header h2 {
-        font-size: 24px;
-        text-align: center;
-        color: #0c2641;
-        
+        margin-bottom: 5vh;
     }
 
-    .manage-agents-header-details{
-        display:flex;
-        flex-direction: row;      
+    .manage-agents-back-button{
+        margin-bottom: 7vh;
+    }
+    .manage-agents-header h2 {
+        font-size: 30px;
+        text-align: center;
+        color: #0c2641;
     }
     .manage-agents-add-button{
-        font-size: 14px;
-        width: 80px;
+        font-size: 16px;
+        width: 6vw;
         padding: 6px 12px;
-        margin-left: 48.5vw;  
+        margin-left: 38vw;  
     }
     .manage-agents-update-button {
         font-size: 14px;
         padding: 6px 12px;
-        
     }
 
     .manage-agents-delete-button{
