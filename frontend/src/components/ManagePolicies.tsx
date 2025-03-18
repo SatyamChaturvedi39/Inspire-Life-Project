@@ -37,12 +37,11 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [policyToDelete, setPolicyToDelete] = useState<string | null>(null);
 
-  // Axios instance automatically attaches the token
   const axiosInstance = useAxiosInstance();
 
   useEffect(() => {
     fetchPolicies();
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (showPopup) {
@@ -54,12 +53,11 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
       document.body.style.overflow = "auto";
     };
   }, [showPopup]);
-  
 
   const fetchPolicies = async () => {
     try {
       const response = await axiosInstance.get("/policies", {
-        params: {offset: 0 }
+        params: { offset: 0 },
       });
       console.log("Fetched policies:", response.data.data);
       setPolicies(response.data.data);
@@ -68,7 +66,6 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
     }
   };
 
-  // Convert policyName to slug
   const generateSlug = (policyName: string) => {
     return policyName.toLowerCase().trim().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
   };
@@ -107,7 +104,16 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
     } finally {
       setShowConfirmDialog(false);
       setPolicyToDelete(null);
+      // Reset delete mode when a confirmation option is clicked.
+      setDeleteMode(false);
     }
+  };
+
+  const cancelDelete = () => {
+    setShowConfirmDialog(false);
+    setPolicyToDelete(null);
+    // Also reset delete mode when deletion is cancelled.
+    setDeleteMode(false);
   };
 
   const handlePopupSubmit = async (formData: PolicyFormData) => {
@@ -215,7 +221,7 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
               <button className="delete-confirm-yes" onClick={handleDeletePolicy}>
                 Yes
               </button>
-              <button className="delete-confirm-no" onClick={() => setShowConfirmDialog(false)}>
+              <button className="delete-confirm-no" onClick={cancelDelete}>
                 No
               </button>
             </div>

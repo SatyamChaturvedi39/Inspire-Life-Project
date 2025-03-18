@@ -14,14 +14,16 @@ const bot = new TelegramBot(BOT_TOKEN, { polling: false });
 export const sendTelegramNotification = async (req, res) => {
   try {
     // Destructure booking details from the request body
-    const { name, date, time, phoneNumber, email } = req.body;
+    const { name, date, time, phoneNumber, email, comment, meetingType } = req.body;
     console.log("Received booking for Telegram:", req.body);
 
     // Compose the notification message
     const message = `New Slot Booking:
+Meeting Type: ${meetingType}
 Name: ${name}
 Phone: ${phoneNumber}
 Email: ${email || 'N/A'}
+Client's Query: ${comment}
 Date: ${date}
 Time: ${time}`;
 

@@ -17,13 +17,15 @@ const bot = new TelegramBot(BOT_TOKEN, { polling: false });
 // POST endpoint to send a Telegram notification
 router.post("/send-telegram-notification", async (req: Request, res: Response) => {
   try {
-    const { name, date, time, phoneNumber, email } = req.body;
+    const { name, date, time, phoneNumber, email, meetingType, comment } = req.body;
 
     // Compose a message with booking details
     const message = `New Slot Booking:
+    Meeting Type: ${meetingType}
     Name: ${name}
     Phone: ${phoneNumber}
     Email: ${email || "N/A"}
+    Client's Query: ${comment || "N/A"}
     Date: ${date}
     Time: ${time}`;
 
