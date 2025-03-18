@@ -5,7 +5,6 @@
   margin-top: 60%;
   padding: 25px 20px;
   background-color: #f1f0f0;
-  
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -62,6 +61,7 @@
   transition: all 0.3s ease;
 }
 
+
 /* Laptop/Desktop Styles */
 @media (min-width: 1024px) {
   .login-container {
@@ -92,9 +92,10 @@
 /* Adjustments for header */
 @media (max-height: 700px) {
   .login-container {
-    margin-top: 15vh;
-    
+    margin-top: 15%;
+        
   }
+
 }
 
 

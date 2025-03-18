@@ -28,7 +28,7 @@ const Contact: React.FC = () => {
             </div>
             
             <section className='Map'>
-              <h2 className="Map3">Location:</h2>
+              <h4 className="Map3">Location:</h4>
               <div className="Site-map3">
                 <div className="map3">
                   <div className="gmap_canvas3">

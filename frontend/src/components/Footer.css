@@ -3,7 +3,7 @@
   color: rgb(253, 252, 252);
   padding: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  width:100%;
+  width:100vw;
   text-align: left;
 }
 
@@ -32,8 +32,8 @@
 }
 
 .footer-logo {
-  max-width: 70px;
-  max-height: 70px; /* Adjust logo size */
+  max-width: 85px;
+  max-height: 85px; /* Adjust logo size */
   margin-bottom: 10px;
   text-align: left;
 }
@@ -85,6 +85,11 @@
 .footer-link {
   text-decoration: none;
   color: inherit;
+}
+
+.gmap_iframe3{
+  width: 360px;
+
 }
 
 

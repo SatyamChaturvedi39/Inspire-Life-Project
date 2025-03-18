@@ -91,7 +91,6 @@ const Footer: React.FC = () => {
                   Buy Policies
                 </a>
               </li>
-              <li>Renew policies</li>
             </ul>
           </div>
 
@@ -115,7 +114,7 @@ const Footer: React.FC = () => {
               <div className="gmap_canvas">
                 <iframe
                   className="gmap_iframe"
-                  width={200}
+                  width={300}
                   frameBorder={0}
                   scrolling="no"
                   marginHeight={0}

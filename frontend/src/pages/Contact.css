@@ -52,14 +52,31 @@
 .Map {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #444444;
+  color: #1A2E5C;
   margin-bottom: 0.75rem;
+  text-align: left;
+  
+  
+}
+
+.Map3{
+  text-align: left;
+  font-style: normal;
+  color: #1A2E5C;
+  font-size: 1.45rem;
+  
+}
+
+h4.Map3{
+  margin-left: 5%;
+  text-decoration: underline;
+  
 }
 
 .Add-Info,
 .Contact-Info {
   font-size: 1rem;
-  color: #666666;
+  color: #000000;
   line-height: 1.4;
 }
 
@@ -90,14 +107,14 @@
   .Contact-Main {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1rem;
     margin-bottom: 5%;
     margin-top: 5%;
   }
 
   .Contact-text {
     font-size: 2.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   .Contact-Container {
@@ -122,17 +139,21 @@
     font-style: bold;
     font-size: 1.5rem;
     text-align: left;
+    color: #1A2E5C;
   }
 
-  .Map {
+  .Map3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    color: #1A2E5C;
   }
 
   .Add-Info,
   .Contact-Info {
     font-size: 1.1rem;
     line-height: 1.5;
+    color: #000000;
+     
   }
 
   /* Ensure flex-grow works properly on desktop */
@@ -149,6 +170,12 @@
     font-size: 25px;
     margin-left: 2.5%;
     text-align: left;
+  }
+
+  h4.Map3{
+    margin-left: 2.5%;
+    text-decoration: underline;
+    
   }
 }
 
