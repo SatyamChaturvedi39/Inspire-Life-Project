@@ -189,9 +189,11 @@ const SlotForm: React.FC<SlotFormProps> = ({
         ) {
           axios
             .post("http://localhost:5001/api/telegram/send-telegram-notification", {
+              meetingType,
               name,
               phoneNumber,
               email,
+              comment,
               date: formattedDate,
               time: selectedTime,
             })
