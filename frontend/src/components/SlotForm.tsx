@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
@@ -6,7 +6,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./SlotForm.css";
 import BookingConfirmationPopup from "../components/BookingConfirmationPopup";
-import TermsAndConditionsPopup from "./TermsAndConditions"; // Terms popup
+import TermsAndConditionsPopup from "./TermsAndConditions";
+
+// Define a constant array outside the component so it doesn't change.
+const TIME_SLOTS: string[] = [
+  "09:00 AM - 10:00 AM",
+  "10:00 AM - 11:00 AM",
+  "11:00 AM - 12:00 PM",
+  "12:00 PM - 01:00 PM",
+  "01:00 PM - 02:00 PM",
+  "02:00 PM - 03:00 PM",
+  "03:00 PM - 04:00 PM",
+  "04:00 PM - 05:00 PM",
+];
 
 interface SlotFormProps {
   meetingType: "career" | "policy";
@@ -34,8 +46,10 @@ const SlotForm: React.FC<SlotFormProps> = ({
   policyId,
 }) => {
   const { id: authId } = useAuth();
+  // Use Vite's env API for default admin id.
   const defaultAdminId = import.meta.env.VITE_DEFAULT_ADMIN_ID || "";
   
+  // Determine finalOwnerId (ensure it's a string).
   let finalOwnerId: string = "";
   if (ownerId) {
     if (typeof ownerId === "string") {
@@ -50,7 +64,8 @@ const SlotForm: React.FC<SlotFormProps> = ({
       finalOwnerId = authId._id;
     }
   }
-  if (meetingType === "career" && !finalOwnerId) {
+  // For both career and policy meetings, if still empty, use defaultAdminId.
+  if (!finalOwnerId) {
     finalOwnerId = defaultAdminId;
   }
   console.log("finalOwnerId in SlotForm:", finalOwnerId);
@@ -64,48 +79,36 @@ const SlotForm: React.FC<SlotFormProps> = ({
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageColor, setMessageColor] = useState<string>("");
-  const [bookingInfo, setBookingInfo] = useState<{
-    name: string;
-    date: string;
-    time: string;
-  } | null>(null);
+  const [bookingInfo, setBookingInfo] = useState<{ name: string; date: string; time: string; } | null>(null);
   const [freeSlotsMap, setFreeSlotsMap] = useState<Record<string, FreeSlot>>({});
-
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
 
-  const timeSlots = [
-    "09:00 AM - 10:00 AM",
-    "10:00 AM - 11:00 AM",
-    "11:00 AM - 12:00 PM",
-    "12:00 PM - 01:00 PM",
-    "01:00 PM - 02:00 PM",
-    "02:00 PM - 03:00 PM",
-    "03:00 PM - 04:00 PM",
-    "04:00 PM - 05:00 PM",
-  ];
-
-  const convertToIST = (date: Date) => {
+  const convertToIST = (date: Date): string => {
     const istOffset = 5.5 * 60 * 60 * 1000;
     const istDate = new Date(date.getTime() + istOffset);
     return istDate.toISOString().split("T")[0];
   };
 
-  const fetchFreeSlots = async (date: Date) => {
+  const fetchFreeSlots = useCallback(async (date: Date) => {
     try {
       const formattedDate = convertToIST(date);
-      const params: any = { date: formattedDate, meetingType };
-      if (ownerId) params.ownerId = ownerId;
-      if (meetingType === "policy" && policyId) params.policyId = policyId;
+      const params: { date: string; meetingType: string; ownerId?: string; policyId?: string } = {
+        date: formattedDate,
+        meetingType,
+      };
+      if (ownerId) {
+        params.ownerId = typeof ownerId === "string" ? ownerId : (ownerId as any)._id;
+      }
+      if (meetingType === "policy" && policyId) {
+        params.policyId = policyId;
+      }
 
-      const response = await axios.get<FreeSlotResponse>(
-        "http://localhost:5001/api/freeslots",
-        { params }
-      );
+      const response = await axios.get<FreeSlotResponse>("http://localhost:5001/api/freeslots", { params });
       if (response.data.success) {
-        const freeSlots: any[] = response.data.data;
+        const freeSlots: FreeSlot[] = response.data.data;
         const mapping: Record<string, FreeSlot> = {};
-        timeSlots.forEach((time) => {
+        TIME_SLOTS.forEach((time) => {
           const slotData = freeSlots.find((s) => s.time === time);
           mapping[time] = { time, status: slotData ? slotData.status : "Available" };
         });
@@ -114,12 +117,12 @@ const SlotForm: React.FC<SlotFormProps> = ({
         setMessage("Failed to fetch free slots.");
         setMessageColor("red");
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Error fetching free slots:", error);
       setMessage("Error fetching free slots. Please try again.");
       setMessageColor("red");
     }
-  };
+  }, [meetingType, ownerId, policyId]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -132,7 +135,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
       // Reset the selected time when the date changes.
       setSelectedTime("");
     }
-  }, [selectedDate, meetingType, ownerId, policyId]);
+  }, [selectedDate, fetchFreeSlots]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -147,7 +150,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
       return;
     }
     const formattedDate = convertToIST(selectedDate);
-    const formData: any = {
+    const formData = {
       name,
       phoneNumber,
       email,
@@ -156,8 +159,8 @@ const SlotForm: React.FC<SlotFormProps> = ({
       time: selectedTime,
       meetingType,
       ownerId: finalOwnerId,
+      ...(meetingType === "policy" && policyId ? { policyId } : {}),
     };
-    if (meetingType === "policy" && policyId) formData.policyId = policyId;
 
     console.log("Submitting appointment with data:", formData);
     try {
@@ -168,8 +171,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
       if (response.status === 201) {
         setMessage("Slot booked successfully!");
         setMessageColor("green");
-        const newBookingInfo = { name, date: formattedDate, time: selectedTime };
-        setBookingInfo(newBookingInfo);
+        setBookingInfo({ name, date: formattedDate, time: selectedTime });
         console.log("Booking successful, meetingType:", meetingType, formData);
 
         setName("");
@@ -182,10 +184,10 @@ const SlotForm: React.FC<SlotFormProps> = ({
 
         // Telegram Notification Logic:
         // For career meetings, always send notification.
-        // For policy meetings, send if finalOwnerId equals defaultAdminId.
+        // For policy meetings, send if finalOwnerId equals defaultAdminId or notifyTelegram is true.
         if (
           meetingType === "career" ||
-          (meetingType === "policy" && finalOwnerId === defaultAdminId)
+          (meetingType === "policy" && (finalOwnerId === defaultAdminId || notifyTelegram))
         ) {
           axios
             .post("http://localhost:5001/api/telegram/send-telegram-notification", {
@@ -204,10 +206,12 @@ const SlotForm: React.FC<SlotFormProps> = ({
         setMessage(response.data.message || "Error booking slot.");
         setMessageColor("red");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       setLoading(false);
-      console.error("Submission error:", error.response?.data || error);
-      setMessage(error.response?.data?.message || "Something went wrong. Please try again.");
+      const errMsg =
+        (error as any).response?.data?.message || "Something went wrong. Please try again.";
+      console.error("Submission error:", errMsg);
+      setMessage(errMsg);
       setMessageColor("red");
     }
   };
@@ -288,7 +292,6 @@ const SlotForm: React.FC<SlotFormProps> = ({
                 className="slot-form__input"
                 placeholderText="DD-MM-YYYY"
                 required
-                inputReadOnly
                 customInput={<ReadOnlyInput />}
               />
             </div>
@@ -301,7 +304,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
                 required
               >
                 <option value="">Select a time slot</option>
-                {timeSlots.map((slot, index) => {
+                {TIME_SLOTS.map((slot, index) => {
                   const slotInfo = freeSlotsMap[slot];
                   const isDisabled = slotInfo && slotInfo.status !== "Available";
                   const labelSuffix = isDisabled ? ` (${slotInfo.status})` : "";
@@ -331,8 +334,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
                   }}
                 >
                   Terms &amp; Conditions
-                </a>
-                .
+                </a>.
               </label>
             </div>
             <div className="slot-button-div">

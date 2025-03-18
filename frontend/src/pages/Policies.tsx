@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Policies.css";
 import policyImage from "../assets/policy.jpg";
+import bookslot from "../assets/bookslot.png"; // Book-a-slot image
+import SlotForm from "../components/SlotForm";
 
-// Define Policy Interface
 interface Policy {
   _id: string;
   policyName: string;
@@ -18,16 +19,15 @@ const PolicyPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [filteredPolicies, setFilteredPolicies] = useState<Policy[]>([]);
+  const [showSlotForm, setShowSlotForm] = useState(false);
   const navigate = useNavigate();
 
-  // Fetch only 16 policies from the backend on mount
+  // Fetch policies on mount
   useEffect(() => {
     const fetchPolicies = async () => {
       try {
         const response = await axios.get("http://localhost:5001/api/policies", {
-          params: {
-            offset: 0,
-          },
+          params: { offset: 0 },
         });
         setPolicies(response.data.data);
         setFilteredPolicies(response.data.data);
@@ -35,26 +35,24 @@ const PolicyPage: React.FC = () => {
         console.error("Error fetching policies:", error);
       }
     };
-
     fetchPolicies();
   }, []);
 
-  // Automatically filter policies based on searchQuery
+  // Filter policies based on search query using startsWith
   useEffect(() => {
     if (searchQuery === "") {
       setFilteredPolicies(policies);
     } else {
       const lowerSearch = searchQuery.toLowerCase();
       const filtered = policies.filter((policy) =>
-        policy.policyName.toLowerCase().includes(lowerSearch) ||
-        policy.companyName.toLowerCase().includes(lowerSearch) ||
+        policy.policyName.toLowerCase().startsWith(lowerSearch) ||
+        policy.companyName.toLowerCase().startsWith(lowerSearch) ||
         policy.ageRange.toLowerCase().includes(lowerSearch)
       );
       setFilteredPolicies(filtered);
     }
   }, [searchQuery, policies]);
 
-  // Handle viewing policy details
   const handleViewDetails = (policy: Policy) => {
     const slug = policy.policyName
       .trim()
@@ -70,15 +68,26 @@ const PolicyPage: React.FC = () => {
         <img src={policyImage} alt="Insurance Services" className="policies-hero-image" />
       </div>
 
-      <div className="search-container">
-        <div className="search-wrapper">
-          <Search className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
+      {/* New container for search bar and book slot image */}
+      <div className="search-image-container">
+        <div className="search-container">
+          <div className="search-wrapper">
+            <Search className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
+          </div>
+        </div>
+        <div className="book-slot-container">
+          <img
+            src={bookslot}
+            alt="Book Appointment"
+            className="book-slot-image"
+            onClick={() => setShowSlotForm(true)}
           />
         </div>
       </div>
@@ -88,8 +97,12 @@ const PolicyPage: React.FC = () => {
           filteredPolicies.map((policy) => (
             <div key={policy._id} className="policy-card">
               <h3 className="policy-name">{policy.policyName}</h3>
-              <p className="policy-company"><strong>{policy.companyName}</strong></p>
-              <p className="policy-age"><strong>{policy.ageRange}</strong></p>
+              <p className="policy-company">
+                <strong>{policy.companyName}</strong>
+              </p>
+              <p className="policy-age">
+                <strong>{policy.ageRange}</strong>
+              </p>
               <p className="policy-details">{policy.shortDescription}</p>
               <button className="policy-button" onClick={() => handleViewDetails(policy)}>
                 Know More
@@ -100,6 +113,10 @@ const PolicyPage: React.FC = () => {
           <p className="no-policies">No policies found.</p>
         )}
       </div>
+
+      {showSlotForm && (
+        <SlotForm meetingType="policy" onClose={() => setShowSlotForm(false)} />
+      )}
     </div>
   );
 };

@@ -18,13 +18,27 @@
   object-fit: cover;
 }
 
-.search-container {
-  padding: 16px;
-  position: relative;
-  z-index: 1;
+.search-image-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   max-width: 600px;
-  margin: 10px 125px 0px 0px;
+  margin: 10px auto;
+  padding: 0 16px;
 }
+
+.book-slot-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 150px; /* Adjust as needed */
+}
+
+.book-slot-image {
+  max-width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
 
 .search-wrapper {
   background-color: white;
@@ -154,17 +168,26 @@
  .policies-hero-image {
     width: 100vw;
     height: 60vh;
+    object-fit: cover;
+    object-position: center 61%;
   } 
 
+  .search-image-container {
+    margin: 10px auto;
+    max-width: 1200px;
+    padding: 0 24px;
+  }
   .search-container {
-    padding: 24px;
-    margin-top: 0;
-    margin-left: 22%;
-    align-items: center;
+    flex: 1;
+  }
+  .book-slot-container {
+    flex: 2;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .search-wrapper {
-    width: 50vw;
+    width: 40vw;
     padding: 14px 20px;
   }
 
