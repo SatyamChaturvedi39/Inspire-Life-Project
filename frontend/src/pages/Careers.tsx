@@ -49,20 +49,23 @@ const Careers: React.FC = () => {
         <div className="join-us">
           <h3>Become Part of Our Growing Team and Maximize Your Earnings!</h3>
           <p>
-            We’re seeking motivated individuals to join our network and contribute to our success. Interested in becoming an agent?
+            We’re seeking motivated individuals to join our network and
+            contribute to our success. Interested in becoming an agent?
           </p>
           <p>
-            Send your resume to <a href="mailto:inspirelife@gmail.com">inspirelife@gmail.com</a> or reach out to us at <a href="tel:+919876543210">+91 9876543210</a>.
+            Send your resume to{" "}
+            <a href="mailto:inspirelife@gmail.com">inspirelife@gmail.com</a> or
+            reach out to us at <a href="tel:+917026262632">+91 7026262632</a>.
           </p>
         </div>
       </section>
 
       {showSlotForm && (
-        <SlotForm 
-          meetingType="career" 
-          onClose={handleCloseSlotForm} 
+        <SlotForm
+          meetingType="career"
+          onClose={handleCloseSlotForm}
           notifyTelegram={true}
-          ownerId={adminId ?? undefined}  // Convert null to undefined.ownerId={adminId} 
+          ownerId={adminId ?? undefined} // Convert null to undefined.ownerId={adminId}
         />
       )}
     </div>
