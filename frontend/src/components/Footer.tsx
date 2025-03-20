@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Footer.css";
 import logo from "../assets/logo.png";
-import PopUp from "./LeadFormPopup"; // Using PopUp.tsx
+import PopUp from "./LeadFormPopup"; // Using the same popup as in Home
 
 const Footer: React.FC = () => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupTitle, setPopupTitle] = useState("");
-  const navigate = useNavigate(); // Hook for navigation
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedAction, setSelectedAction] = useState<"policies" | "careers" | null>(null);
+  const navigate = useNavigate();
 
   // Function to handle page navigation and scroll
   const handleNavigation = (path: string) => {
@@ -15,11 +15,11 @@ const Footer: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Function to open popup and navigate to home first
-  const openPopup = (title: string) => {
-    setPopupTitle(title);
-    setShowPopup(true);
-    handleNavigation("/"); // Navigate to home first
+  // Function to open popup with selected action.
+  const openPopup = (action: "policies" | "careers") => {
+    setSelectedAction(action);
+    setIsPopupOpen(true);
+    handleNavigation("/"); // Navigate to home first if needed.
   };
 
   return (
@@ -38,10 +38,19 @@ const Footer: React.FC = () => {
               </h5>
               <p>Jayanagar, Bengaluru</p>
               <br />
-              <p>Address:<address>715, 22nd Cross Rd, K.R.Road,<br /> Banashankari Stage II, Banashankari,<br /> Bengaluru, Karnataka 560070</address></p>
+              <p>
+                Address:
+                <address>
+                  715, 22nd Cross Rd, K.R.Road,
+                  <br />
+                  Banashankari Stage II, Banashankari,
+                  <br />
+                  Bengaluru, Karnataka 560070
+                </address>
+              </p>
               <p>Email: InspireLife@gmail.com</p>
             </div>
-            </div>
+          </div>
           <div className="Site-map">
             <div className="map">
               <div className="gmap_canvas">
@@ -59,7 +68,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <hr className="Line"></hr>
+        <hr className="Line" />
 
         <div className="footer-columns">
           {/* Website Links */}
@@ -68,10 +77,26 @@ const Footer: React.FC = () => {
               <b>Website</b>
             </h4>
             <ul>
-              <li><a href="#" onClick={() => handleNavigation("/about-us")} className="footer-link">About Us</a></li>
-              <li><a href="#" onClick={() => handleNavigation("/policies")} className="footer-link">Policies</a></li>
-              <li><a href="#" onClick={() => handleNavigation("/careers")} className="footer-link">Careers</a></li>
-              <li><a href="#" onClick={() => handleNavigation("/contact")} className="footer-link">Contact</a></li>
+              <li>
+                <a href="#" onClick={() => handleNavigation("/about-us")} className="footer-link">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#" onClick={() => handleNavigation("/policies")} className="footer-link">
+                  Policies
+                </a>
+              </li>
+              <li>
+                <a href="#" onClick={() => handleNavigation("/careers")} className="footer-link">
+                  Careers
+                </a>
+              </li>
+              <li>
+                <a href="#" onClick={() => handleNavigation("/contact")} className="footer-link">
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -82,13 +107,27 @@ const Footer: React.FC = () => {
             </h4>
             <ul>
               <li>
-                <a href="#" onClick={(e) => { e.preventDefault(); openPopup("Become an Agent"); }} className="footer-link">
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openPopup("careers");
+                  }}
+                  className="footer-link"
+                >
                   Become an Agent
                 </a>
               </li>
               <li>
-                <a href="#" onClick={(e) => { e.preventDefault(); openPopup("Buy Policies"); }} className="footer-link">
-                  Buy Policies
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openPopup("policies");
+                  }}
+                  className="footer-link"
+                >
+                  Explore Policies
                 </a>
               </li>
             </ul>
@@ -100,12 +139,11 @@ const Footer: React.FC = () => {
               <b>Group Companies</b>
             </h4>
             <ul>
-              <li>Lic</li>
+              <li>LIC</li>
               <li>Star Health</li>
               <li>Care Health</li>
             </ul>
           </div>
-
         </div>
 
         <div className="footer-column">
@@ -124,7 +162,6 @@ const Footer: React.FC = () => {
               </div>
             </div>
           </div>
-
           <style>
             {`
           .mapouter {
@@ -142,12 +179,14 @@ const Footer: React.FC = () => {
           .gmap_iframe {
             height: 150px !important;
           }
+          .lead-checkbox {
+            color: #000 !important;
+          }
         `}
           </style>
         </div>
-        
 
-        <hr className="Line1"></hr>
+        <hr className="Line1" />
 
         <div className="footer-CR">
           <p>&#169; {new Date().getFullYear()}. All Rights Reserved.</p>
@@ -155,7 +194,19 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Popup Component */}
-      {showPopup && <PopUp title={popupTitle} onClose={() => setShowPopup(false)} />}
+      {isPopupOpen && (
+        <PopUp
+          onClose={() => {
+            setIsPopupOpen(false);
+            setSelectedAction(null);
+          }}
+          onSubmit={() => {
+            setIsPopupOpen(false);
+            setSelectedAction(null);
+          }}
+          selectedAction={selectedAction}
+        />
+      )}
     </footer>
   );
 };
