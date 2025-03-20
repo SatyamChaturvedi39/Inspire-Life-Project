@@ -27,7 +27,6 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
     };
   }, []);
   
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -70,7 +69,7 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
   };
 
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value.replace(/\D/g, '').slice(0, 13);
+    const input = e.target.value.replace(/\D/g, "").slice(0, 10);
     setPhoneNumber(input);
   };
 
@@ -103,7 +102,12 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
               required
               className="lead-form__input"
               placeholder="Enter your phone number*"
-              pattern="\d{10,13}"
+              pattern="\d{10}"
+              inputMode="numeric"
+              title="Please enter exactly 10 digits"
+              onKeyPress={(e) => {
+                if (!/[0-9]/.test(e.key)) e.preventDefault();
+              }}
             />
           </div>
           <div className="lead-form__field">
@@ -113,6 +117,7 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
               onChange={(e) => setEmail(e.target.value)}
               className="lead-form__input"
               placeholder="Enter your email"
+              required
             />
           </div>
           <div className="lead-form__field">
@@ -153,20 +158,20 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
             </button>
           </div>
         </form>
-        </div>
-        {showTermsPopup && (
-          <TermsAndConditionsPopup
-            onAccept={() => {
-              setTermsAgreed(true);
-              setShowTermsPopup(false);
-            }}
-            onDecline={() => {
-              setTermsAgreed(false);
-              setShowTermsPopup(false);
-            }}
-          />
-        )}
       </div>
+      {showTermsPopup && (
+        <TermsAndConditionsPopup
+          onAccept={() => {
+            setTermsAgreed(true);
+            setShowTermsPopup(false);
+          }}
+          onDecline={() => {
+            setTermsAgreed(false);
+            setShowTermsPopup(false);
+          }}
+        />
+      )}
+    </div>
   );
 };
 

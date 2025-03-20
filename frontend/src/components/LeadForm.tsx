@@ -10,7 +10,7 @@ const LeadForm: React.FC = () => {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [messageColor, setMessageColor] = useState<string>(""); // Stores "green" or "red"
+  const [messageColor, setMessageColor] = useState<string>("");
   const [showTermsPopup, setShowTermsPopup] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,6 +20,7 @@ const LeadForm: React.FC = () => {
 
     try {
       setLoading(true);
+
       const response = await fetch("http://localhost:5001/api/leads", {
         method: "POST",
         headers: {
@@ -52,7 +53,8 @@ const LeadForm: React.FC = () => {
   };
 
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value.replace(/\D/g, "").slice(0, 13);
+    // Remove any non-digits and limit to 10 characters.
+    const input = e.target.value.replace(/\D/g, "").slice(0, 10);
     setPhoneNumber(input);
   };
 
@@ -87,7 +89,13 @@ const LeadForm: React.FC = () => {
               required
               className="lead-form__input"
               placeholder="Phone Number*"
-              pattern="\d{10,13}"
+              maxLength={10}
+              inputMode="numeric"
+              pattern="\d{10}"
+              title="Please enter exactly 10 digits"
+              onKeyPress={(e) => {
+                if (!/[0-9]/.test(e.key)) e.preventDefault();
+              }}
             />
           </div>
 
@@ -138,11 +146,7 @@ const LeadForm: React.FC = () => {
           </div>
 
           <div className="lead-button-div">
-            <button
-              type="submit"
-              className="lead-form__button"
-              disabled={loading}
-            >
+            <button type="submit" className="lead-form__button" disabled={loading}>
               {loading ? "Submitting..." : "SUBMIT"}
             </button>
           </div>
