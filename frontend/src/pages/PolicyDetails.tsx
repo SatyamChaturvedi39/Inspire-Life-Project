@@ -88,7 +88,6 @@ const PolicyDetails: React.FC = () => {
           <div className="policy-info">
             <p><strong>Company:</strong> {policy.companyName}</p>
             <p><strong>Available for:</strong> {policy.ageRange}</p>
-            <p><strong>Description:</strong> {policy.policyDescription}</p>
           </div>
           
           <h2 className="features-title">Key Features & Benefits</h2>
@@ -118,7 +117,7 @@ const PolicyDetails: React.FC = () => {
           <div className="dummy-text">
             <h3>Why Choose This Policy?</h3>
             <p>
-              Get the best insurance services with this policy. Our policy offers a wide range of benefits that help protect you and your family from unexpected events. With competitive premiums and comprehensive coverage, we ensure you receive maximum value for your investment. Our dedicated team of experts is always ready to assist you with claims and inquiries, providing timely and efficient service when you need it most.
+              {policy.policyDescription}
             </p>
           </div>
           

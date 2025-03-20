@@ -80,7 +80,7 @@ const PolicyFormPopup: React.FC<PolicyFormPopupProps> = ({ mode, initialData, on
           />
           <textarea
             name="policyDescription"
-            placeholder="Policy Description"
+            placeholder="Long Policy Description(100+ words on Why the user should choose this policy?)"
             value={formData.policyDescription}
             onChange={handleChange}
             required

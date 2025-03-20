@@ -224,8 +224,8 @@ const InsuranceChatbot: React.FC = () => {
     return highestScore > 0.1 ? bestMatchId : null;
   };
 
-  // Function to handle navigations based on your app structure
-  const handleNavigation = (page: string): void => {
+  // Updated navigation function to allow optional query parameters
+  const handleNavigation = (page: string, queryParam: string = ""): void => {
     // Map the chatbot options to your application routes
     const routes: { [key: string]: string } = {
       booking: "/slotform",
@@ -242,7 +242,7 @@ const InsuranceChatbot: React.FC = () => {
     };
 
     if (routes[page]) {
-      setTimeout(() => navigate(routes[page]), 3000);
+      setTimeout(() => navigate(routes[page] + queryParam), 3000);
     }
   };
 
@@ -259,22 +259,18 @@ const InsuranceChatbot: React.FC = () => {
       botResponse =
         "I'll redirect you to our contact page for more information.";
 
-      // Add user message
       setChatHistory([
         ...chatHistory,
         { sender: "user", message: "Contact Information" },
       ]);
 
-      // Add bot message then navigate after delay
       setTimeout(() => {
         setChatHistory((prevHistory) => [
           ...prevHistory,
           { sender: "bot", message: botResponse },
         ]);
-
         handleNavigation("contact");
       }, 500);
-
       return;
     } else if (optionId === "services") {
       botResponse =
@@ -284,43 +280,35 @@ const InsuranceChatbot: React.FC = () => {
       botResponse =
         "Let me redirect you to our contact page where you can find our location.";
 
-      // Add user message
       setChatHistory([
         ...chatHistory,
         { sender: "user", message: "Office Locator" },
       ]);
 
-      // Add bot message then navigate after delay
       setTimeout(() => {
         setChatHistory((prevHistory) => [
           ...prevHistory,
           { sender: "bot", message: botResponse },
         ]);
-
         handleNavigation("location");
       }, 500);
-
       return;
     } else if (optionId === "careers") {
       botResponse =
         "Great! Let me redirect you to our careers page where you can explore opportunities to work with us.";
 
-      // Add user message
       setChatHistory([
         ...chatHistory,
         { sender: "user", message: "Work with us" },
       ]);
 
-      // Add bot message then navigate after delay
       setTimeout(() => {
         setChatHistory((prevHistory) => [
           ...prevHistory,
           { sender: "bot", message: botResponse },
         ]);
-
         handleNavigation("careers");
       }, 500);
-
       return;
     }
 
@@ -339,21 +327,23 @@ const InsuranceChatbot: React.FC = () => {
           ? "Star Health Insurance"
           : "Care Health Insurance";
 
-      botResponse = `I'll redirect you to our ${policyName} page where you can find all the details.`;
+      // Set the search keyword based on the selected policy (e.g., LIC, Star, or Care)
+      const searchKeyword =
+        optionId === "lic-insurance"
+          ? "LIC"
+          : optionId === "star-health-insurance"
+          ? "Star"
+          : "Care";
 
-      // Add user message
+      botResponse = `I'll redirect you to our ${policyName} policies page.`;
       setChatHistory([...chatHistory, { sender: "user", message: policyName }]);
-
-      // Add bot message then navigate after delay
       setTimeout(() => {
         setChatHistory((prevHistory) => [
           ...prevHistory,
           { sender: "bot", message: botResponse },
         ]);
-
-        handleNavigation(optionId);
+        handleNavigation(optionId, `?search=${searchKeyword}`);
       }, 500);
-
       return;
     }
 
@@ -366,24 +356,18 @@ const InsuranceChatbot: React.FC = () => {
           ? "Policy Renewal & Review"
           : "Coverage Consultation";
 
-      botResponse = `I'll redirect you to our booking page where you can schedule ${serviceName}.`;
-
-      // Add user message
+      botResponse = `I'll redirect you to our policies page. Please click on the "Book a Slot" image to schedule ${serviceName}.`;
       setChatHistory([
         ...chatHistory,
         { sender: "user", message: serviceName },
       ]);
-
-      // Add bot message then navigate after delay
       setTimeout(() => {
         setChatHistory((prevHistory) => [
           ...prevHistory,
           { sender: "bot", message: botResponse },
         ]);
-
-        handleNavigation("booking");
+        handleNavigation("policies");
       }, 500);
-
       return;
     }
 
@@ -395,7 +379,6 @@ const InsuranceChatbot: React.FC = () => {
     // Add user message
     setChatHistory([...chatHistory, { sender: "user", message: optionLabel }]);
 
-    // Simulate typing delay for bot response
     setTimeout(() => {
       if (botResponse) {
         setChatHistory((prevHistory) => [
@@ -407,13 +390,11 @@ const InsuranceChatbot: React.FC = () => {
   };
 
   const handleBackToMain = (): void => {
-    // Add user message
     setChatHistory([
       ...chatHistory,
       { sender: "user", message: "Back to main menu" },
     ]);
 
-    // Simulate typing delay for bot response
     setTimeout(() => {
       setChatHistory((prevHistory) => [
         ...prevHistory,
@@ -431,12 +412,10 @@ const InsuranceChatbot: React.FC = () => {
     e.preventDefault();
     if (!userTyping.trim()) return;
 
-    // Add user message to chat history
     setChatHistory([...chatHistory, { sender: "user", message: userTyping }]);
     const userInput = userTyping;
     setUserTyping("");
 
-    // Try to match the user input against available options based on current section
     let matchedOptionId: string | null = null;
 
     if (activeSection === "policies") {
@@ -444,32 +423,25 @@ const InsuranceChatbot: React.FC = () => {
     } else if (activeSection === "services") {
       matchedOptionId = findBestMatch(userInput, serviceOptions);
     } else {
-      // In main menu, check all main options first
       matchedOptionId = findBestMatch(userInput, mainOptions);
-
-      // If no match in main options, check if it's about a specific policy or service
       if (!matchedOptionId) {
         const policyMatch = findBestMatch(userInput, policyOptions);
         if (policyMatch) {
-          // If found a direct policy match, use it instead of going through main menu
           matchedOptionId = policyMatch;
         } else {
           const serviceMatch = findBestMatch(userInput, serviceOptions);
           if (serviceMatch) {
-            // If found a direct service match, use it instead of going through main menu
             matchedOptionId = serviceMatch;
           }
         }
       }
     }
 
-    // If we found a match, process it
     if (matchedOptionId) {
       setTimeout(() => {
         handleOptionClick(matchedOptionId as string);
       }, 800);
     } else {
-      // No match found, respond with default message
       setTimeout(() => {
         setChatHistory((prevHistory) => [
           ...prevHistory,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Policies.css";
 import policyImage from "../assets/policy.jpg";
@@ -16,11 +16,15 @@ interface Policy {
 }
 
 const PolicyPage: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const params = new URLSearchParams(location.search);
+  const searchParam = params.get("search") || "";
+  
+  const [searchQuery, setSearchQuery] = useState(searchParam);
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [filteredPolicies, setFilteredPolicies] = useState<Policy[]>([]);
   const [showSlotForm, setShowSlotForm] = useState(false);
-  const navigate = useNavigate();
 
   // Fetch policies on mount
   useEffect(() => {
@@ -38,7 +42,7 @@ const PolicyPage: React.FC = () => {
     fetchPolicies();
   }, []);
 
-  // Filter policies based on search query using startsWith
+  // Filter policies based on search query using startsWith and includes
   useEffect(() => {
     if (searchQuery === "") {
       setFilteredPolicies(policies);
@@ -68,7 +72,7 @@ const PolicyPage: React.FC = () => {
         <img src={policyImage} alt="Insurance Services" className="policies-hero-image" />
       </div>
 
-      {/* New container for search bar and book slot image */}
+      {/* Container for search bar and book slot image */}
       <div className="search-image-container">
         <div className="search-container">
           <div className="search-wrapper">
