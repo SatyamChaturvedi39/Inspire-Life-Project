@@ -147,6 +147,7 @@
 @media (max-width: 768px) {
   .lead-form-container {
     width: 90vw;
+    height: 60vh;
   }
   
   .lead-form__fields-container {

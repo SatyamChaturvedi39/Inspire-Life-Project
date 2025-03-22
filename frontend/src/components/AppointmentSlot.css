@@ -1,4 +1,4 @@
-/* Container */
+
 .appointment-slot-container {
     width: 95vw; /* Adjust for mobile */
     margin: 0 auto;
@@ -6,13 +6,11 @@
     font-family: Arial, sans-serif;
   }
   
-  /* Title */
   .appointment-slot-container h2 {
     margin-top: 2%;
     font-size: 25px;
     font-weight: 700;
     margin-bottom: 4%;
-    margin-left: -5%;
   }
   
   /* Date Group */

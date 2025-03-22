@@ -24,11 +24,12 @@
 
 .admin-buttons {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 10px;
   margin-bottom: 20px;
-  margin-inline: 20px;
-  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  margin-inline: 20px; 
 }
 
 .admin-btn {
@@ -42,7 +43,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  max-width: 45vw;
+  width: 60vw;
   max-height: 25vh;
   text-align: center;
 }
@@ -87,5 +88,9 @@
   .admin-btn{
     width: 10vw;
     height: 10vh;
+  }
+  .admin-buttons{
+    display: flex;
+    flex-direction: row;
   }
 }

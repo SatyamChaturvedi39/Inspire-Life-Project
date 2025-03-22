@@ -258,4 +258,8 @@
         align-self: auto;
         margin-left: 15px;
     }
+
+    .appointment-slot-section{
+        margin-left: 13vw;
+    }
 }

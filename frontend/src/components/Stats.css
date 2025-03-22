@@ -12,7 +12,6 @@
     gap: 16px;
     max-width: 1024px;
     margin: 0 auto;
-    overflow: hidden;
   }
   
   .stats-card {
@@ -102,13 +101,13 @@
     .stats-card-side {
       width: 200px;
       height: 100px;
-      margin-top: 9vh;
+      margin-top: -6vh;
     }
     
     .stats-card-active {
       width: 240px;
       height: 140px;
-      margin-top: 8vh;
+      margin-top: -6vh;
     }
     
     .stats-value {
