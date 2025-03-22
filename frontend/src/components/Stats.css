@@ -102,11 +102,13 @@
     .stats-card-side {
       width: 200px;
       height: 100px;
+      margin-top: 9vh;
     }
     
     .stats-card-active {
       width: 240px;
       height: 140px;
+      margin-top: 8vh;
     }
     
     .stats-value {
