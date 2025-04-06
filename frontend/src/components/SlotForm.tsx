@@ -55,13 +55,13 @@ const SlotForm: React.FC<SlotFormProps> = ({
     if (typeof ownerId === "string") {
       finalOwnerId = ownerId;
     } else if (typeof ownerId === "object" && ownerId !== null && "_id" in ownerId) {
-      finalOwnerId = ownerId._id;
+      finalOwnerId = (ownerId as { _id: string })._id;
     }
   } else if (authId) {
     if (typeof authId === "string") {
       finalOwnerId = authId;
     } else if (typeof authId === "object" && authId !== null && "_id" in authId) {
-      finalOwnerId = authId._id;
+      finalOwnerId = (authId as { _id: string })._id;
     }
   }
   // For both career and policy meetings, if still empty, use defaultAdminId.
