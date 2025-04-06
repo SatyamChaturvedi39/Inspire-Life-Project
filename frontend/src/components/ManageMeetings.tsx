@@ -50,7 +50,7 @@ const ManageMeetings: React.FC<ManageMeetingsProps> = ({ onBack, meetingType }) 
       try {
         // Query by date and ownerId (we ignore meetingType for free slot lookup)
         const query = `?date=${currentDate}&ownerId=${safeOwnerId}`;
-        const response = await axios.get(`${import.meta.env.BACKEND_URL}/api/freeslots` + query);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/freeslots` + query);
         if (response.data.success) {
           const freeSlots: any[] = response.data.data;
           const allSlots: Slot[] = TIME_SLOTS.map((timeString): Slot => {

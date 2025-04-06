@@ -32,7 +32,7 @@ const AppointmentSlot: React.FC<AppointmentSlotProps> = ({
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await fetch(`${import.meta.env.BACKEND_URL}/api/appointments`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/appointments`);
         if (!response.ok) {
           throw new Error("Failed to fetch slots");
         }

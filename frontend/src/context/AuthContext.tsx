@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
     try {
-      const response = await axios.get(`${import.meta.env.BACKEND_URL}/api/auth/refresh`, {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/refresh`, {
         withCredentials: true,
       });
       if (response.data.accessToken) {

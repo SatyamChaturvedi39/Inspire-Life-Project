@@ -33,7 +33,7 @@ const SlotPopup: React.FC<SlotPopupProps> = ({ slot, ownerId, onClose, onStatusC
         meetingType: slot.meetingType || "career", // default to "career" if missing
       };
 
-      const response = await axios.put(`${import.meta.env.BACKEND_URL}/api/freeslots/update`, updatePayload);
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/freeslots/update`, updatePayload);
 
       if (response.data.success) {
         // If update is successful, call parent's callback to update UI.
