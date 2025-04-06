@@ -1,3 +1,5 @@
+{/* //controller/telegramController.js */}
+
 import TelegramBot from 'node-telegram-bot-api';
 
 // Retrieve tokens from environment variables

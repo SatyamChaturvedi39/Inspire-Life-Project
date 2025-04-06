@@ -1,4 +1,4 @@
-// models/FreeSlot.js
+{/* //models/FreeSlot.js */}
 import mongoose from "mongoose";
 
 const freeSlotSchema = new mongoose.Schema({

@@ -1,3 +1,5 @@
+{/* //routes/policyRoutes.js */}
+
 import express from 'express';
 import { getPolicyBySlug, getPolicies, createPolicy, putPolicyBySlug, deletePolicyBySlug } from '../controller/policyController.js';
 import { authenticateToken, authorizeMultipleRoles } from "../middlewares/authMiddleware.js";

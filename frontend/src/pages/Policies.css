@@ -162,14 +162,14 @@
 
   .policies-hero-image-container {
     margin-top: -2vh;
-    height: 54vh;
+    height: 55vh;
   }
 
  .policies-hero-image {
     width: 100vw;
     height: 60vh;
     object-fit: cover;
-    object-position: center 61%;
+    object-position: center 60%;
   } 
 
   .search-image-container {

@@ -1,3 +1,5 @@
+{/* //controller/adminController.js */}
+
 import Agent from "../models/Agent.js";
 import bcrypt from "bcrypt";
 

@@ -68,20 +68,15 @@
 
 /* Desktop Styles */
 @media (min-width: 1024px) {
-  .appointment-slot-section {
-    margin-left: 5%;
-    width: 60vw;
-  }
 
   .appointment-slot-section2{
-    margin-left: -1vw;
+    margin-left: -2.5vw;
     max-width: 70vw;
   }
 
   .admin-image{
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    margin-top: -3%;
+    height: 60vh;
     margin-bottom: 20px;
     flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
   }

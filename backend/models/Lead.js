@@ -1,3 +1,4 @@
+{/* //models/Lead.js */}
 import mongoose from "mongoose";
 
 const LeadSchema = new mongoose.Schema({
@@ -10,6 +11,5 @@ const LeadSchema = new mongoose.Schema({
 });
 
 const Lead = mongoose.model('Lead', LeadSchema);
-// mongoose will make it leads so always put singular and capitalised version i.e Lead in the above line of code
 
 export default Lead;

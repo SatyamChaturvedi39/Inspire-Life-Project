@@ -1,4 +1,5 @@
-// routes/freeSlotRoutes.js
+{/* //routes/freeSlotRoutes.js */}
+
 import express from "express";
 import { getFreeSlots, updateFreeSlot, initializeFreeSlots } from "../controller/freeSlotController.js";
 

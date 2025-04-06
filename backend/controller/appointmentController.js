@@ -1,4 +1,4 @@
-// models/Appointment.js, models/Policy.js, models/FreeSlot.js remain unchanged
+{/* //controller/appointmentController.js */}
 
 import dayjs from "dayjs";
 import Appointment from "../models/Appointment.js";

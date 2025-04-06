@@ -1,3 +1,4 @@
+{/* //models/Policy.js */}
 import mongoose from "mongoose";
 
 const policySchema = new mongoose.Schema({

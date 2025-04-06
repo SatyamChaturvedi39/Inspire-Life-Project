@@ -1,4 +1,4 @@
-// models/Appointment.js
+{/* //models/Appointment.js */}
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({

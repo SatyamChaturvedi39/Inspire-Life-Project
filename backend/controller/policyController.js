@@ -1,4 +1,5 @@
-// controllers/policyController.js
+{/* //controller/policyController.js */}
+
 import Policy from "../models/Policy.js";
 
 export const createPolicy = async (req, res) => {
