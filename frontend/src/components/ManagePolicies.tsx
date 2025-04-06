@@ -159,7 +159,7 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
       </div>
       
       <div className="manage-policies-list">
-        {policies && policies?.length > 0 ? (
+        {policies && policies.length > 0 ? (
           policies.map((policy) => (
             <div key={policy._id} className="manage-policies-policy-card">
               {deleteMode && (
