@@ -15,6 +15,7 @@ dotenv.config(); // Load environment variables
 
 const app = express();
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+console.log("FRONTEND URL: ",FRONTEND_URL);
 connectDB(); // Connect to the database
 
 // Middleware
