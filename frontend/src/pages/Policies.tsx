@@ -30,7 +30,7 @@ const PolicyPage: React.FC = () => {
   useEffect(() => {
     const fetchPolicies = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/policies", {
+        const response = await axios.get(`${import.meta.env.BACKEND_URL}/api/policies`, {
           params: { offset: 0 },
         });
         setPolicies(response.data.data);

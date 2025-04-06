@@ -33,7 +33,7 @@ const Login: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/auth/login",
+        `${import.meta.env.BACKEND_URL}/api/auth/login`,
         { email, password },
         { withCredentials: true }
       );

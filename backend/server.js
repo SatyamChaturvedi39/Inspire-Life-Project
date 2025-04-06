@@ -14,13 +14,13 @@ import freeSlotRoutes from "./routes/freeSlotRoutes.js";
 dotenv.config(); // Load environment variables
 
 const app = express();
-
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 connectDB(); // Connect to the database
 
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173", // Frontend origin
+    origin: FRONTEND_URL, // Frontend origin
     credentials: true,
   })
 );
@@ -39,5 +39,5 @@ app.use("/api/freeslots", freeSlotRoutes);
 // Start the server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () =>
-  console.log("Server is running on http://localhost:" + PORT)
+  console.log(`Server is running on port ${PORT}`)
 );

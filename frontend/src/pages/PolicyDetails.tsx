@@ -46,7 +46,7 @@ const PolicyDetails: React.FC = () => {
     
     const fetchPolicyDetails = async () => {
       try {
-        const url = `http://localhost:5001/api/policies/${slug}`;
+        const url = `${import.meta.env.BACKEND_URL}/api/policies/${slug}`;
         const response = await axios.get(url);
         // Assuming the API returns the policy in response.data.data
         setPolicy(response.data.data);

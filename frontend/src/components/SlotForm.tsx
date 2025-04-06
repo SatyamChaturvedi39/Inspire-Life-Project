@@ -104,7 +104,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
         params.policyId = policyId;
       }
 
-      const response = await axios.get<FreeSlotResponse>("http://localhost:5001/api/freeslots", { params });
+      const response = await axios.get<FreeSlotResponse>(`${import.meta.env.BACKEND_URL}/api/freeslots`, { params });
       if (response.data.success) {
         const freeSlots: FreeSlot[] = response.data.data;
         const mapping: Record<string, FreeSlot> = {};
@@ -165,7 +165,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
     console.log("Submitting appointment with data:", formData);
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5001/api/appointments", formData);
+      const response = await axios.post(`${import.meta.env.BACKEND_URL}/api/appointments`, formData);
       setLoading(false);
 
       if (response.status === 201) {
@@ -190,7 +190,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
           (meetingType === "policy" && (finalOwnerId === defaultAdminId || notifyTelegram))
         ) {
           axios
-            .post("http://localhost:5001/api/telegram/send-telegram-notification", {
+            .post(`${import.meta.env.BACKEND_URL}/api/telegram/send-telegram-notification`, {
               meetingType,
               name,
               phoneNumber,
