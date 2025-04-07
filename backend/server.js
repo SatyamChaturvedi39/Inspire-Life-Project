@@ -10,6 +10,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import telegramRoutes from "./routes/telegramRoutes.js"; // Import the Telegram routes
 import appointmentRoutes from "./routes/appointmentRoutes.js";
 import freeSlotRoutes from "./routes/freeSlotRoutes.js";
+import dummyRoutes from "./routes/dummy.js";
 
 dotenv.config(); // Load environment variables
 
@@ -36,6 +37,7 @@ app.use("/api/agents", adminRoutes);
 app.use("/api/telegram", telegramRoutes); // Add the new Telegram routes
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/freeslots", freeSlotRoutes);
+app.use("/api/dummy", dummyRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5001;

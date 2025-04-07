@@ -12,6 +12,7 @@ import Popup from "../components/LeadFormPopup";
 import LeadForm from "../components/LeadForm";
 import InsuranceChatbot from "../components/InsuranceChatbot";
 import Stats from "../components/Stats";
+import axios from "axios";
 
 const Home = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -22,6 +23,12 @@ const Home = () => {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/dummy`).catch((err) => 
+    console.error("Backend warumup failed:", err)
+    );
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
