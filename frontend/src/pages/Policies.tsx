@@ -26,6 +26,7 @@ const PolicyPage: React.FC = () => {
   const [filteredPolicies, setFilteredPolicies] = useState<Policy[]>([]);
   const [showSlotForm, setShowSlotForm] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [hasfetched, setHasfetched] = useState(false);
 
   // Fetch policies on mount
   useEffect(() => {
@@ -40,6 +41,7 @@ const PolicyPage: React.FC = () => {
         console.error("Error fetching policies:", error);
       } finally {
         setLoading(false);
+        setHasfetched(true);
       }
     };
     fetchPolicies();
@@ -100,7 +102,7 @@ const PolicyPage: React.FC = () => {
       </div>
 
       {/* Loading part */}
-      {loading ? (
+      {loading || !hasfetched ? (
         <div className="spinner-container">
           <div className="spinner"></div>
           <p>Loading policies, please wait...</p>
