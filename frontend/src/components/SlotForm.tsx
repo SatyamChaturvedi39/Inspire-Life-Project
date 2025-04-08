@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-import { useAuth } from "../context/AuthContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./SlotForm.css";
@@ -45,31 +44,9 @@ const SlotForm: React.FC<SlotFormProps> = ({
   ownerId,
   policyId,
 }) => {
-  const { id: authId } = useAuth();
   // Use Vite's env API for default admin id.
   const defaultAdminId = import.meta.env.VITE_DEFAULT_ADMIN_ID || "";
   
-  // Determine finalOwnerId (ensure it's a string).
-  let finalOwnerId: string = "";
-  if (ownerId) {
-    if (typeof ownerId === "string") {
-      finalOwnerId = ownerId;
-    } else if (typeof ownerId === "object" && ownerId !== null && "_id" in ownerId) {
-      finalOwnerId = (ownerId as { _id: string })._id;
-    }
-  } else if (authId) {
-    if (typeof authId === "string") {
-      finalOwnerId = authId;
-    } else if (typeof authId === "object" && authId !== null && "_id" in authId) {
-      finalOwnerId = (authId as { _id: string })._id;
-    }
-  }
-  // For both career and policy meetings, if still empty, use defaultAdminId.
-  if (!finalOwnerId) {
-    finalOwnerId = defaultAdminId;
-  }
-  console.log("finalOwnerId in SlotForm:", finalOwnerId);
-
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [name, setName] = useState("");
@@ -83,8 +60,12 @@ const SlotForm: React.FC<SlotFormProps> = ({
   const [freeSlotsMap, setFreeSlotsMap] = useState<Record<string, FreeSlot>>({});
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
+  const [finalOwnerId, setFinalOwnerId] = useState<string>(defaultAdminId);
+
 
   const convertToIST = (date: Date): string => {
+    //This converts 5.5 hours to milliseconds:
+    // 5.5 hours × 60 mins/hour × 60 secs/min × 1000 ms/sec
     const istOffset = 5.5 * 60 * 60 * 1000;
     const istDate = new Date(date.getTime() + istOffset);
     return istDate.toISOString().split("T")[0];
@@ -97,9 +78,22 @@ const SlotForm: React.FC<SlotFormProps> = ({
         date: formattedDate,
         meetingType,
       };
+      // Determine finalOwnerId (ensure it's a string).
+      let finalOwnerId: string = "";
       if (ownerId) {
-        params.ownerId = typeof ownerId === "string" ? ownerId : (ownerId as any)._id;
+        if (typeof ownerId === "string") {
+          finalOwnerId = ownerId;
+        } else if (typeof ownerId === "object" && ownerId !== null && "_id" in ownerId) {
+          finalOwnerId = (ownerId as { _id: string })._id;
+          params.ownerId = finalOwnerId;
+        }
       }
+      // For both career and policy meetings, if still empty, use defaultAdminId.
+      if (!finalOwnerId) {
+        params.ownerId = defaultAdminId;
+      }
+      setFinalOwnerId(finalOwnerId);
+
       if (meetingType === "policy" && policyId) {
         params.policyId = policyId;
       }
@@ -122,7 +116,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
       setMessage("Error fetching free slots. Please try again.");
       setMessageColor("red");
     }
-  }, [meetingType, ownerId, policyId]);
+  }, [meetingType, ownerId, policyId, defaultAdminId]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -162,7 +156,6 @@ const SlotForm: React.FC<SlotFormProps> = ({
       ...(meetingType === "policy" && policyId ? { policyId } : {}),
     };
 
-    console.log("Submitting appointment with data:", formData);
     try {
       setLoading(true);
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/appointments`, formData);
@@ -172,7 +165,6 @@ const SlotForm: React.FC<SlotFormProps> = ({
         setMessage("Slot booked successfully!");
         setMessageColor("green");
         setBookingInfo({ name, date: formattedDate, time: selectedTime });
-        console.log("Booking successful, meetingType:", meetingType, formData);
 
         setName("");
         setPhoneNumber("");
@@ -199,7 +191,6 @@ const SlotForm: React.FC<SlotFormProps> = ({
               date: formattedDate,
               time: selectedTime,
             })
-            .then((res) => { console.log("Telegram notification response:", res.data); })
             .catch((error) => { console.error("Telegram notification error:", error); });
         }
       } else {

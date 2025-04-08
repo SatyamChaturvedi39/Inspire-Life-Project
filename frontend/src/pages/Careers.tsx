@@ -3,11 +3,10 @@ import "./Careers.css";
 import careersImage from "../assets/careersImage.jpg";
 import bookslot from "../assets/bookslot.png";
 import SlotForm from "../components/SlotForm";
-import { useAuth } from "../context/AuthContext"; // Assuming you have this context
 
 const Careers: React.FC = () => {
   const [showSlotForm, setShowSlotForm] = useState(false);
-  const { id: adminId } = useAuth();
+  const { id: adminId } = import.meta.env.VITE_DEFAULT_ADMIN_ID;
 
   const handleShowSlotForm = () => {
     setShowSlotForm(true);

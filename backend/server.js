@@ -10,7 +10,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import telegramRoutes from "./routes/telegramRoutes.js"; // Import the Telegram routes
 import appointmentRoutes from "./routes/appointmentRoutes.js";
 import freeSlotRoutes from "./routes/freeSlotRoutes.js";
-import dummyRoutes from "./routes/dummy.js";
+import dummyRoutes from "./routes/dummyRoutes.js";
 
 dotenv.config(); // Load environment variables
 
