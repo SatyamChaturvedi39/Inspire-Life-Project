@@ -175,6 +175,11 @@
   margin-bottom: 10px;
 }
 
+.no-policies {
+  text-align: center;
+  font-size: 25px;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -240,5 +245,11 @@
   .policy-details {
     font-size: 16px;
     line-height: 1.5;
+  }
+
+  .no-policies{
+    display: flex;
+    flex-direction: row;
+    font-size: 23px;
   }
 }

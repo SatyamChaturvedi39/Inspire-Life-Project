@@ -16,18 +16,41 @@ import axios from "axios";
 
 const Home = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedAction, setSelectedAction] = useState<
-    "policies" | "careers" | null
-  >(null);
+  const [selectedAction, setSelectedAction] = useState<"policies" | "careers" | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const navigate = useNavigate();
 
+  // Initial dummy request for backend warmup
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/dummy`).catch((err) => 
-    console.error("Backend warumup failed:", err)
-    );
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/dummy`)
+      .catch((err) => console.error("Backend warmup failed:", err));
+  }, []);
+
+  // NEW: Periodic Visitor Tracking every 5 minutes (300,000 milliseconds)
+  useEffect(() => {
+    const trackVisitor = async () => {
+      try {
+        await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/stats/track`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        });
+      } catch (err) {
+        console.error("Failed to track visitor:", err);
+      }
+    };
+
+    // Call immediately on page load
+    trackVisitor();
+
+    // Set up interval to call every 5 minutes (if user remains on the page)
+    const visitorInterval = setInterval(() => {
+      trackVisitor();
+    }, 5 * 60 * 1000);
+
+    return () => clearInterval(visitorInterval);
   }, []);
 
   useEffect(() => {
@@ -37,7 +60,6 @@ const Home = () => {
 
     handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -69,27 +91,20 @@ const Home = () => {
         <div className="home-image-container">
           <img src={Image} alt="home Image" className="home-image" />
           {!isDesktop && <h1 className="question">How can we help you?</h1>}
-
           <div className="main-content-container">
             {isDesktop && <h1 className="question">How can we help you?</h1>}
             <div className="button-container">
-              <button
-                className="home-button"
-                onClick={() => handleButtonClick("policies")}
-              >
+              <button className="home-button" onClick={() => handleButtonClick("policies")}>
                 Explore Policies
               </button>
-              <button
-                className="home-button"
-                onClick={() => handleButtonClick("careers")}
-              >
+              <button className="home-button" onClick={() => handleButtonClick("careers")}>
                 Become an Agent
               </button>
             </div>
           </div>
         </div>
 
-        {/* ✅ Services We Provide */}
+        {/* Services */}
         <div className="services-section">
           <h2 className="services-title">Services We Provide</h2>
           <div className="services-logos">
@@ -129,7 +144,7 @@ const Home = () => {
           />
         )}
 
-        {/* ✅ Dynamic Stats Carousel Added Here */}
+        {/* Dynamic Stats Carousel */}
         <div className="stats-carousel-section">
           <Stats />
         </div>

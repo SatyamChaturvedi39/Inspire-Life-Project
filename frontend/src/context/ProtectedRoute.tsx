@@ -16,7 +16,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
   useEffect(() => {
     const checkAuth = async () => {
       if (!accessToken) {
-        // Try refreshing the token
+        // Try refreshing the token (backend uses HTTP-only cookie)
         await refreshAccessToken();
       }
       setIsAuthorized(!!accessToken);

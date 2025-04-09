@@ -8,6 +8,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Header from "./components/Header";
 import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
+import PublicRoute from "./components/PublicRoute";
 
 // Page Imports
 import Home from "./pages/Home";
@@ -20,6 +21,7 @@ import Login from "./pages/Login";
 import AgentDashboard from "./pages/AgentDashboard";
 import ProtectedRoute from "./context/ProtectedRoute";
 import AdminDashboard from "./pages/AdminDashboard";
+
 const App: React.FC = () => {
   return (
     <AuthProvider>
@@ -33,7 +35,11 @@ const App: React.FC = () => {
           <Route path="/policies/:slug" element={<PolicyDetails />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={
+            <PublicRoute>
+            <Login />
+           </PublicRoute>
+          } />
 
           <Route
             path="/dashboard/admin"

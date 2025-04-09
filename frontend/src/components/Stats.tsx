@@ -1,25 +1,27 @@
+// Only change the visitor count logic and leave everything else untouched
 import React, { useState, useEffect } from "react";
-import "./Stats.css"; // Make sure to create this CSS file
+import "./Stats.css";
 
 const Stats: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [visitorCount, setVisitorCount] = useState(10234);
+  const [visitorCount, setVisitorCount] = useState<number>(0); // default 0
 
-  // Auto-rotate the carousel
+  // Fetch real visitor count from backend
   useEffect(() => {
-    const rotationInterval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % stats.length);
-    }, 5000); // Rotate every 5 seconds
+    const fetchVisitorCount = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/stats/visitors`
+        );
+        const data = await response.json();
+        setVisitorCount(data.count);
+      } catch (error) {
+        console.error("Failed to fetch visitor count:", error);
+      }
+    };
 
-    return () => clearInterval(rotationInterval);
-  }, []);
-
-  // Simulating visitor count change (in a real app this would come from an API)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setVisitorCount((prev) => prev + Math.floor(Math.random() * 5) + 1);
-    }, 10000); // Update every 10 seconds
-
+    fetchVisitorCount();
+    const interval = setInterval(fetchVisitorCount, 15000); // refresh every 15s
     return () => clearInterval(interval);
   }, []);
 
@@ -41,7 +43,6 @@ const Stats: React.FC = () => {
     },
   ];
 
-  // Get previous and next indices for the carousel
   const getPrevIndex = (index: number) =>
     (index - 1 + stats.length) % stats.length;
   const getNextIndex = (index: number) => (index + 1) % stats.length;
@@ -53,7 +54,6 @@ const Stats: React.FC = () => {
   return (
     <div className="stats-container">
       <div className="stats-carousel">
-        {/* Previous Card */}
         <div
           className="stats-card stats-card-side"
           onClick={() => handleCardClick(getPrevIndex(activeIndex))}
@@ -68,7 +68,6 @@ const Stats: React.FC = () => {
           </div>
         </div>
 
-        {/* Active Card (Center and Larger) */}
         <div className="stats-card stats-card-active">
           <div className="stats-title">{stats[activeIndex].title}</div>
           <div className="stats-value stats-value-active">
@@ -76,7 +75,6 @@ const Stats: React.FC = () => {
           </div>
         </div>
 
-        {/* Next Card */}
         <div
           className="stats-card stats-card-side"
           onClick={() => handleCardClick(getNextIndex(activeIndex))}
@@ -92,7 +90,6 @@ const Stats: React.FC = () => {
         </div>
       </div>
 
-      {/* Dots Indicator */}
       <div className="stats-indicators">
         {stats.map((_, index) => (
           <div
