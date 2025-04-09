@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     gap: 16px;
-    max-width: 1024px;
+    max-width: 20vw;
     margin: 0 auto;
   }
   
@@ -87,51 +87,48 @@
   }
   
   /* Add animation for smoother transitions */
-  @keyframes fadeIn {
-    from { opacity: 0.7; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+  @keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .stats-card-active {
-    animation: fadeIn 0.5s ease-in-out;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.stats-card-active {
+  animation: slideInUp 0.5s ease-in-out;
+}
+
   
   /* Optional: Add responsive design */
   @media (max-width: 768px) {
+
     .stats-card-side {
-      width: 200px;
+      width: 25vw;
+      height: 80px;
+      margin-top: -6vh;
+    }
+    
+    .stats-card-active {
+      width: 35vw;
       height: 100px;
       margin-top: -6vh;
     }
     
-    .stats-card-active {
-      width: 240px;
-      height: 140px;
-      margin-top: -6vh;
-    }
-    
     .stats-value {
-      font-size: 20px;
+      font-size: 12px;
+    }
+
+    .stats-indicator{
+      gap: 3px;
     }
     
     .stats-value-active {
-      font-size: 28px;
+      font-size: 20px;
     }
   }
   
-  /* For even smaller screens */
-  @media (max-width: 480px) {
-    .stats-carousel {
-      gap: 8px;
-    }
-    
-    .stats-card-side {
-      width: 160px;
-      height: 90px;
-    }
-    
-    .stats-card-active {
-      width: 200px;
-      height: 120px;
-    }
-  }
+ 
