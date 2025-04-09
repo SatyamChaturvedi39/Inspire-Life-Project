@@ -1,4 +1,5 @@
-// routes/appointmentRoutes.js
+{/* //routes/appointmentRoutes.js */}
+
 import express from "express";
 import { bookSlot, getAllSlots, updateSlotStatus } from "../controller/appointmentController.js";
 

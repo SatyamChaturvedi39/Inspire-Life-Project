@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import "./Navbar.css";
+import "./NavBar.css";
 
 const NavBar = () => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const NavBar = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:5001/api/auth/logout", {
+      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

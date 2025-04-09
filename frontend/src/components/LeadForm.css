@@ -1,7 +1,7 @@
 .lead-form-container {
   display: block;
   width: 85vw;
-  height: 30vh;
+  height: 35vh;
   margin: 2vh auto 0;
   border-radius: 10px;
   background-color: #f1f0f0;
@@ -147,6 +147,7 @@
 @media (max-width: 768px) {
   .lead-form-container {
     width: 90vw;
+    height: 60vh;
   }
   
   .lead-form__fields-container {

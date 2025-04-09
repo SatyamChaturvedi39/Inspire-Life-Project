@@ -14,7 +14,7 @@
   height: 40vh;
   object-fit: cover;
   border: none;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 /* Content Container */
@@ -23,7 +23,7 @@
   background-color: #ffffff;
   padding: 15px;
   width: 95vw;
-  margin-top: 2%;
+  margin-top: 0%;
 }
 
 .agent-content h2 {
@@ -46,7 +46,7 @@
 
 .agent-btn {
   flex: 1; /* Make buttons equal width */
-  padding: 12px 16px;
+  padding: 0px 3.5px;
   font-size: 20px;
   font-weight: 600;
   color: #fff;
@@ -74,27 +74,23 @@
 
 
 /* Appointment Slot Section */
-.appointment-slot-section {
+.appointment-slot-section3 {
   width: 90vw;
   margin-top: 15px;
   background-color: #fff;
-  margin-left: -4%;
+  margin-left: -4.2%;
   text-align: center;
 }
 
 /* Desktop Styles */
 @media (min-width: 1024px) {
-  .agent-dashboard {
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 40px;
-  }
 
   /* Agent Profile Image */
   .agent-image {
     width: 100vw;
-    height: 40vh;
+    height: 60vh;
     margin-top: -3%;
+    margin-bottom: 20px;
   }
 
   /* Content Container */
@@ -116,15 +112,14 @@
   }
 
   .agent-btn {
-    width: 40vw;
+    width: 10vw;
     max-height: 10vh;
-    padding: 14px 20px;
-    font-size: 18px;
   }
 
   /* Appointment Slot Section */
   .appointment-slot-section3 {
     width: 80vw;
-    margin-left: -11vw;
+    margin-left: -0.7vw;
+    text-align: center;
   }
 }

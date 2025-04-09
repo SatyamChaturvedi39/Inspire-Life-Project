@@ -1,6 +1,7 @@
+{/* //routes/leadRoutes.js */}
+
 import express from 'express';
 import { createLead, getLead, getRecentLeads } from '../controller/leadController.js';
-import { authenticateToken, authorizeMultipleRoles } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 

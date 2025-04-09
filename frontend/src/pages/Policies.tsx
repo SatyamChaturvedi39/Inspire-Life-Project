@@ -25,18 +25,23 @@ const PolicyPage: React.FC = () => {
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [filteredPolicies, setFilteredPolicies] = useState<Policy[]>([]);
   const [showSlotForm, setShowSlotForm] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [hasfetched, setHasfetched] = useState(false);
 
   // Fetch policies on mount
   useEffect(() => {
     const fetchPolicies = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/policies", {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/policies`, {
           params: { offset: 0 },
         });
         setPolicies(response.data.data);
         setFilteredPolicies(response.data.data);
       } catch (error) {
         console.error("Error fetching policies:", error);
+      } finally {
+        setLoading(false);
+        setHasfetched(true);
       }
     };
     fetchPolicies();
@@ -96,27 +101,35 @@ const PolicyPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="policy-cards-container">
-        {filteredPolicies.length > 0 ? (
-          filteredPolicies.map((policy) => (
-            <div key={policy._id} className="policy-card">
-              <h3 className="policy-name">{policy.policyName}</h3>
-              <p className="policy-company">
-                <strong>{policy.companyName}</strong>
-              </p>
-              <p className="policy-age">
-                <strong>{policy.ageRange}</strong>
-              </p>
-              <p className="policy-details">{policy.shortDescription}</p>
-              <button className="policy-button" onClick={() => handleViewDetails(policy)}>
-                Know More
-              </button>
-            </div>
-          ))
-        ) : (
-          <p className="no-policies">No policies found.</p>
-        )}
-      </div>
+      {/* Loading part */}
+      {loading || !hasfetched ? (
+        <div className="spinner-container">
+          <div className="spinner"></div>
+          <p>Loading policies, please wait...</p>
+        </div>
+      ) : (
+        <div className="policy-cards-container">
+          {filteredPolicies.length > 0 ? (
+            filteredPolicies.map((policy) => (
+              <div key={policy._id} className="policy-card">
+                <h3 className="policy-name">{policy.policyName}</h3>
+                <p className="policy-company">
+                  <strong>{policy.companyName}</strong>
+                </p>
+                <p className="policy-age">
+                  <strong>{policy.ageRange}</strong>
+                </p>
+                <p className="policy-details">{policy.shortDescription}</p>
+                <button className="policy-button" onClick={() => handleViewDetails(policy)}>
+                  Know More
+                </button>
+              </div>
+            ))
+          ) : (
+            <p className="no-policies">No policies found.</p>
+          )}
+        </div>
+      )}
 
       {showSlotForm && (
         <SlotForm meetingType="policy" onClose={() => setShowSlotForm(false)} />

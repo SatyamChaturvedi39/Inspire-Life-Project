@@ -157,19 +157,43 @@
   background: #f0f0f0;
 }
 
+/* Spinner Styles */
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #162c5a; /* Change this to match your theme */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
 /* Desktop styles (new) */
 @media (min-width: 1024px) {
 
   .policies-hero-image-container {
     margin-top: -2vh;
-    height: 54vh;
+    height: 55vh;
   }
 
  .policies-hero-image {
     width: 100vw;
     height: 60vh;
     object-fit: cover;
-    object-position: center 61%;
+    object-position: center 60%;
   } 
 
   .search-image-container {

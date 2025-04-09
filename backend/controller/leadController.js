@@ -1,3 +1,5 @@
+{/* //controller/leadController.js */}
+
 import Lead from "../models/Lead.js";
 
 export const getLead = async (req, res) =>{

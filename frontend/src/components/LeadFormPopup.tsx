@@ -35,7 +35,7 @@ const Popup: React.FC<PopupProps> = ({ onClose, onSubmit, selectedAction }) => {
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:5001/api/leads", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/leads`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

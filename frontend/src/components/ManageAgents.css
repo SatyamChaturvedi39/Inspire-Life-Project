@@ -226,10 +226,11 @@
         color: #0c2641;
     }
     .manage-agents-add-button{
-        font-size: 16px;
-        width: 6vw;
-        padding: 6px 12px;
-        margin-left: 39.8vw;  
+        font-size: 14px;
+        width: 5vw;
+        height: 6vh;
+        padding: 2px 6px;
+        margin-left: 39vw;  
     }
     .manage-agents-update-button {
         font-size: 14px;
@@ -256,5 +257,9 @@
     .manage-agents-update-button {
         align-self: auto;
         margin-left: 15px;
+    }
+
+    .appointment-slot-section{
+        margin-left: 13vw;
     }
 }

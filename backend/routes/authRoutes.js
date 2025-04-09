@@ -1,3 +1,5 @@
+{/* //routes/authRoutes.js */}
+
 import express from 'express';
 import { login, refreshToken, logout } from '../controller/authController.js';
 

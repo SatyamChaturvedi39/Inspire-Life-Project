@@ -1,4 +1,5 @@
-// middlewares/authMiddleware.js
+{/* //middlewares/authMiddleware.js */}
+
 import jwt from "jsonwebtoken";
 
 // Middleware to verify the access token from the Authorization header.

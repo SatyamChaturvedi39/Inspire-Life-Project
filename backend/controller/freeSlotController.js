@@ -1,4 +1,5 @@
-// controllers/freeSlotController.js
+{/* //controller/freeSlotController.js */}
+
 import FreeSlot from "../models/FreeSlot.js";
 import Appointment from "../models/Appointment.js";
 import dayjs from "dayjs";
