@@ -126,7 +126,7 @@ const PolicyPage: React.FC = () => {
               </div>
             ))
           ) : (
-            <p className="no-policies">No policies found.</p>
+            <p className="no-policies">No policies found. 😢<br></br>Please check your internet</p>
           )}
         </div>
       )}

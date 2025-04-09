@@ -1,3 +1,4 @@
+// src/context/AuthContext.tsx
 import {
   createContext,
   useContext,
@@ -13,21 +14,14 @@ import { AuthContextType } from "./AuthTypes";
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  // Initialize from localStorage if available
-  const [accessToken, setAccessToken] = useState<string | null>(
-    () => localStorage.getItem("accessToken")
-  );
-  const [role, setRole] = useState<string | null>(
-    () => localStorage.getItem("role")
-  );
-  const [name, setName] = useState<string | null>(
-    () => localStorage.getItem("name")
-  );
-  const [id, setId] = useState<string | null>(() => localStorage.getItem("id"));
-  const [isLoggedOut, setIsLoggedOut] = useState<boolean>(!localStorage.getItem("accessToken"));
+  // Initialize everything as null (no persistent storage)
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
+  const [name, setName] = useState<string | null>(null);
+  const [id, setId] = useState<string | null>(null);
+  const [isLoggedOut, setIsLoggedOut] = useState<boolean>(true);
   const sessionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Keep isLoggedOut in sync with accessToken changes.
   useEffect(() => {
     setIsLoggedOut(!accessToken);
   }, [accessToken]);
@@ -38,15 +32,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setRole(userRole);
       setName(userName);
       setId(userId);
-      localStorage.setItem("accessToken", token);
-      localStorage.setItem("role", userRole);
-      localStorage.setItem("name", userName);
-      localStorage.setItem("id", userId);
       setIsLoggedOut(false);
       if (sessionTimeoutRef.current) {
         clearTimeout(sessionTimeoutRef.current);
       }
-      // For testing: 30-minute timeout (adjust as needed)
+      // Set a 30-minute auto-logout timeout
       sessionTimeoutRef.current = setTimeout(() => {
         alert("Your session has expired. Please login again.");
         clearAuth();
@@ -61,10 +51,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setRole(null);
     setName(null);
     setId(null);
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("role");
-    localStorage.removeItem("name");
-    localStorage.removeItem("id");
     setIsLoggedOut(true);
     if (sessionTimeoutRef.current) {
       clearTimeout(sessionTimeoutRef.current);
@@ -78,12 +64,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/refresh`, {
-        withCredentials: true,
-      });
+      // The refresh endpoint uses the HTTP-only cookie to generate a new access token.
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/refresh`,
+        { withCredentials: true }
+      );
       if (response.data.accessToken) {
         setAccessToken(response.data.accessToken);
-        localStorage.setItem("accessToken", response.data.accessToken);
         console.log("[AuthContext] Access token refreshed");
       }
     } catch (error) {

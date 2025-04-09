@@ -1,8 +1,8 @@
+// src/api/axiosInstance.ts
 import axios from "axios";
 import { useEffect, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 
-// This hook returns an Axios instance that always attaches the latest token.
 export const useAxiosInstance = () => {
   const { accessToken, refreshAccessToken } = useAuth();
   const tokenRef = useRef(accessToken);
