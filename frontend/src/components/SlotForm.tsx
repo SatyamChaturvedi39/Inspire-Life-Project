@@ -60,11 +60,9 @@ const SlotForm: React.FC<SlotFormProps> = ({
   const [freeSlotsMap, setFreeSlotsMap] = useState<Record<string, FreeSlot>>({});
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
-  const [finalOwnerId, setFinalOwnerId] = useState<string>(defaultAdminId);
-
 
   const convertToIST = (date: Date): string => {
-    //This converts 5.5 hours to milliseconds:
+    // This converts 5.5 hours to milliseconds:
     // 5.5 hours × 60 mins/hour × 60 secs/min × 1000 ms/sec
     const istOffset = 5.5 * 60 * 60 * 1000;
     const istDate = new Date(date.getTime() + istOffset);
@@ -78,22 +76,17 @@ const SlotForm: React.FC<SlotFormProps> = ({
         date: formattedDate,
         meetingType,
       };
-      // Determine finalOwnerId (ensure it's a string).
-      let finalOwnerId: string = "";
+      // Compute ownerId on the spot.
+      let resolvedOwnerId = defaultAdminId;
       if (ownerId) {
         if (typeof ownerId === "string") {
-          finalOwnerId = ownerId;
+          resolvedOwnerId = ownerId;
         } else if (typeof ownerId === "object" && ownerId !== null && "_id" in ownerId) {
-          finalOwnerId = (ownerId as { _id: string })._id;
-          params.ownerId = finalOwnerId;
+          resolvedOwnerId = (ownerId as { _id: string })._id;
         }
       }
-      // For both career and policy meetings, if still empty, use defaultAdminId.
-      if (!finalOwnerId) {
-        params.ownerId = defaultAdminId;
-      }
-      setFinalOwnerId(finalOwnerId);
-
+      params.ownerId = resolvedOwnerId;
+      
       if (meetingType === "policy" && policyId) {
         params.policyId = policyId;
       }
@@ -120,7 +113,9 @@ const SlotForm: React.FC<SlotFormProps> = ({
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = "auto"; };
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, []);
 
   useEffect(() => {
@@ -144,6 +139,17 @@ const SlotForm: React.FC<SlotFormProps> = ({
       return;
     }
     const formattedDate = convertToIST(selectedDate);
+
+    // Compute resolved ownerId inline rather than relying on state.
+    let resolvedOwnerId = defaultAdminId;
+    if (ownerId) {
+      if (typeof ownerId === "string") {
+        resolvedOwnerId = ownerId;
+      } else if (typeof ownerId === "object" && ownerId !== null && "_id" in ownerId) {
+        resolvedOwnerId = (ownerId as { _id: string })._id;
+      }
+    }
+
     const formData = {
       name,
       phoneNumber,
@@ -152,7 +158,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
       date: formattedDate,
       time: selectedTime,
       meetingType,
-      ownerId: finalOwnerId,
+      ownerId: resolvedOwnerId,
       ...(meetingType === "policy" && policyId ? { policyId } : {}),
     };
 
@@ -172,14 +178,17 @@ const SlotForm: React.FC<SlotFormProps> = ({
         setComment("");
         setSelectedTime("");
 
-        setTimeout(() => { if (selectedDate) fetchFreeSlots(selectedDate); }, 500);
+        setTimeout(() => {
+          if (selectedDate) fetchFreeSlots(selectedDate);
+        }, 500);
 
         // Telegram Notification Logic:
         // For career meetings, always send notification.
-        // For policy meetings, send if finalOwnerId equals defaultAdminId or notifyTelegram is true.
+        // For policy meetings, send if resolvedOwnerId equals defaultAdminId or notifyTelegram is true.
         if (
           meetingType === "career" ||
-          (meetingType === "policy" && (finalOwnerId === defaultAdminId || notifyTelegram))
+          (meetingType === "policy" &&
+            (resolvedOwnerId === defaultAdminId || notifyTelegram))
         ) {
           axios
             .post(`${import.meta.env.VITE_BACKEND_URL}/api/telegram/send-telegram-notification`, {
@@ -191,7 +200,9 @@ const SlotForm: React.FC<SlotFormProps> = ({
               date: formattedDate,
               time: selectedTime,
             })
-            .catch((error) => { console.error("Telegram notification error:", error); });
+            .catch((error) => {
+              console.error("Telegram notification error:", error);
+            });
         }
       } else {
         setMessage(response.data.message || "Error booking slot.");
@@ -200,7 +211,8 @@ const SlotForm: React.FC<SlotFormProps> = ({
     } catch (error: unknown) {
       setLoading(false);
       const errMsg =
-        (error as any).response?.data?.message || "Something went wrong. Please try again.";
+        (error as any).response?.data?.message ||
+        "Something went wrong. Please try again.";
       console.error("Submission error:", errMsg);
       setMessage(errMsg);
       setMessageColor("red");
@@ -218,7 +230,10 @@ const SlotForm: React.FC<SlotFormProps> = ({
         </div>
         <form onSubmit={handleSubmit} className="slot-form">
           {message && (
-            <p className="form-message" style={{ color: messageColor, fontWeight: "bold" }}>
+            <p
+              className="form-message"
+              style={{ color: messageColor, fontWeight: "bold" }}
+            >
               {message}
             </p>
           )}
@@ -278,7 +293,9 @@ const SlotForm: React.FC<SlotFormProps> = ({
                 selected={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
                 minDate={new Date()}
-                maxDate={new Date(new Date().setDate(new Date().getDate() + 30))}
+                maxDate={new Date(
+                  new Date().setDate(new Date().getDate() + 30)
+                )}
                 dateFormat="dd-MM-yyyy"
                 className="slot-form__input"
                 placeholderText="DD-MM-YYYY"
@@ -298,7 +315,7 @@ const SlotForm: React.FC<SlotFormProps> = ({
                 {TIME_SLOTS.map((slot, index) => {
                   const slotInfo = freeSlotsMap[slot];
                   const isDisabled = slotInfo && slotInfo.status !== "Available";
-                  const labelSuffix = isDisabled ? ` (${slotInfo.status})` : "";
+                  const labelSuffix = isDisabled? ` (${slotInfo.status})`: "";
                   return (
                     <option key={index} value={slot} disabled={isDisabled}>
                       {slot + labelSuffix}
@@ -329,14 +346,21 @@ const SlotForm: React.FC<SlotFormProps> = ({
               </label>
             </div>
             <div className="slot-button-div">
-              <button type="submit" className="slot-form__button" disabled={loading || !selectedTime}>
+              <button
+                type="submit"
+                className="slot-form__button"
+                disabled={loading || !selectedTime}
+              >
                 {loading ? "Booking..." : "BOOK SLOT"}
               </button>
             </div>
           </div>
         </form>
         {bookingInfo && (
-          <BookingConfirmationPopup onClose={onClose} bookingDetails={bookingInfo} />
+          <BookingConfirmationPopup
+            onClose={onClose}
+            bookingDetails={bookingInfo}
+          />
         )}
       </div>
       {showTermsPopup && (

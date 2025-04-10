@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { ReactNode } from "react";
-import { useAuth } from "../context/AuthContext"; // adjust path based on your structure
+import { useAuth } from "./AuthContext"; // adjust path based on your structure
 
 interface PublicRouteProps {
   children: ReactNode;

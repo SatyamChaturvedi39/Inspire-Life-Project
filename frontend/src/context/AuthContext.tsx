@@ -46,7 +46,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     []
   );
 
-  const clearAuth = useCallback(() => {
+  const clearAuth = useCallback(async () => {
+    try {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, {}, { withCredentials: true });
+    } catch (error) {
+      console.error("Logout endpoint error:", error);
+    }
+
     setAccessToken(null);
     setRole(null);
     setName(null);

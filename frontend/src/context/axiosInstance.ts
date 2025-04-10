@@ -24,7 +24,6 @@ export const useAxiosInstance = () => {
       if (tokenRef.current) {
         config.headers.Authorization = `Bearer ${tokenRef.current}`;
       }
-      console.log("[AxiosInstance] Request headers:", config.headers);
       return config;
     },
     (error) => Promise.reject(error)

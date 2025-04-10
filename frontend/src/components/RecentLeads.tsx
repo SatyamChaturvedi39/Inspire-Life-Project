@@ -21,7 +21,7 @@ const RecentLeads: React.FC<RecentLeadsProps> = ({ onBack }) => {
   useEffect(() => {
     const fetchRecentLeads = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/leads/recent", {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/leads/recent`, {
           withCredentials: true,
         });
         console.log("Fetched recent leads:", response.data.data);

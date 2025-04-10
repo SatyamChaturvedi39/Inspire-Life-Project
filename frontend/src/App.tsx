@@ -8,7 +8,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Header from "./components/Header";
 import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
-import PublicRoute from "./components/PublicRoute";
+import PublicRoute from "./context/PublicRoute";
 
 // Page Imports
 import Home from "./pages/Home";
