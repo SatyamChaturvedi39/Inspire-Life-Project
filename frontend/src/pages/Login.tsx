@@ -46,13 +46,17 @@ const Login: React.FC = () => {
       } else {
         navigate("/dashboard/agent");
       }
-    } catch (err: any) {
-      if (err.response) {
-        setError(err.response.data.error || "Invalid Credentials. Please enter correct credentials.");
-      } else if (err.request) {
-        setError("No response from server. Please try again.");
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        if (err.response) {
+          setError(err.response.data.error || "Invalid Credentials. Please enter correct credentials.");
+        } else if (err.request) {
+          setError("No response from server. Please try again.");
+        } else {
+          setError("An unexpected error occurred.");
+        }
       } else {
-        setError("An unexpected error occurred.");
+        setError("Something went wrong.");
       }
     }
   };

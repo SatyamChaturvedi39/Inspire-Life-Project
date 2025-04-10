@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ManagePolicies.css";
 import PolicyFormPopup, { PolicyFormData } from "./PolicyFormPopup";
 import { useAxiosInstance } from "../context/axiosInstance";
+import { useAuth } from "../context/AuthContext"; // Import auth to get current user info
 
 interface KeyFeatures {
   policyTerm?: string;
@@ -19,6 +20,7 @@ interface Policy {
   ageRange: string;
   shortDescription: string;
   keyFeatures?: KeyFeatures;
+  createdBy?: string; // Optional field indicating the creator's ID
 }
 
 interface ManagePoliciesProps {
@@ -38,6 +40,7 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
   const [policyToDelete, setPolicyToDelete] = useState<string | null>(null);
 
   const axiosInstance = useAxiosInstance();
+  const { id: currentUserId, role } = useAuth(); // Get the logged-in user id and role
 
   useEffect(() => {
     fetchPolicies();
@@ -78,6 +81,11 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
   };
 
   const handleUpdateClick = (policy: Policy) => {
+    // If the current user is an agent and did not create the policy, show an alert.
+    if (role === "agent" && policy.createdBy && policy.createdBy !== currentUserId) {
+      alert("You are not authorized to update this policy as it was not created by you.");
+      return;
+    }
     setPopupMode("update");
     setSelectedPolicy(policy);
     setShowPopup(true);
@@ -93,6 +101,15 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
     try {
       const policy = policies.find((p) => p._id === policyToDelete);
       if (policy) {
+        // If the user is an agent, allow deletion only if they created the policy
+        if (role === "agent" && policy.createdBy && policy.createdBy !== currentUserId) {
+          alert("You are not authorized to delete this policy as it was not created by you.");
+          setShowConfirmDialog(false);
+          setPolicyToDelete(null);
+          setDeleteMode(false);
+          return;
+        }
+        
         const slug = generateSlug(policy.policyName);
         console.log("Deleting policy with slug:", slug);
         await axiosInstance.delete(`/policies/${slug}`);
@@ -104,7 +121,6 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
     } finally {
       setShowConfirmDialog(false);
       setPolicyToDelete(null);
-      // Reset delete mode when a confirmation option is clicked.
       setDeleteMode(false);
     }
   };
@@ -112,7 +128,6 @@ const ManagePolicies: React.FC<ManagePoliciesProps> = ({ onBack, onAdd, onDelete
   const cancelDelete = () => {
     setShowConfirmDialog(false);
     setPolicyToDelete(null);
-    // Also reset delete mode when deletion is cancelled.
     setDeleteMode(false);
   };
 

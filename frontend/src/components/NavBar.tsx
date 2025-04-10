@@ -10,6 +10,10 @@ const NavBar = () => {
   const isPolicyPage = location.pathname.startsWith("/policies/");
 
   const handleLogout = async () => {
+    // Show confirmation popup before logging out
+    const confirmed = window.confirm("Are you sure you want to log out?");
+    if (!confirmed) return; // Do nothing if the user cancels
+
     try {
       await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, {
         method: "POST",
