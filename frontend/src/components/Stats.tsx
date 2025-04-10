@@ -33,7 +33,7 @@ const Stats: React.FC = () => {
     },
     {
       title: "Policies Sold",
-      value: 5000,
+      value: 1000,
       format: (val: number) => val.toLocaleString() + "+",
     },
     {

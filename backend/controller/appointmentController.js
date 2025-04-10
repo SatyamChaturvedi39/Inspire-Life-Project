@@ -94,7 +94,7 @@ export const updateSlotStatus = async (req, res) => {
       filter.policyId = policyId;
     }
     
-    // Ensure that req.user exists (set by your auth middleware)
+    // Ensure that req.user exists (set by auth middleware)
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized: No authenticated user" });
     }
@@ -120,7 +120,7 @@ export const updateSlotStatus = async (req, res) => {
     }
     
     if (!appointment) {
-      // Create a new appointment if none exists.
+      // Create a new appointment if none exists
       appointment = new Appointment({
         date,
         time,
@@ -129,13 +129,12 @@ export const updateSlotStatus = async (req, res) => {
         policyId: policyId || null,
         adminId: req.user.role === "admin" ? req.user.id : null,
         agentId: req.user.role === "agent" ? req.user.id : null,
-        // Provide default values for required fields
         name: "System Block", 
         phoneNumber: "N/A",
         email: "system@example.com",
       });
     } else {
-      // Update the existing appointment.
+      // Update the existing appointment's status
       appointment.status = status;
       appointment.phoneNumber = "N/A";
     }
