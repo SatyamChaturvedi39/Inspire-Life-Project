@@ -16,7 +16,9 @@ import axios from "axios";
 
 const Home = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedAction, setSelectedAction] = useState<"policies" | "careers" | null>(null);
+  const [selectedAction, setSelectedAction] = useState<
+    "policies" | "careers" | null
+  >(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
@@ -94,10 +96,16 @@ const Home = () => {
           <div className="main-content-container">
             {isDesktop && <h1 className="question">How can we help you?</h1>}
             <div className="button-container">
-              <button className="home-button" onClick={() => handleButtonClick("policies")}>
+              <button
+                className="home-button"
+                onClick={() => handleButtonClick("policies")}
+              >
                 Explore Policies
               </button>
-              <button className="home-button" onClick={() => handleButtonClick("careers")}>
+              <button
+                className="home-button"
+                onClick={() => handleButtonClick("careers")}
+              >
                 Become an Agent
               </button>
             </div>
@@ -144,13 +152,13 @@ const Home = () => {
           />
         )}
 
-        {/* Dynamic Stats Carousel */}
+        {/* Stats Carousel */}
         <div className="stats-carousel-section">
           <Stats />
         </div>
       </div>
 
-      {/* Chatbot fixed at bottom right */}
+      {/* Chatbot */}
       <div className="chatbot-launcher">
         <div className="chatbot-button" onClick={toggleChatbot}>
           <img src={chatbot} alt="Chatbot" className="chatbot-icon" />

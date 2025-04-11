@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./InsuranceChatbot.css";
 import chatbot from "../assets/chatbot.png";
 
-// Define types for our data structure
+// Defining the types for our data structure
 type ChatMessage = {
   sender: "bot" | "user";
   message: string;
@@ -122,7 +122,7 @@ const InsuranceChatbot: React.FC = () => {
     },
   ];
 
-  // Updated policy options with keywords
+  // Policy options with keywords
   const policyOptions: MenuOption[] = [
     {
       id: "lic-insurance",
@@ -147,7 +147,7 @@ const InsuranceChatbot: React.FC = () => {
     },
   ];
 
-  // Services submenu with keywords
+  // Services with keywords
   const serviceOptions: MenuOption[] = [
     {
       id: "claims",
